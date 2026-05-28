@@ -1,0 +1,228 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { timeline, hubs, compliance } from "@/lib/data";
+
+export const metadata: Metadata = {
+  title: "About",
+  description: "XRT Group's global commodity procurement infrastructure — hubs in Houston, Rotterdam, and Singapore with full AML/KYC and ISO 9001 compliance.",
+};
+
+export default function AboutPage() {
+  return (
+    <div>
+      {/* ── PAGE HEADER ─────────────────────────────────────────── */}
+      <section className="bg-xrt-black text-white border-b border-xrt-steel/20">
+        <div className="max-w-[1440px] mx-auto px-12 py-16">
+          <div className="grid grid-cols-12 gap-8">
+            <div className="col-span-8">
+              <div className="label-caps text-xrt-crimson mb-4">ABOUT XRT GROUP — EST. 2018</div>
+              <h1 className="text-[clamp(3rem,6vw,6rem)] text-white mb-6">
+                Global Commodity<br />Infrastructure
+              </h1>
+              <p className="text-lg text-xrt-steel/60 max-w-2xl leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
+                XRT Group was built to eliminate the structural opacity of traditional commodity brokerage. We operate a vertically integrated procurement platform across three continental hubs, combining direct-origin sourcing with precision logistics and institutional compliance frameworks.
+              </p>
+            </div>
+            <div className="col-span-4 border-l border-xrt-steel/20 pl-8 flex flex-col justify-center gap-8">
+              <div className="label-caps text-xrt-steel/40 mb-4">CORPORATE STRUCTURE</div>
+              {[
+                { label: "Entity", value: "XRT Group LLC" },
+                { label: "Incorporated", value: "Houston, TX USA" },
+                { label: "Operational Since", value: "2018" },
+                { label: "Active Hubs", value: "3 (HOU / RTM / SGP)" },
+              ].map((m) => (
+                <div key={m.label} className="border-b border-xrt-steel/20 pb-4 last:border-0 last:pb-0">
+                  <div className="label-caps text-xrt-steel/40 mb-1">{m.label}</div>
+                  <div className="text-white text-base" style={{ fontFamily: "var(--font-archivo)" }}>{m.value}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── TIMELINE ────────────────────────────────────────────── */}
+      <section className="bg-xrt-off-white border-b border-xrt-steel">
+        <div className="max-w-[1440px] mx-auto px-12 py-16">
+          <div className="label-caps text-xrt-crimson mb-2">CORPORATE HISTORY</div>
+          <h2 className="text-4xl text-xrt-black mb-10">Operational Timeline</h2>
+
+          <div className="border border-xrt-steel">
+            {timeline.map((entry, i) => (
+              <div
+                key={entry.year}
+                className={`grid grid-cols-12 ${i < timeline.length - 1 ? "border-b border-xrt-steel" : ""}`}
+              >
+                {/* Year */}
+                <div className="col-span-2 bg-xrt-black flex items-center justify-center border-r border-xrt-steel/20 py-8">
+                  <span
+                    className="text-4xl font-black text-xrt-crimson"
+                    style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.04em" }}
+                  >
+                    {entry.year}
+                  </span>
+                </div>
+                {/* Event title */}
+                <div className="col-span-3 bg-xrt-white p-8 border-r border-xrt-steel flex items-center">
+                  <div className="text-2xl font-black text-xrt-black" style={{ fontFamily: "var(--font-barlow)" }}>
+                    {entry.event}
+                  </div>
+                </div>
+                {/* Detail */}
+                <div className="col-span-7 bg-xrt-surface-low p-8 flex items-center">
+                  <p className="text-sm text-xrt-muted leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
+                    {entry.detail}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── HUB NETWORK ─────────────────────────────────────────── */}
+      <section className="bg-xrt-surface border-b border-xrt-steel">
+        <div className="max-w-[1440px] mx-auto px-12 py-16">
+          <div className="label-caps text-xrt-crimson mb-2">GLOBAL INFRASTRUCTURE</div>
+          <h2 className="text-4xl text-xrt-black mb-10">Hub Coordinates & Operations</h2>
+
+          <div className="grid grid-cols-3 gap-0 border border-xrt-steel">
+            {hubs.map((hub, i) => (
+              <div key={hub.code} className={`bg-xrt-white ${i < 2 ? "border-r border-xrt-steel" : ""}`}>
+                {/* Hub header */}
+                <div className="bg-xrt-black p-6 border-b border-xrt-steel/20">
+                  <div className="flex items-center justify-between mb-2">
+                    <span
+                      className="text-4xl font-black text-white"
+                      style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.04em" }}
+                    >
+                      {hub.code}
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-xrt-positive" />
+                      <span className="label-caps text-xrt-steel/50">LIVE</span>
+                    </div>
+                  </div>
+                  <div className="label-caps text-xrt-crimson">{hub.city}</div>
+                  <div className="label-caps text-xrt-steel/40">{hub.country} — {hub.timezone}</div>
+                </div>
+
+                {/* Hub details */}
+                <div className="p-6 space-y-5">
+                  <div>
+                    <div className="label-caps text-xrt-steel/50 mb-1">COORDINATES</div>
+                    <div className="text-sm text-xrt-black font-medium" style={{ fontFamily: "var(--font-archivo)" }}>
+                      {hub.coordinates}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="label-caps text-xrt-steel/50 mb-2">PRIMARY FOCUS AREAS</div>
+                    <ul className="space-y-1.5">
+                      {hub.focus.map((f) => (
+                        <li key={f} className="flex items-center gap-2">
+                          <div className="w-1 h-1 bg-xrt-crimson flex-shrink-0" />
+                          <span className="text-sm text-xrt-muted" style={{ fontFamily: "var(--font-archivo)" }}>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="border-t border-xrt-steel pt-4">
+                    <div className="label-caps text-xrt-steel/50 mb-1">ADDRESS</div>
+                    <div className="text-sm text-xrt-muted" style={{ fontFamily: "var(--font-archivo)" }}>{hub.address}</div>
+                  </div>
+                  <div>
+                    <div className="label-caps text-xrt-steel/50 mb-1">CONTACT</div>
+                    <div className="text-sm text-xrt-black font-medium" style={{ fontFamily: "var(--font-archivo)" }}>{hub.phone}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── COMPLIANCE FRAMEWORK ────────────────────────────────── */}
+      <section id="compliance" className="bg-xrt-black text-white">
+        <div className="max-w-[1440px] mx-auto px-12 py-16">
+          <div className="label-caps text-xrt-steel/40 mb-2">REGULATORY FRAMEWORK</div>
+          <h2 className="text-4xl text-white mb-10">Compliance & Certification Matrix</h2>
+
+          <div className="border border-xrt-steel/20 overflow-hidden">
+            <table className="w-full">
+              <thead>
+                <tr className="bg-xrt-near-black border-b border-xrt-steel/20">
+                  <th className="text-left px-6 py-4">
+                    <span className="label-caps text-xrt-steel/50">FRAMEWORK / CODE</span>
+                  </th>
+                  <th className="text-left px-6 py-4">
+                    <span className="label-caps text-xrt-steel/50">GOVERNING BODY</span>
+                  </th>
+                  <th className="text-left px-6 py-4">
+                    <span className="label-caps text-xrt-steel/50">STATUS</span>
+                  </th>
+                  <th className="text-left px-6 py-4">
+                    <span className="label-caps text-xrt-steel/50">OPERATIONAL DETAIL</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {compliance.map((c, i) => (
+                  <tr key={c.code} className={`border-b border-xrt-steel/10 ${i % 2 === 0 ? "bg-xrt-near-black/30" : ""}`}>
+                    <td className="px-6 py-4">
+                      <span
+                        className="text-lg font-black text-white"
+                        style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.01em" }}
+                      >
+                        {c.code}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="text-sm text-xrt-steel/60" style={{ fontFamily: "var(--font-archivo)" }}>{c.body}</span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span
+                        className="label-caps px-3 py-1.5"
+                        style={{
+                          background: c.status === "CERTIFIED" ? "#c8111f" : "#1c1b1b",
+                          color: "#ffffff",
+                          border: c.status === "ACTIVE" ? "1px solid rgba(229,226,225,0.2)" : "none",
+                        }}
+                      >
+                        {c.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="text-sm text-xrt-steel/60" style={{ fontFamily: "var(--font-archivo)" }}>{c.detail}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-8 p-6 border border-xrt-steel/20 bg-xrt-near-black/30">
+            <div className="label-caps text-xrt-steel/40 mb-2">LEGAL DISCLAIMER</div>
+            <p className="text-sm text-xrt-steel/40 leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
+              XRT Group LLC operates in strict compliance with applicable international trade sanctions, anti-money laundering regulations, and export control laws. All counterparties are subject to mandatory KYC/AML screening prior to engagement. Transactions involving sanctioned jurisdictions, entities, or individuals are strictly prohibited. XRT Group reserves the right to decline any transaction without disclosure of reason in compliance with OFAC regulations.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ─────────────────────────────────────────────────── */}
+      <section className="bg-xrt-crimson text-white">
+        <div className="max-w-[1440px] mx-auto px-12 py-12 flex items-center justify-between">
+          <div>
+            <div className="label-caps text-white/60 mb-1">START PROCUREMENT</div>
+            <div className="text-4xl font-black text-white" style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.03em" }}>
+              Engage an XRT desk directly.
+            </div>
+          </div>
+          <Link href="/contact" className="label-caps bg-white text-xrt-crimson px-10 py-4 hover:bg-xrt-off-white transition-colors">
+            Submit RFQ
+          </Link>
+        </div>
+      </section>
+    </div>
+  );
+}

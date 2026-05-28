@@ -5,7 +5,7 @@ export default function HomePage() {
   return (
     <div>
       {/* ── HERO ────────────────────────────────────────────────── */}
-      <section className="bg-xrt-black text-white min-h-[calc(100vh-9rem)] flex flex-col">
+      <section className="bg-xrt-black text-white min-h-[calc(100vh-5.25rem)] flex flex-col">
         <div className="max-w-[1440px] mx-auto px-12 pt-20 pb-12 flex-1 flex flex-col justify-between">
 
           {/* Top label row */}
@@ -15,7 +15,7 @@ export default function HomePage() {
             <span className="label-caps text-xrt-crimson">v2.5.1</span>
           </div>
 
-          {/* Main headline + right metrics */}
+          {/* Main headline */}
           <div className="grid grid-cols-12 gap-8 flex-1">
             <div className="col-span-8 flex flex-col justify-center">
               <div className="label-caps text-xrt-crimson mb-4">EST. 2018 — HOUSTON · ROTTERDAM · SINGAPORE</div>
@@ -49,8 +49,8 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Key metrics */}
-            <div className="col-span-4 border-l border-xrt-steel/20 pl-8 flex flex-col justify-center">
+            {/* Right: key metrics */}
+            <div className="col-span-4 border-l border-xrt-steel/20 pl-8 flex flex-col justify-center gap-0">
               {homeStats.map((stat, i) => (
                 <div
                   key={i}
@@ -58,7 +58,7 @@ export default function HomePage() {
                 >
                   <div
                     className="text-5xl font-black text-white mb-1"
-                    style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.03em" }}
+                    style={{ fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif", letterSpacing: "-0.03em" }}
                   >
                     {stat.value}
                   </div>
@@ -68,8 +68,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Protocol strip */}
-          <div className="mt-12 pt-6 border-t border-xrt-steel/20 flex items-center gap-8 flex-wrap">
+          {/* Bottom protocol strip */}
+          <div className="mt-12 pt-6 border-t border-xrt-steel/20 flex items-center gap-8">
             {["FATF AML/KYC", "OFAC Screened", "C-TPAT Certified", "AEO Certified", "ISO 9001:2015", "GAFTA Member"].map((cert) => (
               <span key={cert} className="label-caps text-xrt-steel/30">{cert}</span>
             ))}
@@ -95,10 +95,12 @@ export default function HomePage() {
           <div className="grid grid-cols-3 gap-0 border border-xrt-steel">
             {homeCommoditySnapshot.map((cat, ci) => (
               <div key={cat.category} className={ci < 2 ? "border-r border-xrt-steel" : ""}>
+                {/* Category header */}
                 <div className="bg-xrt-black px-6 py-3 flex items-center justify-between border-b border-xrt-steel/20">
                   <span className="label-caps text-white">{cat.category}</span>
-                  <span className="label-caps text-xrt-steel/30">SPOT</span>
+                  <span className="label-caps text-xrt-steel/30">SPOT (USD)</span>
                 </div>
+                {/* Rows */}
                 <table className="w-full">
                   <tbody>
                     {cat.items.map((item, ii) => (
@@ -108,7 +110,7 @@ export default function HomePage() {
                           <div className="label-caps text-xrt-muted mt-0.5">{item.grade}</div>
                         </td>
                         <td className="px-6 py-3 border-b border-xrt-steel text-right">
-                          <div className="font-bold text-xrt-black" style={{ fontFamily: "var(--font-barlow)", fontSize: "16px", letterSpacing: "-0.01em" }}>
+                          <div className="font-bold text-sm text-xrt-black" style={{ fontFamily: "var(--font-barlow)", fontSize: "16px", letterSpacing: "-0.01em" }}>
                             {item.price}
                           </div>
                           <div
@@ -146,8 +148,7 @@ export default function HomePage() {
               <div
                 key={svc.id}
                 className={[
-                  "bg-xrt-white p-8",
-                  "border-b border-xrt-steel",
+                  "bg-xrt-white p-8 border-b border-xrt-steel",
                   i % 3 < 2 ? "border-r border-xrt-steel" : "",
                   i >= 3 ? "border-b-0" : "",
                 ].join(" ")}
@@ -197,7 +198,10 @@ export default function HomePage() {
             ].map((hub, i) => (
               <div key={hub.code} className={`p-10 border-b border-xrt-steel/20 ${i < 2 ? "border-r border-xrt-steel/20" : ""}`}>
                 <div className="flex items-center justify-between mb-6">
-                  <span className="font-black text-5xl text-white" style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.03em" }}>
+                  <span
+                    className="font-black text-5xl text-white"
+                    style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.03em" }}
+                  >
                     {hub.code}
                   </span>
                   <div className="flex items-center gap-2">
@@ -225,7 +229,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── INTELLIGENCE HUB PREVIEW ────────────────────────────── */}
+      {/* ── INTELLIGENCE HUB ────────────────────────────────────── */}
       <section className="bg-xrt-off-white">
         <div className="max-w-[1440px] mx-auto px-12 py-16">
           <div className="flex items-end justify-between mb-8">
@@ -249,7 +253,10 @@ export default function HomePage() {
                   <span className="label-caps text-xrt-crimson">{post.category}</span>
                   <span className="label-caps text-xrt-steel/50">{post.date}</span>
                 </div>
-                <h3 className="text-xl text-xrt-black mb-4 leading-tight" style={{ fontFamily: "var(--font-barlow)", fontWeight: 900 }}>
+                <h3
+                  className="text-xl text-xrt-black mb-4 leading-tight"
+                  style={{ fontFamily: "var(--font-barlow)", fontWeight: 900 }}
+                >
                   {post.title}
                 </h3>
                 <p className="text-sm text-xrt-muted leading-relaxed mb-5" style={{ fontFamily: "var(--font-archivo)" }}>
@@ -270,15 +277,24 @@ export default function HomePage() {
         <div className="max-w-[1440px] mx-auto px-12 py-14 flex items-center justify-between">
           <div>
             <div className="label-caps text-white/60 mb-2">READY TO PROCURE</div>
-            <h2 className="text-5xl font-black text-white" style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.03em" }}>
+            <h2
+              className="text-5xl font-black text-white"
+              style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.03em" }}
+            >
               Submit a Sourcing Request
             </h2>
           </div>
           <div className="flex items-center gap-4">
-            <Link href="/contact" className="label-caps bg-white text-xrt-crimson px-10 py-4 hover:bg-xrt-off-white transition-colors">
+            <Link
+              href="/contact"
+              className="label-caps bg-white text-xrt-crimson px-10 py-4 hover:bg-xrt-off-white transition-colors"
+            >
               Open RFQ Form
             </Link>
-            <Link href="/about" className="label-caps border border-white/40 text-white px-10 py-4 hover:border-white transition-colors">
+            <Link
+              href="/about"
+              className="label-caps border border-white/40 text-white px-10 py-4 hover:border-white transition-colors"
+            >
               Learn About XRT
             </Link>
           </div>

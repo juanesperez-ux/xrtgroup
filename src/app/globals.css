@@ -1,26 +1,109 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-barlow: "Barlow Condensed", sans-serif;
+  --font-archivo: "Archivo Narrow", sans-serif;
+
+  --color-xrt-crimson: #c8111f;
+  --color-xrt-crimson-dark: #9e0012;
+  --color-xrt-crimson-hover: #e01525;
+  --color-xrt-gold: #fdc664;
+  --color-xrt-gold-dark: #c8973a;
+  --color-xrt-gold-muted: #7d5700;
+  --color-xrt-black: #111111;
+  --color-xrt-near-black: #1c1b1b;
+  --color-xrt-off-white: #fcf9f8;
+  --color-xrt-surface: #f0edec;
+  --color-xrt-surface-low: #f6f3f2;
+  --color-xrt-white: #ffffff;
+  --color-xrt-steel: #e5e2e1;
+  --color-xrt-steel-mid: #dcd9d9;
+  --color-xrt-muted: #5c3f3d;
+  --color-xrt-outline: #916f6c;
+  --color-xrt-positive: #15803d;
+  --color-xrt-negative: #c8111f;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  * {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background-color: var(--color-xrt-off-white, #fcf9f8);
+    color: var(--color-xrt-near-black, #1c1b1b);
+    font-family: var(--font-archivo), "Archivo Narrow", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-barlow), "Barlow Condensed", sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Ticker tape animation */
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  animation: ticker-scroll 40s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+/* Label caps utility */
+.label-caps {
+  font-family: var(--font-barlow), "Barlow Condensed", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* Data table base */
+.data-table th {
+  font-family: var(--font-barlow), "Barlow Condensed", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background-color: #111111;
+  color: #ffffff;
+  padding: 10px 16px;
+}
+
+.data-table td {
+  font-family: "Archivo Narrow", sans-serif;
+  font-size: 14px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #e5e2e1;
+}
+
+.data-table tr:nth-child(even) td {
+  background-color: #f6f3f2;
+}
+
+/* Terminal blink cursor */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor-blink::after {
+  content: "_";
+  animation: blink 1s step-end infinite;
+  color: #c8111f;
 }
