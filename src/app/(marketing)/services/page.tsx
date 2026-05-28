@@ -12,31 +12,33 @@ export default function ServicesPage() {
     <div>
       {/* ── PAGE HEADER ─────────────────────────────────────────── */}
       <section className="bg-xrt-black text-white border-b border-xrt-steel/20">
-        <div className="max-w-[1440px] mx-auto px-12 py-16">
-          <div className="grid grid-cols-12 gap-8">
-            <div className="col-span-8">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div className="lg:col-span-8">
               <div className="label-caps text-xrt-crimson mb-4">SERVICE DIRECTORY — REV. 2025.Q2</div>
-              <h1 className="text-[clamp(3rem,6vw,6rem)] text-white mb-6">
+              <h1 className="text-[clamp(2.5rem,6vw,6rem)] text-white mb-6">
                 Technical Services<br />Infrastructure
               </h1>
-              <p className="text-lg text-xrt-steel/60 max-w-2xl leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
+              <p className="text-base sm:text-lg text-xrt-steel/60 max-w-2xl leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
                 Six integrated service modules covering the complete commodity procurement lifecycle — from origin sourcing and risk modeling to customs clearance, logistics routing, and structured trade finance.
               </p>
             </div>
-            <div className="col-span-4 border-l border-xrt-steel/20 pl-8 flex flex-col justify-center gap-6">
-              {[
-                { label: "Service Modules", value: "6 Active" },
-                { label: "Trade Corridors", value: "42 Covered" },
-                { label: "Uptime SLA", value: "99.94%" },
-                { label: "Avg. Response Time", value: "<4 hrs" },
-              ].map((m) => (
-                <div key={m.label}>
-                  <div className="text-3xl font-black text-white mb-0.5" style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.03em" }}>
-                    {m.value}
+            <div className="lg:col-span-4 border-t border-xrt-steel/20 pt-8 lg:border-t-0 lg:pt-0 lg:border-l lg:pl-8 flex flex-col justify-center">
+              <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 lg:gap-0">
+                {[
+                  { label: "Service Modules", value: "6 Active" },
+                  { label: "Trade Corridors", value: "42 Covered" },
+                  { label: "Uptime SLA", value: "99.94%" },
+                  { label: "Avg. Response Time", value: "<4 hrs" },
+                ].map((m) => (
+                  <div key={m.label} className="lg:pb-5 lg:border-b lg:border-xrt-steel/20 lg:last:border-0 lg:last:pb-0">
+                    <div className="text-2xl sm:text-3xl font-black text-white mb-0.5" style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.03em" }}>
+                      {m.value}
+                    </div>
+                    <div className="label-caps text-xrt-steel/40">{m.label}</div>
                   </div>
-                  <div className="label-caps text-xrt-steel/40">{m.label}</div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -44,17 +46,17 @@ export default function ServicesPage() {
 
       {/* ── SERVICE CARDS ───────────────────────────────────────── */}
       <section className="bg-xrt-off-white">
-        <div className="max-w-[1440px] mx-auto px-12 py-16">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16">
 
-          {services.map((svc, i) => (
+          {services.map((svc) => (
             <div
               key={svc.id}
               id={svc.code.toLowerCase()}
               className="border border-xrt-steel mb-0 -mt-px bg-xrt-white"
             >
               {/* Service header */}
-              <div className="grid grid-cols-12 border-b border-xrt-steel">
-                <div className="col-span-8 p-8 border-r border-xrt-steel">
+              <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-xrt-steel">
+                <div className="lg:col-span-8 p-6 sm:p-8 border-b border-xrt-steel lg:border-b-0 lg:border-r">
                   <div className="flex items-center gap-4 mb-4">
                     <span className="label-caps text-xrt-steel/60">{svc.id}</span>
                     <div className="h-px flex-1 bg-xrt-steel" />
@@ -69,12 +71,12 @@ export default function ServicesPage() {
                     </span>
                   </div>
                   <div className="label-caps text-xrt-crimson mb-2">{svc.code}</div>
-                  <h2 className="text-4xl text-xrt-black mb-4">{svc.name}</h2>
-                  <p className="text-base text-xrt-muted leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
+                  <h2 className="text-3xl sm:text-4xl text-xrt-black mb-4">{svc.name}</h2>
+                  <p className="text-sm sm:text-base text-xrt-muted leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
                     {svc.description}
                   </p>
                 </div>
-                <div className="col-span-4 p-8">
+                <div className="lg:col-span-4 p-6 sm:p-8">
                   <div className="label-caps text-xrt-steel/50 mb-4">GOVERNING PROTOCOLS</div>
                   <div className="flex flex-wrap gap-2">
                     {svc.protocols.map((p) => (
@@ -90,15 +92,23 @@ export default function ServicesPage() {
               </div>
 
               {/* Metrics table */}
-              <div className="grid grid-cols-4 border-b border-xrt-steel">
+              <div className="grid grid-cols-2 sm:grid-cols-4 border-b border-xrt-steel">
                 {svc.metrics.map((m, mi) => (
                   <div
                     key={m.key}
-                    className={`p-6 ${mi < 3 ? "border-r border-xrt-steel" : ""}`}
+                    className={[
+                      "p-4 sm:p-6",
+                      // Mobile (2-col): bottom border between rows, right border between cols
+                      mi < 2 ? "border-b border-xrt-steel" : "",
+                      mi % 2 === 0 ? "border-r border-xrt-steel" : "",
+                      // SM (4-col): remove all bottom, keep right on first 3
+                      "sm:border-b-0",
+                      mi < 3 ? "sm:border-r" : "sm:border-r-0",
+                    ].filter(Boolean).join(" ")}
                   >
                     <div className="label-caps text-xrt-steel/50 mb-2">{m.key}</div>
                     <div
-                      className="text-2xl font-black text-xrt-black"
+                      className="text-xl sm:text-2xl font-black text-xrt-black"
                       style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.02em" }}
                     >
                       {m.value}
@@ -113,11 +123,11 @@ export default function ServicesPage() {
 
       {/* ── PROCESS FLOW ────────────────────────────────────────── */}
       <section className="bg-xrt-black text-white border-t border-xrt-steel/20">
-        <div className="max-w-[1440px] mx-auto px-12 py-16">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16">
           <div className="label-caps text-xrt-steel/40 mb-2">EXECUTION SEQUENCE</div>
-          <h2 className="text-4xl text-white mb-10">Standard Procurement Flow</h2>
+          <h2 className="text-3xl sm:text-4xl text-white mb-8 sm:mb-10">Standard Procurement Flow</h2>
 
-          <div className="grid grid-cols-6 gap-0 border border-xrt-steel/20">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 border border-xrt-steel/20">
             {[
               { step: "01", label: "RFQ INTAKE", detail: "Client submits commodity spec, volume, INCOTERMS, and delivery window via secure RFQ portal." },
               { step: "02", label: "SOURCING ENGINE", detail: "CSE aggregates bids from 643 pre-vetted suppliers within 90 seconds. AML/KYC pre-screened." },
@@ -126,9 +136,20 @@ export default function ServicesPage() {
               { step: "05", label: "ROUTING & CUSTOMS", detail: "ARP optimizes multi-modal route. CCP initiates pre-clearance documentation for destination port." },
               { step: "06", label: "QA & DELIVERY", detail: "Third-party inspection at load port. Vessel tracking to destination. Final document release." },
             ].map((s, i) => (
-              <div key={s.step} className={`p-6 border-b border-xrt-steel/20 ${i < 5 ? "border-r border-xrt-steel/20" : ""}`}>
+              <div key={s.step} className={[
+                "p-5 sm:p-6",
+                // Mobile (2-col): bottom on rows 0–2 (i<4), right on col 0 (i%2===0)
+                i < 4 ? "border-b border-xrt-steel/20" : "",
+                i % 2 === 0 ? "border-r border-xrt-steel/20" : "",
+                // SM (3-col): bottom on row 0 (i<3), right on cols 0–1 (i%3<2)
+                i >= 3 ? "sm:border-b-0" : "",
+                i % 3 < 2 ? "sm:border-r" : "sm:border-r-0",
+                // LG (6-col): no bottom, right on all but last (i<5)
+                "lg:border-b-0",
+                i < 5 ? "lg:border-r" : "lg:border-r-0",
+              ].filter(Boolean).join(" ")}>
                 <div
-                  className="text-5xl font-black text-xrt-steel/20 mb-4"
+                  className="text-4xl sm:text-5xl font-black text-xrt-steel/20 mb-4"
                   style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.05em" }}
                 >
                   {s.step}
@@ -145,14 +166,14 @@ export default function ServicesPage() {
 
       {/* ── CTA ─────────────────────────────────────────────────── */}
       <section className="bg-xrt-surface border-t border-xrt-steel">
-        <div className="max-w-[1440px] mx-auto px-12 py-12 flex items-center justify-between">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
           <div>
             <div className="label-caps text-xrt-muted mb-1">INITIATE PROCUREMENT</div>
-            <div className="text-3xl font-black text-xrt-black" style={{ fontFamily: "var(--font-barlow)" }}>
+            <div className="text-2xl sm:text-3xl font-black text-xrt-black" style={{ fontFamily: "var(--font-barlow)" }}>
               Ready to engage a service module?
             </div>
           </div>
-          <Link href="/contact" className="label-caps bg-xrt-crimson text-white px-8 py-4 hover:bg-xrt-crimson-dark transition-colors">
+          <Link href="/contact" className="label-caps bg-xrt-crimson text-white px-8 py-4 hover:bg-xrt-crimson-dark transition-colors self-start sm:self-auto">
             Submit RFQ
           </Link>
         </div>

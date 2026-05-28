@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 95" fill="none">
+  <!-- NW arm -->
+  <polygon points="3,3 41,3 50,42 3,42" fill="#C8111F"/>
+  <!-- NE arm -->
+  <polygon points="59,3 97,3 97,42 50,42" fill="#C8111F"/>
+  <!-- SW arm -->
+  <polygon points="3,53 50,53 41,92 3,92" fill="#C8111F"/>
+  <!-- SE arm -->
+  <polygon points="50,53 97,53 97,92 59,92" fill="#C8111F"/>
+</svg>

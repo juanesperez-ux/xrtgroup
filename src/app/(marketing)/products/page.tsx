@@ -7,30 +7,23 @@ export const metadata: Metadata = {
   description: "XRT Group commodity catalog: Energy, Grains & Agricultural, Edible & Industrial Oils, and Logistics Infrastructure.",
 };
 
-const pillarColors = {
-  crimson: { bg: "bg-xrt-crimson", text: "text-xrt-crimson", border: "border-xrt-crimson" },
-  gold: { bg: "bg-xrt-gold-dark", text: "text-xrt-gold-dark", border: "border-xrt-gold-dark" },
-  steel: { bg: "bg-xrt-muted", text: "text-xrt-muted", border: "border-xrt-muted" },
-  black: { bg: "bg-xrt-black", text: "text-xrt-black", border: "border-xrt-black" },
-};
-
 export default function ProductsPage() {
   return (
     <div>
       {/* ── PAGE HEADER ─────────────────────────────────────────── */}
       <section className="bg-xrt-black text-white border-b border-xrt-steel/20">
-        <div className="max-w-[1440px] mx-auto px-12 py-16">
-          <div className="grid grid-cols-12 gap-8 items-end">
-            <div className="col-span-8">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+            <div className="lg:col-span-8">
               <div className="label-caps text-xrt-crimson mb-4">PRODUCT CATALOG — 4 CORE PILLARS</div>
-              <h1 className="text-[clamp(3rem,6vw,6rem)] text-white mb-6">
+              <h1 className="text-[clamp(2.5rem,6vw,6rem)] text-white mb-6">
                 Commodity<br />Trading Matrix
               </h1>
-              <p className="text-lg text-xrt-steel/60 max-w-2xl leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
+              <p className="text-base sm:text-lg text-xrt-steel/60 max-w-2xl leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
                 Direct-origin commodity procurement across four strategic pillars. All grades negotiated against Platts, Argus, and CBOT benchmarks. Full inspection and certification traceability on every lot.
               </p>
             </div>
-            <div className="col-span-4 border-l border-xrt-steel/20 pl-8">
+            <div className="lg:col-span-4 border-t border-xrt-steel/20 pt-8 lg:border-t-0 lg:pt-0 lg:border-l lg:pl-8">
               <div className="grid grid-cols-2 gap-4">
                 {[
                   { label: "Active SKUs", value: "21+" },
@@ -39,7 +32,7 @@ export default function ProductsPage() {
                   { label: "Settlement", value: "GAFTA / UCP 600" },
                 ].map((m) => (
                   <div key={m.label} className="border border-xrt-steel/20 p-4">
-                    <div className="text-2xl font-black text-white mb-0.5" style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.02em" }}>
+                    <div className="text-xl sm:text-2xl font-black text-white mb-0.5" style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.02em" }}>
                       {m.value}
                     </div>
                     <div className="label-caps text-xrt-steel/40">{m.label}</div>
@@ -53,17 +46,17 @@ export default function ProductsPage() {
 
       {/* ── PILLAR TABS OVERVIEW ─────────────────────────────────── */}
       <section className="bg-xrt-off-white border-b border-xrt-steel">
-        <div className="max-w-[1440px] mx-auto px-12">
-          <div className="grid grid-cols-4 border-x border-xrt-steel">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="grid grid-cols-2 sm:grid-cols-4 border-x border-xrt-steel">
             {products.map((p, i) => (
               <a
                 key={p.code}
                 href={`#${p.code.toLowerCase()}`}
-                className={`block px-6 py-5 border-b-4 text-center ${i < 3 ? "border-r border-xrt-steel" : ""} hover:bg-xrt-surface transition-colors`}
+                className={`block px-4 sm:px-6 py-4 sm:py-5 border-b-4 text-center border-b border-xrt-steel ${i < 3 ? "border-r border-xrt-steel" : ""} hover:bg-xrt-surface transition-colors`}
                 style={{ borderBottomColor: p.color === "crimson" ? "#c8111f" : p.color === "gold" ? "#c8973a" : p.color === "black" ? "#111111" : "#916f6c" }}
               >
                 <div className="label-caps text-xrt-muted mb-1">{p.code}</div>
-                <div className="font-black text-lg text-xrt-black" style={{ fontFamily: "var(--font-barlow)" }}>
+                <div className="font-black text-sm sm:text-lg text-xrt-black" style={{ fontFamily: "var(--font-barlow)" }}>
                   {p.pillar}
                 </div>
               </a>
@@ -79,11 +72,11 @@ export default function ProductsPage() {
           id={pillar.code.toLowerCase()}
           className="bg-xrt-off-white border-b border-xrt-steel"
         >
-          <div className="max-w-[1440px] mx-auto px-12 py-16">
+          <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16">
 
             {/* Pillar header */}
-            <div className="grid grid-cols-12 gap-8 mb-8">
-              <div className="col-span-8">
+            <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 sm:gap-8 mb-8">
+              <div className="sm:col-span-8">
                 <div className="flex items-center gap-4 mb-4">
                   <div
                     className="w-3 h-8"
@@ -97,21 +90,21 @@ export default function ProductsPage() {
                   />
                   <span className="label-caps text-xrt-steel/60">{pillar.code}</span>
                 </div>
-                <h2 className="text-4xl text-xrt-black mb-4">{pillar.pillar}</h2>
-                <p className="text-base text-xrt-muted leading-relaxed max-w-2xl" style={{ fontFamily: "var(--font-archivo)" }}>
+                <h2 className="text-3xl sm:text-4xl text-xrt-black mb-4">{pillar.pillar}</h2>
+                <p className="text-sm sm:text-base text-xrt-muted leading-relaxed max-w-2xl" style={{ fontFamily: "var(--font-archivo)" }}>
                   {pillar.summary}
                 </p>
               </div>
-              <div className="col-span-4 flex items-end justify-end">
+              <div className="sm:col-span-4 flex items-end justify-start sm:justify-end">
                 <Link href="/contact" className="label-caps border border-xrt-steel text-xrt-muted px-6 py-3 hover:border-xrt-black hover:text-xrt-black transition-colors">
                   Request {pillar.code} Pricing →
                 </Link>
               </div>
             </div>
 
-            {/* Product table */}
-            <div className="border border-xrt-steel overflow-hidden">
-              <table className="w-full data-table">
+            {/* Product table — scrollable on mobile */}
+            <div className="border border-xrt-steel overflow-x-auto">
+              <table className="w-full data-table min-w-[640px]">
                 <thead>
                   <tr>
                     <th className="text-left">PRODUCT / GRADE</th>
@@ -160,11 +153,11 @@ export default function ProductsPage() {
             </div>
 
             {/* Footnote */}
-            <div className="mt-4 flex items-center gap-6">
+            <div className="mt-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
               <span className="label-caps text-xrt-steel/50">
                 * Prices negotiated against prevailing benchmark. Contact XRT desk for spot and forward quotations.
               </span>
-              <div className="flex-1 h-px bg-xrt-steel" />
+              <div className="hidden sm:block flex-1 h-px bg-xrt-steel" />
               <span className="label-caps text-xrt-steel/50">INCOTERMS 2020</span>
             </div>
           </div>
@@ -173,11 +166,11 @@ export default function ProductsPage() {
 
       {/* ── INSPECTION & CERTIFICATION ──────────────────────────── */}
       <section className="bg-xrt-black text-white">
-        <div className="max-w-[1440px] mx-auto px-12 py-16">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16">
           <div className="label-caps text-xrt-steel/40 mb-2">QUALITY ASSURANCE</div>
-          <h2 className="text-4xl text-white mb-10">Inspection & Certification Partners</h2>
+          <h2 className="text-3xl sm:text-4xl text-white mb-8 sm:mb-10">Inspection & Certification Partners</h2>
 
-          <div className="grid grid-cols-3 gap-0 border border-xrt-steel/20">
+          <div className="grid grid-cols-1 md:grid-cols-3 border border-xrt-steel/20">
             {[
               {
                 name: "SGS S.A.",
@@ -198,9 +191,9 @@ export default function ProductsPage() {
                 cert: "ISO/IEC 17020",
               },
             ].map((body, i) => (
-              <div key={body.name} className={`p-8 ${i < 2 ? "border-r border-xrt-steel/20" : ""}`}>
+              <div key={body.name} className={`p-6 sm:p-8 border-b border-xrt-steel/20 md:border-b-0 ${i < 2 ? "md:border-r border-xrt-steel/20" : ""} last:border-b-0`}>
                 <div className="label-caps text-xrt-crimson mb-1">{body.cert}</div>
-                <h3 className="text-2xl text-white mb-1" style={{ fontFamily: "var(--font-barlow)" }}>{body.name}</h3>
+                <h3 className="text-xl sm:text-2xl text-white mb-1" style={{ fontFamily: "var(--font-barlow)" }}>{body.name}</h3>
                 <div className="label-caps text-xrt-steel/40 mb-6">{body.hq}</div>
                 <ul className="space-y-2">
                   {body.scope.map((s) => (
