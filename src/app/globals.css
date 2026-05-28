@@ -4,24 +4,24 @@
   --font-barlow: "Barlow Condensed", sans-serif;
   --font-archivo: "Archivo Narrow", sans-serif;
 
-  --color-xrt-crimson: #c8111f;
+  --color-xrt-crimson:      #c8111f;
   --color-xrt-crimson-dark: #9e0012;
-  --color-xrt-crimson-hover: #e01525;
-  --color-xrt-gold: #fdc664;
-  --color-xrt-gold-dark: #c8973a;
-  --color-xrt-gold-muted: #7d5700;
-  --color-xrt-black: #111111;
-  --color-xrt-near-black: #1c1b1b;
-  --color-xrt-off-white: #fcf9f8;
-  --color-xrt-surface: #f0edec;
-  --color-xrt-surface-low: #f6f3f2;
-  --color-xrt-white: #ffffff;
-  --color-xrt-steel: #e5e2e1;
-  --color-xrt-steel-mid: #dcd9d9;
-  --color-xrt-muted: #5c3f3d;
-  --color-xrt-outline: #916f6c;
-  --color-xrt-positive: #15803d;
-  --color-xrt-negative: #c8111f;
+  --color-xrt-crimson-hover:#e01525;
+  --color-xrt-gold:         #fdc664;
+  --color-xrt-gold-dark:    #c8973a;
+  --color-xrt-gold-muted:   #7d5700;
+  --color-xrt-black:        #111111;
+  --color-xrt-near-black:   #1c1b1b;
+  --color-xrt-off-white:    #fcf9f8;
+  --color-xrt-surface:      #f0edec;
+  --color-xrt-surface-low:  #f6f3f2;
+  --color-xrt-white:        #ffffff;
+  --color-xrt-steel:        #e5e2e1;
+  --color-xrt-steel-mid:    #dcd9d9;
+  --color-xrt-muted:        #5c3f3d;
+  --color-xrt-outline:      #916f6c;
+  --color-xrt-positive:     #15803d;
+  --color-xrt-negative:     #c8111f;
 }
 
 @layer base {
@@ -30,16 +30,21 @@
     box-shadow: none !important;
   }
 
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
-    background-color: var(--color-xrt-off-white, #fcf9f8);
-    color: var(--color-xrt-near-black, #1c1b1b);
-    font-family: var(--font-archivo), "Archivo Narrow", sans-serif;
+    background-color: #fcf9f8;
+    color: #1c1b1b;
+    font-family: "Archivo Narrow", var(--font-archivo), sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-barlow), "Barlow Condensed", sans-serif;
+    font-family: "Barlow Condensed", var(--font-barlow), sans-serif;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: -0.02em;
@@ -47,56 +52,91 @@
   }
 }
 
-/* Ticker tape animation */
+/* ─── TICKER TAPE ──────────────────────────────────────────── */
 @keyframes ticker-scroll {
-  0% { transform: translateX(0); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
 .ticker-track {
-  animation: ticker-scroll 40s linear infinite;
+  animation: ticker-scroll 48s linear infinite;
   display: flex;
   width: max-content;
+  will-change: transform;
 }
 
 .ticker-track:hover {
   animation-play-state: paused;
 }
 
-/* Label caps utility */
+/* ─── TYPOGRAPHY UTILITIES ─────────────────────────────────── */
+
+/* label-caps: minimum 11px for readability (WCAG AA) */
 .label-caps {
-  font-family: var(--font-barlow), "Barlow Condensed", sans-serif;
-  font-size: 10px;
+  font-family: "Barlow Condensed", var(--font-barlow), sans-serif;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 3px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 1.2;
 }
 
-/* Data table base */
-.data-table th {
-  font-family: var(--font-barlow), "Barlow Condensed", sans-serif;
-  font-size: 10px;
+/* Larger variant for section headers / important metadata */
+.label-caps-md {
+  font-family: "Barlow Condensed", var(--font-barlow), sans-serif;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 3px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+/* ─── DATA TABLE ───────────────────────────────────────────── */
+.data-table th {
+  font-family: "Barlow Condensed", var(--font-barlow), sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
   text-transform: uppercase;
   background-color: #111111;
   color: #ffffff;
-  padding: 10px 16px;
+  padding: 12px 16px;
+  white-space: nowrap;
 }
 
 .data-table td {
-  font-family: "Archivo Narrow", sans-serif;
+  font-family: "Archivo Narrow", var(--font-archivo), sans-serif;
   font-size: 14px;
   padding: 10px 16px;
   border-bottom: 1px solid #e5e2e1;
+  color: #1c1b1b;
 }
 
 .data-table tr:nth-child(even) td {
   background-color: #f6f3f2;
 }
 
-/* Terminal blink cursor */
+/* ─── RESPONSIVE HELPERS ───────────────────────────────────── */
+
+/* Sections use responsive horizontal padding */
+.section-px {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 640px) {
+  .section-px {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .section-px {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+/* ─── CURSOR BLINK (terminal aesthetic) ────────────────────── */
 @keyframes blink {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
