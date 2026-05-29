@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { products } from "@/lib/data";
+import { PRODUCT_ICONS } from "@/components/icons/CommodityIcons";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -77,18 +78,38 @@ export default function ProductsPage() {
             {/* Pillar header */}
             <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 sm:gap-8 mb-8">
               <div className="sm:col-span-8">
-                <div className="flex items-center gap-4 mb-4">
-                  <div
-                    className="w-3 h-8"
-                    style={{
-                      background:
-                        pillar.color === "crimson" ? "#c8111f"
-                        : pillar.color === "gold" ? "#c8973a"
-                        : pillar.color === "black" ? "#111111"
-                        : "#916f6c",
-                    }}
-                  />
-                  <span className="label-caps text-xrt-steel/60">{pillar.code}</span>
+                {/* Icon + code strip */}
+                <div className="flex items-center gap-4 mb-5">
+                  {(() => {
+                    const Icon = PRODUCT_ICONS[pillar.code as keyof typeof PRODUCT_ICONS];
+                    const accentColor =
+                      pillar.color === "crimson" ? "#c8111f"
+                      : pillar.color === "gold"   ? "#c8973a"
+                      : pillar.color === "black"  ? "#111111"
+                      : "#916f6c";
+                    return Icon ? (
+                      <Icon
+                        size={52}
+                        color={accentColor}
+                        activeColor={pillar.color === "gold" ? "#c8973a" : "#c8111f"}
+                      />
+                    ) : null;
+                  })()}
+                  <div>
+                    <div className="flex items-center gap-3 mb-1">
+                      <div
+                        className="w-2 h-6"
+                        style={{
+                          background:
+                            pillar.color === "crimson" ? "#c8111f"
+                            : pillar.color === "gold" ? "#c8973a"
+                            : pillar.color === "black" ? "#111111"
+                            : "#916f6c",
+                        }}
+                      />
+                      <span className="label-caps text-xrt-steel/60">{pillar.code}</span>
+                    </div>
+                  </div>
                 </div>
                 <h2 className="text-3xl sm:text-4xl text-xrt-black mb-4">{pillar.pillar}</h2>
                 <p className="text-sm sm:text-base text-xrt-muted leading-relaxed max-w-2xl" style={{ fontFamily: "var(--font-archivo)" }}>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { services } from "@/lib/data";
+import { SERVICE_ICONS } from "@/components/icons/CommodityIcons";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -70,8 +71,16 @@ export default function ServicesPage() {
                       {svc.status}
                     </span>
                   </div>
-                  <div className="label-caps text-xrt-crimson mb-2">{svc.code}</div>
-                  <h2 className="text-3xl sm:text-4xl text-xrt-black mb-4">{svc.name}</h2>
+                  <div className="flex items-center gap-4 mb-4">
+                    {(() => {
+                      const Icon = SERVICE_ICONS[svc.code as keyof typeof SERVICE_ICONS];
+                      return Icon ? <Icon size={44} color="#5c3f3d" activeColor="#c8111f" /> : null;
+                    })()}
+                    <div>
+                      <div className="label-caps text-xrt-crimson mb-1">{svc.code}</div>
+                      <h2 className="text-2xl sm:text-3xl lg:text-4xl text-xrt-black">{svc.name}</h2>
+                    </div>
+                  </div>
                   <p className="text-sm sm:text-base text-xrt-muted leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
                     {svc.description}
                   </p>
