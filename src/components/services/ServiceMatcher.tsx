@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type CSSProperties } from "react";
+import RFQDrawer from "@/components/rfq/RFQDrawer";
 
 /* ─── OPTION DATA ───────────────────────────────────────────────── */
 const COMMODITY_OPTIONS = [
@@ -66,6 +67,8 @@ export default function ServiceMatcher() {
   const [priority, setPriority]   = useState("");
   const [matched, setMatched]     = useState<string[]>([]);
   const [triggered, setTriggered] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerMode, setDrawerMode] = useState<"rfq" | "consult">("rfq");
 
   function clearHighlights() {
     document.querySelectorAll("[data-service-id]").forEach((el) => {
@@ -208,6 +211,23 @@ export default function ServiceMatcher() {
                 </a>
               ))}
             </div>
+
+            {/* Conversion CTAs */}
+            <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+              <button
+                onClick={() => { setDrawerMode("rfq"); setDrawerOpen(true); }}
+                className="label-caps bg-xrt-crimson text-white px-9 py-4 hover:bg-xrt-crimson-dark transition-colors"
+              >
+                Request Quote for Matched Services →
+              </button>
+              <button
+                onClick={() => { setDrawerMode("consult"); setDrawerOpen(true); }}
+                className="label-caps border border-xrt-gold-dark text-xrt-gold-dark px-7 py-4 hover:bg-xrt-gold-dark/10 transition-colors"
+                style={{ color: "#c8973a", borderColor: "#c8973a" }}
+              >
+                Schedule Consultation
+              </button>
+            </div>
           </div>
         )}
 
@@ -220,6 +240,20 @@ export default function ServiceMatcher() {
           </p>
         )}
       </div>
+
+      {/* Contextual RFQ drawer */}
+      <RFQDrawer
+        isOpen={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        prefilledServices={matched}
+        prefilledCommodity={
+          COMMODITY_OPTIONS.find((c) => c.id === commodity)?.label ?? ""
+        }
+        prefilledOperation={
+          OPERATION_OPTIONS.find((o) => o.id === operation)?.label ?? ""
+        }
+        initialMode={drawerMode}
+      />
     </section>
   );
 }

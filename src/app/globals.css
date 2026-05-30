@@ -210,6 +210,31 @@
   background: rgba(255, 255, 255, 0.02);
 }
 
+/* ─── PRODUCT PAGE BODY (SEO content, dark) ─────────────────── */
+.product-body h2 {
+  font-family: "Barlow Condensed", var(--font-barlow), sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: #f7f5f2;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.product-body p {
+  font-family: "Archivo Narrow", var(--font-archivo), sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: rgba(229, 226, 225, 0.65);
+  margin-bottom: 1.5rem;
+}
+
+.product-body strong {
+  color: #f7f5f2;
+  font-weight: 700;
+}
+
 /* ─── SERVICE MATCHER HIGHLIGHT STATES ──────────────────────── */
 [data-service-id] {
   transition: opacity 400ms ease, filter 400ms ease;

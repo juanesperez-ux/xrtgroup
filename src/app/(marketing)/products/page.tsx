@@ -2,6 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { products } from "@/lib/data";
 import { PRODUCT_ICONS } from "@/components/icons/CommodityIcons";
+import { getProductsByCategory, type ProductCategory } from "@/lib/productsData";
+
+// Catalog pillar code → product data category (orders match 1:1)
+const PILLAR_CATEGORY: Record<string, ProductCategory> = {
+  ENE: "energy",
+  AGR: "grains",
+  OIL: "oils",
+  LOG: "logistics",
+};
 
 export const metadata: Metadata = {
   title: "Products",
@@ -135,13 +144,22 @@ export default function ProductsPage() {
                     <th className="text-left">BENCHMARK</th>
                     <th className="text-left">PREMIUM/DISC</th>
                     <th className="text-left">INSPECTION</th>
+                    <th className="text-left">DETAIL</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {pillar.items.map((item, ii) => (
+                  {pillar.items.map((item, ii) => {
+                    const slug = getProductsByCategory(PILLAR_CATEGORY[pillar.code])[ii]?.slug;
+                    return (
                     <tr key={item.product}>
                       <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>
-                        <div className="font-medium text-xrt-black">{item.product}</div>
+                        {slug ? (
+                          <Link href={`/products/${slug}`} className="font-medium text-xrt-black hover:text-xrt-crimson transition-colors" style={{ borderBottom: "1px solid #dcd9d9" }}>
+                            {item.product}
+                          </Link>
+                        ) : (
+                          <div className="font-medium text-xrt-black">{item.product}</div>
+                        )}
                         <div className="label-caps text-xrt-muted mt-0.5">{item.grade}</div>
                       </td>
                       <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>{item.origin}</td>
@@ -167,8 +185,16 @@ export default function ProductsPage() {
                       <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>
                         <span className="label-caps text-xrt-muted">{item.inspection}</span>
                       </td>
+                      <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>
+                        {slug && (
+                          <Link href={`/products/${slug}`} className="label-caps text-xrt-crimson whitespace-nowrap hover:text-xrt-crimson-dark transition-colors">
+                            View Spec →
+                          </Link>
+                        )}
+                      </td>
                     </tr>
-                  ))}
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

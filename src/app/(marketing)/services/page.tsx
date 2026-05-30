@@ -3,6 +3,7 @@ import Link from "next/link";
 import { services } from "@/lib/data";
 import { SERVICE_ICONS } from "@/components/icons/CommodityIcons";
 import ServiceMatcher from "@/components/services/ServiceMatcher";
+import ServiceQuoteCTA from "@/components/services/ServiceQuoteCTA";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -130,6 +131,9 @@ export default function ServicesPage() {
                   </div>
                 ))}
               </div>
+
+              {/* Contextual quote CTA */}
+              <ServiceQuoteCTA code={svc.code} />
             </div>
           ))}
         </div>

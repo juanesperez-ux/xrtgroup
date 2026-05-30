@@ -12,7 +12,18 @@ export async function POST(req: NextRequest) {
       commodity, volume, volumeUnit,
       origin, destination, deliveryStart, deliveryEnd,
       incoterms, hub, financeRequired, inspectionRequired, notes,
+      // Context from inline / drawer RFQ entry points
+      source, commodityCode, services, deskEmail,
     } = body;
+
+    // Optional submission-context block (only rendered when present)
+    const contextLines = [
+      source && `  Submitted From:    ${source}`,
+      commodityCode && `  Product Code:      ${commodityCode}`,
+      services && `  Matched Services:  ${services}`,
+      deskEmail && `  Routed To Desk:    ${deskEmail}`,
+    ].filter(Boolean).join("\n");
+    const contextBlock = contextLines ? `\nSUBMISSION CONTEXT\n${contextLines}\n` : "";
 
     // Build a readable plain-text email
     const refId = `XRT-${Date.now().toString().slice(-6)}`;
@@ -43,7 +54,7 @@ TRADE TERMS & LOGISTICS
 ADDITIONAL REQUIREMENTS
   Trade Finance Required:  ${financeRequired?.toUpperCase()}
   3rd-Party Inspection:    ${inspectionRequired?.toUpperCase()}
-
+${contextBlock}
 TECHNICAL NOTES
 ${notes || "(none provided)"}
 
