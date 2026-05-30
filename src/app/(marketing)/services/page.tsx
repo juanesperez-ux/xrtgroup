@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { services } from "@/lib/data";
 import { SERVICE_ICONS } from "@/components/icons/CommodityIcons";
+import ServiceMatcher from "@/components/services/ServiceMatcher";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -33,10 +34,10 @@ export default function ServicesPage() {
                   { label: "Avg. Response Time", value: "<4 hrs" },
                 ].map((m) => (
                   <div key={m.label} className="lg:pb-5 lg:border-b lg:border-xrt-steel/20 lg:last:border-0 lg:last:pb-0">
-                    <div className="text-2xl sm:text-3xl font-black text-white mb-0.5" style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.03em" }}>
+                    <div className="text-2xl sm:text-3xl font-black text-white mb-1" style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.03em" }}>
                       {m.value}
                     </div>
-                    <div className="label-caps text-xrt-steel/40">{m.label}</div>
+                    <div className="label-caps text-xrt-steel/70">{m.label}</div>
                   </div>
                 ))}
               </div>
@@ -44,6 +45,9 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+
+      {/* ── INTERACTIVE SERVICE MATCHER ─────────────────────────── */}
+      <ServiceMatcher />
 
       {/* ── SERVICE CARDS ───────────────────────────────────────── */}
       <section className="bg-xrt-off-white">
@@ -53,13 +57,14 @@ export default function ServicesPage() {
             <div
               key={svc.id}
               id={svc.code.toLowerCase()}
+              data-service-id={svc.code.toLowerCase()}
               className="border border-xrt-steel mb-0 -mt-px bg-xrt-white"
             >
               {/* Service header */}
               <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-xrt-steel">
                 <div className="lg:col-span-8 p-6 sm:p-8 border-b border-xrt-steel lg:border-b-0 lg:border-r">
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="label-caps text-xrt-steel/60">{svc.id}</span>
+                    <span className="label-caps text-xrt-outline">{svc.id}</span>
                     <div className="h-px flex-1 bg-xrt-steel" />
                     <span
                       className="label-caps px-3 py-1.5"
@@ -81,12 +86,12 @@ export default function ServicesPage() {
                       <h2 className="text-2xl sm:text-3xl lg:text-4xl text-xrt-black">{svc.name}</h2>
                     </div>
                   </div>
-                  <p className="text-sm sm:text-base text-xrt-muted leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
+                  <p className="text-base text-xrt-muted leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
                     {svc.description}
                   </p>
                 </div>
                 <div className="lg:col-span-4 p-6 sm:p-8">
-                  <div className="label-caps text-xrt-steel/50 mb-4">GOVERNING PROTOCOLS</div>
+                  <div className="label-caps text-xrt-outline mb-4">GOVERNING PROTOCOLS</div>
                   <div className="flex flex-wrap gap-2">
                     {svc.protocols.map((p) => (
                       <span
@@ -106,7 +111,7 @@ export default function ServicesPage() {
                   <div
                     key={m.key}
                     className={[
-                      "p-4 sm:p-6",
+                      "p-5 sm:p-6",
                       // Mobile (2-col): bottom border between rows, right border between cols
                       mi < 2 ? "border-b border-xrt-steel" : "",
                       mi % 2 === 0 ? "border-r border-xrt-steel" : "",
@@ -115,9 +120,9 @@ export default function ServicesPage() {
                       mi < 3 ? "sm:border-r" : "sm:border-r-0",
                     ].filter(Boolean).join(" ")}
                   >
-                    <div className="label-caps text-xrt-steel/50 mb-2">{m.key}</div>
+                    <div className="label-caps text-xrt-outline mb-2.5">{m.key}</div>
                     <div
-                      className="text-xl sm:text-2xl font-black text-xrt-black"
+                      className="text-2xl sm:text-3xl font-black text-xrt-black"
                       style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.02em" }}
                     >
                       {m.value}
@@ -164,7 +169,7 @@ export default function ServicesPage() {
                   {s.step}
                 </div>
                 <div className="label-caps text-xrt-crimson mb-3">{s.label}</div>
-                <p className="text-sm text-xrt-steel/60 leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
+                <p className="text-sm text-xrt-steel/75 leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
                   {s.detail}
                 </p>
               </div>
