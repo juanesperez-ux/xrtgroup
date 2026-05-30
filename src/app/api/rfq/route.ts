@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import nodemailer from "nodemailer";
+import { createClient } from "@/utils/supabase/server";
 
 const RECIPIENT = "matt.w@xrtgroup.com";
 
@@ -132,6 +134,40 @@ Please respond to the sender at: ${email}
 </body>
 </html>
 `.trim();
+
+    // ── Persist to Supabase (best-effort — never blocks email delivery) ──────
+    if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
+      try {
+        const supabase = createClient(await cookies());
+        const { error: dbError } = await supabase.from("rfq_submissions").insert({
+          ref_id:             refId,
+          entity:             entity ?? null,
+          reg_number:         regNumber ?? null,
+          contact_name:       contactName ?? null,
+          email:              email ?? null,
+          phone:              phone ?? null,
+          commodity:          commodity ?? null,
+          commodity_code:     commodityCode ?? null,
+          volume:             volume ?? null,
+          volume_unit:        volumeUnit ?? null,
+          origin:             origin ?? null,
+          destination:        destination ?? null,
+          delivery_start:     deliveryStart ?? null,
+          delivery_end:       deliveryEnd ?? null,
+          incoterms:          incoterms ?? null,
+          hub:                hub ?? null,
+          finance_required:   financeRequired ?? null,
+          inspection_required: inspectionRequired ?? null,
+          services:           services ?? null,
+          source:             source ?? null,
+          desk_email:         deskEmail ?? null,
+          notes:              notes ?? null,
+        });
+        if (dbError) console.error("RFQ Supabase insert error (non-blocking):", dbError.message);
+      } catch (dbErr) {
+        console.error("RFQ Supabase insert failed (non-blocking):", dbErr);
+      }
+    }
 
     // ── Transport configuration ─────────────────────────────────────────────
     // Set SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS in .env.local
