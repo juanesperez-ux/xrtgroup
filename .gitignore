@@ -15,7 +15,12 @@
 
 # next.js
 /.next/
+**/.next/
 /out/
+
+# enforce single package manager (npm) — keep stale pnpm/yarn locks out
+pnpm-lock.yaml
+yarn.lock
 
 # production
 /build
