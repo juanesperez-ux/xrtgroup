@@ -12,8 +12,10 @@ const XMark = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 100 95"
+    width={36}
+    height={34}
     aria-hidden="true"
-    style={{ display: "block" }}
+    style={{ display: "block", width: 36, height: 34, flexShrink: 0 }}
   >
     <polygon points="3,3 41,3 50,42 3,42"  fill="#C8111F" />
     <polygon points="59,3 97,3 97,42 50,42" fill="#C8111F" />
@@ -31,7 +33,10 @@ export default function XRTLogo({ variant = "header", className = "" }: Props) {
       aria-label="XRT Group"
     >
       {/* Mark */}
-      <span className="flex-shrink-0" style={{ width: 36, height: 34 }}>
+      <span
+        className="flex-shrink-0"
+        style={{ display: "inline-flex", width: 36, height: 34, flexShrink: 0, overflow: "hidden" }}
+      >
         <XMark />
       </span>
 
