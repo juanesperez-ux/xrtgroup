@@ -11,16 +11,14 @@ type Props = {
 const XMark = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 100 95"
+    viewBox="0 0 100 100"
     width={36}
-    height={34}
+    height={36}
     aria-hidden="true"
-    style={{ display: "block", width: 36, height: 34, flexShrink: 0 }}
+    style={{ display: "block", width: 36, height: 36, flexShrink: 0 }}
   >
-    <polygon points="3,3 41,3 50,42 3,42"  fill="#C8111F" />
-    <polygon points="59,3 97,3 97,42 50,42" fill="#C8111F" />
-    <polygon points="3,53 50,53 41,92 3,92"  fill="#C8111F" />
-    <polygon points="50,53 97,53 97,92 59,92" fill="#C8111F" />
+    <polygon points="0,0 30,0 50,28.57 70,0 100,0 68.5,45 31.5,45" fill="#C8111F" />
+    <polygon points="31.5,55 68.5,55 100,100 70,100 50,71.43 30,100 0,100" fill="#C8111F" />
   </svg>
 );
 
@@ -35,7 +33,7 @@ export default function XRTLogo({ variant = "header", className = "" }: Props) {
       {/* Mark */}
       <span
         className="flex-shrink-0"
-        style={{ display: "inline-flex", width: 36, height: 34, flexShrink: 0, overflow: "hidden" }}
+        style={{ display: "inline-flex", width: 36, height: 36, flexShrink: 0, overflow: "hidden" }}
       >
         <XMark />
       </span>

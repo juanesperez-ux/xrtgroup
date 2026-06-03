@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/products", label: "Products", hasMegaMenu: true },
   { href: "/about", label: "About" },
   { href: "/blog", label: "Intelligence" },
+  { href: "/access", label: "Login", isLogin: true },
 ];
 
 const productCategories = [
@@ -134,8 +135,17 @@ export default function TopNav() {
             })}
           </div>
 
-          {/* Right side: CTA (desktop) + hamburger (mobile) */}
+          {/* Right side: CTA + Login (desktop) + hamburger (mobile) */}
           <div className="flex items-center gap-3">
+            {/* Desktop Login */}
+            <Link
+              href="/access"
+              className="hidden lg:flex items-center gap-2 label-caps text-xrt-near-black hover:text-xrt-crimson transition-colors flex-shrink-0"
+            >
+              <i className="fa-solid fa-arrow-right-to-bracket text-sm" aria-hidden="true"></i>
+              Login
+            </Link>
+
             {/* Desktop CTA */}
             <Link
               href="/contact"
@@ -204,8 +214,16 @@ export default function TopNav() {
             })}
           </div>
 
-          {/* CTA at bottom */}
-          <div className="p-6 border-t border-xrt-steel/20">
+          {/* CTA + Login at bottom */}
+          <div className="p-6 border-t border-xrt-steel/20 space-y-3">
+            <Link
+              href="/access"
+              onClick={() => setOpen(false)}
+              className="label-caps text-center block py-4 border border-xrt-steel/30 text-xrt-steel hover:text-white hover:border-white/50 transition-colors"
+            >
+              <i className="fa-solid fa-arrow-right-to-bracket mr-2" aria-hidden="true"></i>
+              Login
+            </Link>
             <Link
               href="/contact"
               onClick={() => setOpen(false)}

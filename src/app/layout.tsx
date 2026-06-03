@@ -48,6 +48,12 @@ export default function RootLayout({
       lang="en"
       className={`${barlowCondensed.variable} ${archivoNarrow.variable}`}
     >
+      <head>
+        <script
+          src="https://kit.fontawesome.com/399e38bb6a.js"
+          crossOrigin="anonymous"
+        ></script>
+      </head>
       <body className="min-h-screen flex flex-col">
         <TickerTape />
         <TopNav />
