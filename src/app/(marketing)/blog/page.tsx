@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { blogPosts } from "@/lib/data";
+import SubscribeForm from "@/components/blog/SubscribeForm";
 
 export const metadata: Metadata = {
   title: "Intelligence Hub",
@@ -203,29 +204,7 @@ export default function BlogPage() {
       </section>
 
       {/* ── SUBSCRIBE CTA ───────────────────────────────────────── */}
-      <section className="bg-xrt-surface border-t border-xrt-steel">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-12">
-          <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
-            <div className="sm:col-span-6">
-              <div className="label-caps text-xrt-muted mb-1">MARKET INTELLIGENCE SUBSCRIPTION</div>
-              <div className="text-2xl sm:text-3xl font-black text-xrt-black" style={{ fontFamily: "var(--font-barlow)" }}>
-                Receive desk dispatches directly.
-              </div>
-            </div>
-            <div className="sm:col-span-6 flex gap-0">
-              <input
-                type="email"
-                placeholder="your@company.com"
-                className="flex-1 border border-xrt-steel border-r-0 px-4 sm:px-5 py-3 sm:py-4 text-sm bg-xrt-white focus:outline-none focus:border-xrt-black transition-colors min-w-0"
-                style={{ fontFamily: "var(--font-archivo)" }}
-              />
-              <button className="label-caps bg-xrt-black text-white px-5 sm:px-8 py-3 sm:py-4 hover:bg-xrt-crimson transition-colors flex-shrink-0">
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <SubscribeForm />
     </div>
   );
 }

@@ -6,10 +6,48 @@ import { usePathname } from "next/navigation";
 import XRTLogo from "@/components/ui/XRTLogo";
 
 const navLinks = [
-  { href: "/services",  label: "Services" },
-  { href: "/products",  label: "Products" },
-  { href: "/about",     label: "About" },
-  { href: "/blog",      label: "Intelligence" },
+  { href: "/services", label: "Services" },
+  { href: "/products", label: "Products", hasMegaMenu: true },
+  { href: "/about", label: "About" },
+  { href: "/blog", label: "Intelligence" },
+];
+
+const productCategories = [
+  {
+    title: "Energy Commodities",
+    items: [
+      { label: "WTI Crude Oil", href: "/products/wti-crude-oil", cert: undefined },
+      { label: "Brent Crude", href: "/products/brent-crude-oil", cert: undefined },
+      { label: "ULSD Diesel", href: "/products/ulsd-diesel", cert: undefined },
+      { label: "Jet Fuel A-1", href: "/products/jet-fuel-a1", cert: undefined },
+      { label: "Fuel Oil 380 CST", href: "/products/fuel-oil-380", cert: undefined },
+    ]
+  },
+  {
+    title: "Grains & Agricultural",
+    items: [
+      { label: "SRW Wheat", href: "/products/srw-wheat", cert: undefined },
+      { label: "Yellow Corn #2", href: "/products/yellow-corn-no2", cert: undefined },
+      { label: "Soybeans #1", href: "/products/soybeans-no1", cert: undefined },
+      { label: "Malting Barley", href: "/products/malting-barley", cert: undefined },
+    ]
+  },
+  {
+    title: "Edible & Industrial Oils",
+    items: [
+      { label: "Crude Palm Oil", href: "/products/crude-palm-oil", cert: undefined },
+      { label: "RBD Palm Olein", href: "/products/rbd-palm-olein", cert: undefined },
+      { label: "Soybean Oil", href: "/products/soybean-oil", cert: undefined },
+      { label: "Sunflower Oil", href: "/products/sunflower-oil", cert: undefined },
+    ]
+  },
+  {
+    title: "Proteins & Meat",
+    items: [
+      { label: "Beef USDA — Kosher", href: "/products/beef-usda-kosher", cert: "Kosher" },
+      { label: "Beef USDA — Halal", href: "/products/beef-usda-halal", cert: "Halal" },
+    ]
+  }
 ];
 
 export default function TopNav() {
@@ -39,19 +77,59 @@ export default function TopNav() {
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => {
               const active = pathname === link.href || pathname.startsWith(link.href + "/");
+
+              if (link.hasMegaMenu) {
+                return (
+                  <div key={link.href} className="xrt-nav-menu-container xrt-nav-item-products h-14 sm:h-16 flex items-center">
+                    <Link
+                      href={link.href}
+                      className="label-caps transition-colors duration-150"
+                      style={{
+                        color: active ? "#c8111f" : "#1c1b1b",
+                        borderBottom: active ? "2px solid #c8111f" : "2px solid transparent",
+                        paddingBottom: "2px",
+                      }}
+                    >
+                      {link.label}
+                    </Link>
+                    <div className="xrt-mega-menu">
+                      {productCategories.map((cat, i) => (
+                        <div key={i}>
+                          <span className="mega-col-title">{cat.title}</span>
+                          <ul className="space-y-1">
+                            {cat.items.map((item, j) => (
+                              <li key={j}>
+                                <Link
+                                  href={item.href}
+                                  className="mega-item"
+                                  data-cert={item.cert}
+                                >
+                                  {item.label}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+
               return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="label-caps transition-colors duration-150"
-                  style={{
-                    color: active ? "#c8111f" : "#1c1b1b",
-                    borderBottom: active ? "2px solid #c8111f" : "2px solid transparent",
-                    paddingBottom: "2px",
-                  }}
-                >
-                  {link.label}
-                </Link>
+                <div key={link.href} className="h-14 sm:h-16 flex items-center">
+                  <Link
+                    href={link.href}
+                    className="label-caps transition-colors duration-150"
+                    style={{
+                      color: active ? "#c8111f" : "#1c1b1b",
+                      borderBottom: active ? "2px solid #c8111f" : "2px solid transparent",
+                      paddingBottom: "2px",
+                    }}
+                  >
+                    {link.label}
+                  </Link>
+                </div>
               );
             })}
           </div>

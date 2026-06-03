@@ -282,3 +282,176 @@
   animation: blink 1s step-end infinite;
   color: #c8111f;
 }
+
+/* =========================================
+   XRT PRODUCTS PAGE — READABILITY FIXES
+   ========================================= */
+
+/* Fix category label pills (ENE, AGR, OIL, LOG, PRT) */
+.label-caps-category {
+    font-family: var(--font-barlow), 'Barlow Condensed', sans-serif !important;
+    font-size: 10px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.2em !important;
+    text-transform: uppercase !important;
+    color: #C8973A !important;
+    opacity: 1 !important;
+    background: rgba(200,151,58,0.1) !important;
+    border: 1px solid rgba(200,151,58,0.3) !important;
+    padding: 3px 8px !important;
+    display: inline-block !important;
+}
+
+/* Disclaimer text under tables */
+.product-disclaimer {
+    font-family: var(--font-archivo), 'Archivo Narrow', sans-serif;
+    font-size: 11px;
+    color: rgba(232,229,224,0.55);
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+}
+
+/* INCOTERMS 2020 label */
+.incoterms-label {
+    font-family: var(--font-barlow), 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(247,245,242,0.3);
+    display: inline-block;
+    padding: 3px 8px;
+    border: 1px solid rgba(247,245,242,0.08);
+}
+
+/* =========================================
+   CERTIFICATION BADGES — Kosher & Halal
+   ========================================= */
+
+.cert-badge-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 6px 0 0px;
+}
+
+.cert-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px 4px 8px;
+    font-family: var(--font-barlow), 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+/* USDA badge — institutional blue-gray */
+.cert-badge.cert-usda {
+    background: rgba(232,229,224,0.06);
+    border: 1px solid rgba(232,229,224,0.2);
+    color: #E8E5E0;
+}
+
+/* Kosher badge — gold */
+.cert-badge.cert-kosher {
+    background: rgba(200,151,58,0.12);
+    border: 1px solid rgba(200,151,58,0.5);
+    color: #C8973A;
+}
+
+/* Halal badge — gold */
+.cert-badge.cert-halal {
+    background: rgba(200,151,58,0.12);
+    border: 1px solid rgba(200,151,58,0.5);
+    color: #C8973A;
+}
+
+.cert-badge::before {
+    content: '✦';
+    font-size: 8px;
+    opacity: 0.7;
+}
+
+/* Highlight Kosher/Halal rows */
+tr.row-kosher td,
+tr.row-halal td {
+    background: rgba(200,151,58,0.03) !important;
+}
+
+tr.row-kosher td:first-child,
+tr.row-halal td:first-child {
+    border-left: 2px solid rgba(200,151,58,0.4) !important;
+}
+
+/* Mega menu styles */
+.xrt-nav-menu-container {
+    position: relative;
+}
+
+.xrt-mega-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 680px;
+    background: #111111;
+    border: 1px solid rgba(247,245,242,0.08);
+    border-top: 2px solid #C8111F;
+    padding: 28px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    z-index: 9999;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.6);
+}
+
+.xrt-nav-item-products:hover .xrt-mega-menu {
+    display: grid;
+}
+
+.mega-col-title {
+    font-family: var(--font-barlow), 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #C8973A;
+    padding: 0 0 8px 0;
+    display: block;
+    pointer-events: none;
+    border-bottom: 1px solid rgba(247,245,242,0.06);
+    margin-bottom: 10px;
+}
+
+.mega-item {
+    font-family: var(--font-archivo), 'Archivo Narrow', sans-serif;
+    font-size: 12px;
+    color: rgba(247,245,242,0.55);
+    text-decoration: none;
+    padding: 4px 0;
+    display: block;
+    transition: color 0.15s, padding-left 0.15s;
+    letter-spacing: 0.02em;
+}
+
+.mega-item:hover {
+    color: #F7F5F2;
+    padding-left: 6px;
+}
+
+.mega-item[data-cert]::after {
+    content: attr(data-cert);
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 1px 5px;
+    margin-left: 6px;
+    vertical-align: middle;
+    background: rgba(200,151,58,0.15);
+    border: 1px solid rgba(200,151,58,0.4);
+    color: #C8973A;
+}
+

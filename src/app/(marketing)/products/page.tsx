@@ -10,6 +10,7 @@ const PILLAR_CATEGORY: Record<string, ProductCategory> = {
   AGR: "grains",
   OIL: "oils",
   LOG: "logistics",
+  PRT: "proteins",
 };
 
 export const metadata: Metadata = {
@@ -25,12 +26,12 @@ export default function ProductsPage() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
             <div className="lg:col-span-8">
-              <div className="label-caps text-xrt-crimson mb-4">PRODUCT CATALOG — 4 CORE PILLARS</div>
+              <div className="label-caps text-xrt-crimson mb-4">PRODUCT CATALOG — 5 CORE PILLARS</div>
               <h1 className="text-[clamp(2.5rem,6vw,6rem)] text-white mb-6">
-                Commodity<br />Trading Matrix
+                Products<br />Matrix
               </h1>
               <p className="text-base sm:text-lg text-xrt-steel/60 max-w-2xl leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
-                Direct-origin commodity procurement across four strategic pillars. All grades negotiated against Platts, Argus, and CBOT benchmarks. Full inspection and certification traceability on every lot.
+                Strategic origination across five physical market pillars. All grades negotiated against prevailing benchmarks. Full inspection and certification traceability on every lot.
               </p>
             </div>
             <div className="lg:col-span-4 border-t border-xrt-steel/20 pt-8 lg:border-t-0 lg:pt-0 lg:border-l lg:pl-8">
@@ -57,9 +58,9 @@ export default function ProductsPage() {
       {/* ── PILLAR TABS OVERVIEW ─────────────────────────────────── */}
       <section className="bg-xrt-off-white border-b border-xrt-steel">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
-          <div className="grid grid-cols-2 sm:grid-cols-4 border-x border-xrt-steel">
+          <div className="grid grid-cols-2 sm:grid-cols-5 border-x border-xrt-steel">
             {products.map((p, i) => (
-              <a
+              <Link
                 key={p.code}
                 href={`#${p.code.toLowerCase()}`}
                 className={`block px-4 sm:px-6 py-4 sm:py-5 border-b-4 text-center border-b border-xrt-steel ${i < 3 ? "border-r border-xrt-steel" : ""} hover:bg-xrt-surface transition-colors`}
@@ -69,7 +70,7 @@ export default function ProductsPage() {
                 <div className="font-black text-sm sm:text-lg text-xrt-black" style={{ fontFamily: "var(--font-barlow)" }}>
                   {p.pillar}
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -93,9 +94,9 @@ export default function ProductsPage() {
                     const Icon = PRODUCT_ICONS[pillar.code as keyof typeof PRODUCT_ICONS];
                     const accentColor =
                       pillar.color === "crimson" ? "#c8111f"
-                      : pillar.color === "gold"   ? "#c8973a"
-                      : pillar.color === "black"  ? "#111111"
-                      : "#916f6c";
+                        : pillar.color === "gold" ? "#c8973a"
+                          : pillar.color === "black" ? "#111111"
+                            : "#916f6c";
                     return Icon ? (
                       <Icon
                         size={52}
@@ -111,12 +112,12 @@ export default function ProductsPage() {
                         style={{
                           background:
                             pillar.color === "crimson" ? "#c8111f"
-                            : pillar.color === "gold" ? "#c8973a"
-                            : pillar.color === "black" ? "#111111"
-                            : "#916f6c",
+                              : pillar.color === "gold" ? "#c8973a"
+                                : pillar.color === "black" ? "#111111"
+                                  : "#916f6c",
                         }}
                       />
-                      <span className="label-caps text-xrt-steel/60">{pillar.code}</span>
+                      <span className="label-caps-category">{pillar.code}</span>
                     </div>
                   </div>
                 </div>
@@ -151,48 +152,60 @@ export default function ProductsPage() {
                   {pillar.items.map((item, ii) => {
                     const slug = getProductsByCategory(PILLAR_CATEGORY[pillar.code])[ii]?.slug;
                     return (
-                    <tr key={item.product}>
-                      <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>
-                        {slug ? (
-                          <Link href={`/products/${slug}`} className="font-medium text-xrt-black hover:text-xrt-crimson transition-colors" style={{ borderBottom: "1px solid #dcd9d9" }}>
-                            {item.product}
-                          </Link>
-                        ) : (
-                          <div className="font-medium text-xrt-black">{item.product}</div>
-                        )}
-                        <div className="label-caps text-xrt-muted mt-0.5">{item.grade}</div>
-                      </td>
-                      <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>{item.origin}</td>
-                      <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>
-                        <span className="label-caps border border-xrt-steel px-2 py-1 text-xrt-black">
-                          {item.incoterms}
-                        </span>
-                      </td>
-                      <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>{item.minVolume}</td>
-                      <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>{item.benchmark}</td>
-                      <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>
-                        <span
-                          className="label-caps"
-                          style={{
-                            color: item.premium.startsWith("+") || item.premium === "Negotiated"
-                              ? "#1c1b1b"
-                              : "#c8111f",
-                          }}
-                        >
-                          {item.premium}
-                        </span>
-                      </td>
-                      <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>
-                        <span className="label-caps text-xrt-muted">{item.inspection}</span>
-                      </td>
-                      <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>
-                        {slug && (
-                          <Link href={`/products/${slug}`} className="label-caps text-xrt-crimson whitespace-nowrap hover:text-xrt-crimson-dark transition-colors">
-                            View Spec →
-                          </Link>
-                        )}
-                      </td>
-                    </tr>
+                      <tr key={item.product} className={slug === 'beef-usda-kosher' ? 'row-kosher' : slug === 'beef-usda-halal' ? 'row-halal' : ''}>
+                        <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>
+                          {slug ? (
+                            <Link href={`/products/${slug}`} className="font-medium text-xrt-black hover:text-xrt-crimson transition-colors" style={{ borderBottom: "1px solid #dcd9d9" }}>
+                              {item.product}
+                            </Link>
+                          ) : (
+                            <div className="font-medium text-xrt-black">{item.product}</div>
+                          )}
+                          <div className="label-caps text-xrt-muted mt-0.5">{item.grade}</div>
+                          {slug === 'beef-usda-kosher' && (
+                            <div className="cert-badge-wrap">
+                              <span className="cert-badge cert-usda">USDA</span>
+                              <span className="cert-badge cert-kosher">Kosher</span>
+                            </div>
+                          )}
+                          {slug === 'beef-usda-halal' && (
+                            <div className="cert-badge-wrap">
+                              <span className="cert-badge cert-usda">USDA</span>
+                              <span className="cert-badge cert-halal">Halal</span>
+                            </div>
+                          )}
+                        </td>
+                        <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>{item.origin}</td>
+                        <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>
+                          <span className="label-caps border border-xrt-steel px-2 py-1 text-xrt-black">
+                            {item.incoterms}
+                          </span>
+                        </td>
+                        <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>{item.minVolume}</td>
+                        <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>{item.benchmark}</td>
+                        <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>
+                          <span
+                            className="label-caps"
+                            style={{
+                              color: item.premium.startsWith("+") || item.premium === "Negotiated"
+                                ? "#1c1b1b"
+                                : "#c8111f",
+                            }}
+                          >
+                            {item.premium}
+                          </span>
+                        </td>
+                        <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>
+                          <span className="label-caps text-xrt-muted">{item.inspection}</span>
+                        </td>
+                        <td className={ii % 2 === 0 ? "bg-xrt-white" : "bg-xrt-surface-low"}>
+                          {slug && (
+                            <Link href={`/products/${slug}`} className="label-caps text-xrt-crimson whitespace-nowrap hover:text-xrt-crimson-dark transition-colors">
+                              View Spec →
+                            </Link>
+                          )}
+                        </td>
+                      </tr>
                     );
                   })}
                 </tbody>
@@ -200,12 +213,14 @@ export default function ProductsPage() {
             </div>
 
             {/* Footnote */}
-            <div className="mt-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
-              <span className="label-caps text-xrt-steel/50">
-                * Prices negotiated against prevailing benchmark. Contact XRT desk for spot and forward quotations.
-              </span>
-              <div className="hidden sm:block flex-1 h-px bg-xrt-steel" />
-              <span className="label-caps text-xrt-steel/50">INCOTERMS 2020</span>
+            <div className="section-actions flex flex-col sm:flex-row justify-between items-start sm:items-center mt-4 pt-4 border-t border-xrt-steel/20 gap-4">
+              <div>
+                <p className="product-disclaimer">* Prices negotiated against prevailing benchmark. Contact XRT desk for spot and forward quotations.</p>
+                <span className="incoterms-label">INCOTERMS 2020</span>
+              </div>
+              <Link href={`/products#${pillar.code.toLowerCase()}`} className="label-caps border border-xrt-steel text-xrt-black px-6 py-3 hover:border-xrt-crimson hover:text-xrt-crimson transition-colors text-center whitespace-nowrap">
+                View All {pillar.pillar} Products →
+              </Link>
             </div>
           </div>
         </section>

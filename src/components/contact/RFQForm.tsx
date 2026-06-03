@@ -53,9 +53,33 @@ export default function RFQForm() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setSubmitted(true);
+    setSending(true);
+    setError("");
+    try {
+      const res = await fetch("/api/rfq", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          source: "RFQ Form (Contact Page)",
+          inspectionRequired: form.inspectionRequired,
+          financeRequired: form.financeRequired,
+        }),
+      });
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error || "Submission failed");
+      setSubmitted(true);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Network error — please try again or email your RFQ directly.";
+      setError(message);
+    } finally {
+      setSending(false);
+    }
   }
 
   if (submitted) {
@@ -256,13 +280,24 @@ export default function RFQForm() {
               </div>
 
               {/* Submit bar */}
-              <div className="border border-xrt-steel border-t-0 bg-xrt-surface p-6 flex items-center justify-between">
-                <p className="text-xs text-xrt-muted leading-relaxed max-w-sm" style={{ fontFamily: "var(--font-archivo)" }}>
-                  By submitting you consent to AML/KYC pre-screening per FATF guidelines and XRT's Privacy Policy. All data is transmitted over TLS 1.3.
-                </p>
-                <button type="submit" className="label-caps bg-xrt-crimson text-white px-10 py-4 hover:bg-xrt-crimson-dark transition-colors flex-shrink-0 ml-6">
-                  Submit RFQ →
-                </button>
+              <div className="border border-xrt-steel border-t-0 bg-xrt-surface p-6 flex flex-col gap-4">
+                {error && (
+                  <div className="bg-xrt-crimson/10 border border-xrt-crimson/30 p-4" role="alert">
+                    <p className="label-caps text-xrt-crimson">{error}</p>
+                  </div>
+                )}
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-xrt-muted leading-relaxed max-w-sm" style={{ fontFamily: "var(--font-archivo)" }}>
+                    By submitting you consent to AML/KYC pre-screening per FATF guidelines and XRT's Privacy Policy. All data is transmitted over TLS 1.3.
+                  </p>
+                  <button
+                    type="submit"
+                    disabled={sending}
+                    className="label-caps bg-xrt-crimson text-white px-10 py-4 hover:bg-xrt-crimson-dark transition-colors flex-shrink-0 ml-6 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {sending ? "Sending..." : "Submit RFQ →"}
+                  </button>
+                </div>
               </div>
             </div>
 

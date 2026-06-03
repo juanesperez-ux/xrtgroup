@@ -3,7 +3,7 @@ import XRTLogo from "@/components/ui/XRTLogo";
 
 const hubs = [
   { code: "HOU", city: "Houston", country: "USA", tz: "UTC-6" },
-  { code: "RTM", city: "Rotterdam", country: "NL",  tz: "UTC+1" },
+  { code: "RTM", city: "Rotterdam", country: "NL", tz: "UTC+1" },
   { code: "SGP", city: "Singapore", country: "SGP", tz: "UTC+8" },
 ];
 
@@ -11,29 +11,29 @@ const footerLinks = [
   {
     group: "SERVICES",
     links: [
-      { label: "Automated Routing",  href: "/services#arp" },
-      { label: "Risk Mitigation",    href: "/services#rmm" },
-      { label: "Customs Pipeline",   href: "/services#ccp" },
-      { label: "Trade Finance",      href: "/services#stf" },
-      { label: "QA & Inspection",    href: "/services#qai" },
+      { label: "Automated Routing", href: "/services#arp" },
+      { label: "Risk Mitigation", href: "/services#rmm" },
+      { label: "Customs Pipeline", href: "/services#ccp" },
+      { label: "Trade Finance", href: "/services#stf" },
+      { label: "QA & Inspection", href: "/services#qai" },
     ],
   },
   {
     group: "PRODUCTS",
     links: [
-      { label: "Energy",        href: "/products#energy" },
+      { label: "Energy", href: "/products#energy" },
       { label: "Grains & Agro", href: "/products#grains" },
-      { label: "Oils & Fats",   href: "/products#oils" },
-      { label: "Logistics",     href: "/products#logistics" },
+      { label: "Oils & Fats", href: "/products#oils" },
+      { label: "Logistics", href: "/products#logistics" },
     ],
   },
   {
     group: "COMPANY",
     links: [
-      { label: "About XRT",       href: "/about" },
-      { label: "Compliance",      href: "/about#compliance" },
-      { label: "Intelligence Hub",href: "/blog" },
-      { label: "Contact",         href: "/contact" },
+      { label: "About XRT", href: "/about" },
+      { label: "Compliance", href: "/about#compliance" },
+      { label: "Intelligence Hub", href: "/blog" },
+      { label: "Contact", href: "/contact" },
     ],
   },
 ];
@@ -70,7 +70,7 @@ export default function Footer() {
               <XRTLogo variant="footer" />
             </div>
             <p className="text-sm text-xrt-steel/60 leading-relaxed mb-8 max-w-sm"
-               style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}>
+              style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}>
               Next-generation Strategic Procurement & Commodity Trading infrastructure.
               Sourcing without secrets. Logistics without friction.
             </p>
@@ -112,7 +112,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {hubs.map((hub) => (
                 <li key={hub.code} className="text-sm text-xrt-steel/60"
-                    style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}>
+                  style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}>
                   <span className="label-caps text-xrt-steel/40 block mb-0.5">{hub.code}</span>
                   {hub.city}, {hub.country}
                 </li>
@@ -129,9 +129,14 @@ export default function Footer() {
             © {new Date().getFullYear()} XRT GROUP LLC. ALL RIGHTS RESERVED.
           </span>
           <div className="flex flex-wrap items-center gap-4 sm:gap-8">
-            {["Privacy Policy", "Terms of Trade", "AML Policy", "OFAC Disclosure"].map((item) => (
-              <Link key={item} href="#" className="label-caps text-xrt-steel/30 hover:text-xrt-steel/60 transition-colors">
-                {item}
+            {[
+              { label: "Privacy Policy", href: "/about#compliance" },
+              { label: "Terms of Trade", href: "/about#compliance" },
+              { label: "AML Policy", href: "/about#compliance" },
+              { label: "OFAC Disclosure", href: "/about#compliance" },
+            ].map((item) => (
+              <Link key={item.label} href={item.href} className="label-caps text-xrt-steel/30 hover:text-xrt-steel/60 transition-colors">
+                {item.label}
               </Link>
             ))}
           </div>

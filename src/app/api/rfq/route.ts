@@ -5,6 +5,22 @@ import { createClient } from "@/utils/supabase/server";
 
 const RECIPIENT = "matt.w@xrtgroup.com";
 
+function escapeHtml(text: string): string {
+  const amp = "&" + "amp;";
+  const lt = "&" + "lt;";
+  const gt = "&" + "gt;";
+  const quot = "&" + "quot;";
+  const apos = "&" + "#039;";
+  const map: Record<string, string> = {
+    "&": amp,
+    "<": lt,
+    ">": gt,
+    "\"": quot,
+    "'": apos,
+  };
+  return text.replace(/[&<>"']/g, (ch) => map[ch] || ch);
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -14,11 +30,11 @@ export async function POST(req: NextRequest) {
       commodity, volume, volumeUnit,
       origin, destination, deliveryStart, deliveryEnd,
       incoterms, hub, financeRequired, inspectionRequired, notes,
-      // Context from inline / drawer RFQ entry points
       source, commodityCode, services, deskEmail,
     } = body;
 
-    // Optional submission-context block (only rendered when present)
+    const e = (s: string | undefined | null) => escapeHtml(String(s ?? ""));
+
     const contextLines = [
       source && `  Submitted From:    ${source}`,
       commodityCode && `  Product Code:      ${commodityCode}`,
@@ -27,7 +43,6 @@ export async function POST(req: NextRequest) {
     ].filter(Boolean).join("\n");
     const contextBlock = contextLines ? `\nSUBMISSION CONTEXT\n${contextLines}\n` : "";
 
-    // Build a readable plain-text email
     const refId = `XRT-${Date.now().toString().slice(-6)}`;
     const textBody = `
 NEW REQUEST FOR QUOTATION
@@ -36,34 +51,36 @@ Submitted: ${new Date().toUTCString()}
 ─────────────────────────────────────────
 
 COUNTERPARTY IDENTIFICATION
-  Legal Entity:      ${entity}
-  Registration/VAT:  ${regNumber}
-  Contact Name:      ${contactName}
-  Business Email:    ${email}
-  Direct Phone:      ${phone}
+  Legal Entity:      ${entity ?? ""}
+  Registration/VAT:  ${regNumber ?? ""}
+  Contact Name:      ${contactName ?? ""}
+  Business Email:    ${email ?? ""}
+  Direct Phone:      ${phone ?? ""}
 
 COMMODITY SPECIFICATION
-  Commodity Type:    ${commodity}
-  Volume:            ${volume} ${volumeUnit}
+  Commodity Type:    ${commodity ?? ""}
+  Volume:            ${volume ?? ""} ${volumeUnit ?? ""}
 
 TRADE TERMS & LOGISTICS
-  Loading Port / Origin:   ${origin}
-  Discharge / Destination: ${destination}
-  Delivery Window:         ${deliveryStart} → ${deliveryEnd}
-  INCOTERMS:               ${incoterms}
+  Loading Port / Origin:   ${origin ?? ""}
+  Discharge / Destination: ${destination ?? ""}
+  Delivery Window:         ${deliveryStart ?? ""} → ${deliveryEnd ?? ""}
+  INCOTERMS:               ${incoterms ?? ""}
   Preferred Hub:           ${hub || "Not specified"}
 
 ADDITIONAL REQUIREMENTS
-  Trade Finance Required:  ${financeRequired?.toUpperCase()}
-  3rd-Party Inspection:    ${inspectionRequired?.toUpperCase()}
+  Trade Finance Required:  ${financeRequired?.toUpperCase() ?? ""}
+  3rd-Party Inspection:    ${inspectionRequired?.toUpperCase() ?? ""}
 ${contextBlock}
 TECHNICAL NOTES
 ${notes || "(none provided)"}
 
 ─────────────────────────────────────────
 This RFQ was submitted via the XRT Group website.
-Please respond to the sender at: ${email}
+Please respond to the sender at: ${email ?? ""}
 `.trim();
+
+    const noteHtml = notes ? e(notes).replace(/\n/g, "<br>") : "<em>None provided</em>";
 
     const htmlBody = `
 <!DOCTYPE html>
@@ -97,71 +114,71 @@ Please respond to the sender at: ${email}
 
     <div class="section-title">Counterparty Identification</div>
     <table>
-      <tr><td>Legal Entity</td><td>${entity}</td></tr>
-      <tr><td>Registration / VAT</td><td>${regNumber}</td></tr>
-      <tr><td>Contact Name</td><td>${contactName}</td></tr>
-      <tr><td>Business Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
-      <tr><td>Direct Phone</td><td>${phone}</td></tr>
+      <tr><td>Legal Entity</td><td>${e(entity)}</td></tr>
+      <tr><td>Registration / VAT</td><td>${e(regNumber)}</td></tr>
+      <tr><td>Contact Name</td><td>${e(contactName)}</td></tr>
+      <tr><td>Business Email</td><td><a href="mailto:${e(email)}">${e(email)}</a></td></tr>
+      <tr><td>Direct Phone</td><td>${e(phone)}</td></tr>
     </table>
 
     <div class="section-title">Commodity Specification</div>
     <table>
-      <tr><td>Commodity Type</td><td>${commodity}</td></tr>
-      <tr><td>Volume Required</td><td>${volume} ${volumeUnit}</td></tr>
+      <tr><td>Commodity Type</td><td>${e(commodity)}</td></tr>
+      <tr><td>Volume Required</td><td>${e(volume)} ${e(volumeUnit)}</td></tr>
     </table>
 
     <div class="section-title">Trade Terms & Logistics</div>
     <table>
-      <tr><td>Origin / Loading Port</td><td>${origin}</td></tr>
-      <tr><td>Destination / Discharge</td><td>${destination}</td></tr>
-      <tr><td>Delivery Window</td><td>${deliveryStart} → ${deliveryEnd}</td></tr>
-      <tr><td>INCOTERMS</td><td>${incoterms}</td></tr>
-      <tr><td>Preferred Hub</td><td>${hub || "Not specified"}</td></tr>
+      <tr><td>Origin / Loading Port</td><td>${e(origin)}</td></tr>
+      <tr><td>Destination / Discharge</td><td>${e(destination)}</td></tr>
+      <tr><td>Delivery Window</td><td>${e(deliveryStart)} → ${e(deliveryEnd)}</td></tr>
+      <tr><td>INCOTERMS</td><td>${e(incoterms)}</td></tr>
+      <tr><td>Preferred Hub</td><td>${hub ? e(hub) : "Not specified"}</td></tr>
     </table>
 
     <div class="section-title">Additional Requirements</div>
     <table>
-      <tr><td>Trade Finance</td><td>${financeRequired?.toUpperCase()}</td></tr>
-      <tr><td>3rd-Party Inspection</td><td>${inspectionRequired?.toUpperCase()}</td></tr>
+      <tr><td>Trade Finance</td><td>${e(financeRequired)}</td></tr>
+      <tr><td>3rd-Party Inspection</td><td>${e(inspectionRequired)}</td></tr>
     </table>
 
     <div class="section-title">Technical Notes</div>
-    <div class="notes">${notes ? notes.replace(/\n/g, "<br>") : "<em>None provided</em>"}</div>
+    <div class="notes">${noteHtml}</div>
 
   </div>
-  <div class="ftr">XRT Group — Authority in Commodity Procurement · xrtgroup.com · Reply directly to ${email}</div>
+  <div class="ftr">XRT Group — Authority in Commodity Procurement · xrtgroup.com · Reply directly to ${e(email)}</div>
 </div>
 </body>
 </html>
 `.trim();
 
-    // ── Persist to Supabase (best-effort — never blocks email delivery) ──────
+    // Persist to Supabase (best-effort)
     if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
       try {
         const supabase = createClient(await cookies());
         const { error: dbError } = await supabase.from("rfq_submissions").insert({
-          ref_id:             refId,
-          entity:             entity ?? null,
-          reg_number:         regNumber ?? null,
-          contact_name:       contactName ?? null,
-          email:              email ?? null,
-          phone:              phone ?? null,
-          commodity:          commodity ?? null,
-          commodity_code:     commodityCode ?? null,
-          volume:             volume ?? null,
-          volume_unit:        volumeUnit ?? null,
-          origin:             origin ?? null,
-          destination:        destination ?? null,
-          delivery_start:     deliveryStart ?? null,
-          delivery_end:       deliveryEnd ?? null,
-          incoterms:          incoterms ?? null,
-          hub:                hub ?? null,
-          finance_required:   financeRequired ?? null,
+          ref_id: refId,
+          entity: entity ?? null,
+          reg_number: regNumber ?? null,
+          contact_name: contactName ?? null,
+          email: email ?? null,
+          phone: phone ?? null,
+          commodity: commodity ?? null,
+          commodity_code: commodityCode ?? null,
+          volume: volume ?? null,
+          volume_unit: volumeUnit ?? null,
+          origin: origin ?? null,
+          destination: destination ?? null,
+          delivery_start: deliveryStart ?? null,
+          delivery_end: deliveryEnd ?? null,
+          incoterms: incoterms ?? null,
+          hub: hub ?? null,
+          finance_required: financeRequired ?? null,
           inspection_required: inspectionRequired ?? null,
-          services:           services ?? null,
-          source:             source ?? null,
-          desk_email:         deskEmail ?? null,
-          notes:              notes ?? null,
+          services: services ?? null,
+          source: source ?? null,
+          desk_email: deskEmail ?? null,
+          notes: notes ?? null,
         });
         if (dbError) console.error("RFQ Supabase insert error (non-blocking):", dbError.message);
       } catch (dbErr) {
@@ -169,15 +186,12 @@ Please respond to the sender at: ${email}
       }
     }
 
-    // ── Transport configuration ─────────────────────────────────────────────
-    // Set SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS in .env.local
-    // Falls back to Ethereal (test) SMTP when env vars are missing.
-    let transporter;
+    let transporter: nodemailer.Transporter;
 
     if (process.env.SMTP_HOST) {
       transporter = nodemailer.createTransport({
-        host:   process.env.SMTP_HOST,
-        port:   Number(process.env.SMTP_PORT) || 587,
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT) || 587,
         secure: process.env.SMTP_SECURE === "true",
         auth: {
           user: process.env.SMTP_USER,
@@ -185,11 +199,10 @@ Please respond to the sender at: ${email}
         },
       });
     } else {
-      // Dev/preview: use Ethereal (prints preview URL to console)
       const testAccount = await nodemailer.createTestAccount();
       transporter = nodemailer.createTransport({
-        host:   "smtp.ethereal.email",
-        port:   587,
+        host: "smtp.ethereal.email",
+        port: 587,
         secure: false,
         auth: {
           user: testAccount.user,
@@ -198,16 +211,17 @@ Please respond to the sender at: ${email}
       });
     }
 
+    const safeSubject = `[XRT RFQ] ${commodity ?? ""} \u2014 ${volume ?? ""} ${volumeUnit ?? ""} \u2014 ${entity ?? ""} | ${refId}`;
+
     const info = await transporter.sendMail({
-      from:    `"XRT Group RFQ" <noreply@xrtgroup.com>`,
-      to:      RECIPIENT,
+      from: "\"XRT Group RFQ\" <noreply@xrtgroup.com>",
+      to: RECIPIENT,
       replyTo: email,
-      subject: `[XRT RFQ] ${commodity} — ${volume} ${volumeUnit} — ${entity} | ${refId}`,
-      text:    textBody,
-      html:    htmlBody,
+      subject: safeSubject,
+      text: textBody,
+      html: htmlBody,
     });
 
-    // In dev mode, log the Ethereal preview URL
     if (!process.env.SMTP_HOST) {
       console.log("📧 RFQ email preview (Ethereal):", nodemailer.getTestMessageUrl(info));
     }

@@ -7,7 +7,7 @@
  *   Energy (5) · Grains (4) · Oils (4) · Logistics (4)
  */
 
-export type ProductCategory = "energy" | "grains" | "oils" | "logistics";
+export type ProductCategory = "energy" | "grains" | "oils" | "logistics" | "proteins";
 
 export interface ProductSpec {
   slug: string;
@@ -40,6 +40,7 @@ export const CATEGORY_META: Record<ProductCategory, { code: string; label: strin
   grains:    { code: "AGR", label: "Grains & Agricultural",    color: "#c8973a" },
   oils:      { code: "OIL", label: "Edible & Industrial Oils", color: "#c8973a" },
   logistics: { code: "LOG", label: "Logistics Infrastructure", color: "#916f6c" },
+  proteins:  { code: "PRT", label: "Proteins & Meat",          color: "#c8973a" },
 };
 
 const SLA = "<4 business hours";
@@ -957,6 +958,80 @@ Frozen and chilled foodstuffs, temperature-sensitive oils and fats, pharmaceutic
     seoDescription: "Arrange cold-chain reefer logistics (-18°C to +12°C), ATP certified, from Houston and Singapore. Baltic Reefer pricing +$400/unit. Min 2 FCL. Continuous monitoring. DAP/DDP. <4hr RFQ response.",
     searchKeywords: ["cold chain reefer logistics", "temperature controlled shipping", "reefer container freight", "ATP certified transport", "frozen food logistics", "perishable cargo shipping"],
   },
+
+  /* ─── PROTEINS & MEAT ────────────────────────────────────────── */
+  {
+    slug: "beef-usda-kosher",
+    category: "proteins",
+    code: "PRT-001",
+    name: "Beef USDA — Kosher",
+    grade: "USDA Choice / Prime",
+    origin: "USA (Midwest)",
+    incoterms: ["FOB", "CFR", "CIF"],
+    minVolume: "10,000",
+    minVolumeUnit: "KG",
+    benchmark: "USDA Wholesale Reports",
+    premiumDisc: "Negotiated",
+    inspection: ["USDA FSIS", "Kosher Agency"],
+    deskEmail: "proteins@xrtgroup.com",
+    hub: ["HOU", "RTM"],
+    description: "USDA-certified Kosher beef for international import and export. Choice / Prime grades from US Midwest. FOB / CFR / CIF. Kosher AMS-certified agency inspection. Negotiated pricing.",
+    longDescription: `XRT Group manages kosher protein procurement for institutional buyers across 6 continents. We source USDA-certified Kosher beef directly from Midwest processing facilities.\n\n**Quality & Certification**\n\nUSDA Choice / Prime grade, accompanied by full USDA FSIS health certificates and Kosher certification from recognized AMS-certified agencies.\n\n**Logistics & Delivery**\n\nAvailable as forequarter, hindquarter, or primal cuts. Packaging in vacuum-sealed cryovac. Transported chilled (0–4°C) with a 45-day shelf life, or frozen (-18°C) with an 18-month shelf life. Full traceability via USDA Tag ID and batch certificates.`,
+    specs: [
+      { label: "Grade",         value: "USDA Choice / Prime" },
+      { label: "Certification", value: "USDA / Kosher (AMS-certified)" },
+      { label: "Cut Types",     value: "Forequarter / Hindquarter / Primal" },
+      { label: "Packaging",     value: "Vacuum-sealed / Cryovac" },
+      { label: "Temperature",   value: "Chilled 0–4°C / Frozen -18°C" },
+      { label: "Shelf Life",    value: "Chilled: 45 days / Frozen: 18 months" },
+      { label: "Origin",        value: "USA (Midwest)" },
+      { label: "Min. Volume",   value: "10,000 KG / FCL" },
+      { label: "INCOTERMS",     value: "FOB / CFR / CIF" },
+      { label: "Inspection",    value: "USDA FSIS / Kosher certifier" },
+    ],
+    certifications: ["USDA FSIS", "Kosher Certified", "FATF AML", "Health Certified"],
+    relatedServices: ["qai", "ccp", "stf"],
+    relatedProducts: ["beef-usda-halal"],
+    seoTitle: "Kosher Beef USDA Procurement | Institutional Sourcing | XRT Group",
+    seoDescription: "Source USDA-certified Kosher beef for international import. Choice/Prime from US Midwest. Min 10,000 KG. Full chain-of-custody documentation.",
+    searchKeywords: ["kosher beef wholesale", "USDA kosher beef import", "kosher protein procurement", "institutional kosher meat supplier"],
+  },
+  {
+    slug: "beef-usda-halal",
+    category: "proteins",
+    code: "PRT-002",
+    name: "Beef USDA — Halal",
+    grade: "USDA Choice / Select",
+    origin: "USA (Midwest / South)",
+    incoterms: ["FOB", "CFR", "CIF"],
+    minVolume: "10,000",
+    minVolumeUnit: "KG",
+    benchmark: "USDA Wholesale Reports",
+    premiumDisc: "Negotiated",
+    inspection: ["USDA FSIS", "IFANCA / ISWA"],
+    deskEmail: "proteins@xrtgroup.com",
+    hub: ["HOU", "SGP"],
+    description: "USDA-certified Halal beef for international import and export. Choice / Select grades from US facilities. FOB / CFR / CIF. IFANCA / ISWA Halal certification. Negotiated pricing.",
+    longDescription: `XRT Group manages halal protein procurement for institutional buyers across 6 continents. We source USDA-certified Halal beef directly from Midwest and South US processing facilities.\n\n**Quality & Certification**\n\nUSDA Choice / Select grade, accompanied by full USDA FSIS health certificates and Halal certification from accredited bodies such as IFANCA or ISWA. Hand-slaughtered or machine-slaughtered (certified) options available.\n\n**Logistics & Delivery**\n\nAvailable as forequarter, hindquarter, or primal cuts. Packaging in vacuum-sealed cryovac. Transported chilled (0–4°C) with a 45-day shelf life, or frozen (-18°C) with an 18-month shelf life. Full documentation including Halal cert, Health cert, COO, and USDA stamp.`,
+    specs: [
+      { label: "Grade",         value: "USDA Choice / Select" },
+      { label: "Certification", value: "USDA / Halal (IFANCA/ISWA)" },
+      { label: "Slaughter",     value: "Hand / Machine (certified)" },
+      { label: "Cut Types",     value: "Forequarter / Hindquarter / Primal" },
+      { label: "Packaging",     value: "Vacuum-sealed / Cryovac" },
+      { label: "Temperature",   value: "Chilled 0–4°C / Frozen -18°C" },
+      { label: "Shelf Life",    value: "Chilled: 45 days / Frozen: 18 months" },
+      { label: "Origin",        value: "USA (Midwest / South)" },
+      { label: "Min. Volume",   value: "10,000 KG / FCL" },
+      { label: "Inspection",    value: "USDA FSIS / Accredited Halal body" },
+    ],
+    certifications: ["USDA FSIS", "Halal Certified", "FATF AML", "Health Certified"],
+    relatedServices: ["qai", "ccp", "stf"],
+    relatedProducts: ["beef-usda-kosher"],
+    seoTitle: "Halal Beef USDA Procurement | Institutional Sourcing | XRT Group",
+    seoDescription: "Source USDA-certified Halal beef for international import. Choice/Select from US Midwest/South. Min 10,000 KG. Full chain-of-custody documentation.",
+    searchKeywords: ["halal beef wholesale", "USDA halal beef import", "halal protein procurement", "institutional halal meat supplier"],
+  }
 ];
 
 export function getProductBySlug(slug: string): ProductSpec | undefined {

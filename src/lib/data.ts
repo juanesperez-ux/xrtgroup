@@ -350,6 +350,35 @@ export const products = [
       },
     ],
   },
+  {
+    pillar: "PROTEINS & MEAT",
+    code: "PRT",
+    color: "gold" as const,
+    summary:
+      "USDA-certified beef procurement for international import and export markets. Kosher and Halal certifications available with full chain-of-custody documentation. Volumes managed under GAFTA and FOSFA-equivalent protocols.",
+    items: [
+      {
+        product: "Beef USDA — Kosher",
+        grade: "Choice / Prime",
+        origin: "USA (Midwest)",
+        incoterms: "FOB / CFR / CIF",
+        minVolume: "10,000 KG",
+        benchmark: "USDA Wholesale Reports",
+        premium: "Negotiated",
+        inspection: "USDA FSIS",
+      },
+      {
+        product: "Beef USDA — Halal",
+        grade: "Choice / Select",
+        origin: "USA (Midwest / South)",
+        incoterms: "FOB / CFR / CIF",
+        minVolume: "10,000 KG",
+        benchmark: "USDA Wholesale Reports",
+        premium: "Negotiated",
+        inspection: "USDA / IFANCA",
+      },
+    ],
+  },
 ];
 
 export const timeline = [
