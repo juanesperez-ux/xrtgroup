@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import XRTLogo from "@/components/ui/XRTLogo";
 
 const navLinks = [
   { href: "/services", label: "Services" },
@@ -71,7 +70,13 @@ export default function TopNav() {
 
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
-            <XRTLogo variant="header" />
+            <img
+              src="/xrt-holdings-logo.svg"
+              alt="XRT Holdings"
+              width={200}
+              height={40}
+              className="h-8 sm:h-9 w-auto"
+            />
           </Link>
 
           {/* Desktop nav links — hidden below lg */}

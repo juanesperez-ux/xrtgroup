@@ -1,0 +1,18 @@
+{
+  "/(marketing)/about/page": "/about",
+  "/(marketing)/access/page": "/access",
+  "/(marketing)/blog/[slug]/page": "/blog/[slug]",
+  "/(marketing)/blog/page": "/blog",
+  "/(marketing)/contact/page": "/contact",
+  "/(marketing)/page": "/",
+  "/(marketing)/products/[slug]/page": "/products/[slug]",
+  "/(marketing)/products/page": "/products",
+  "/(marketing)/services/page": "/services",
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/rfq/route": "/api/rfq",
+  "/icon.svg/route": "/icon.svg",
+  "/page": "/",
+  "/robots.txt/route": "/robots.txt",
+  "/sitemap.xml/route": "/sitemap.xml"
+}

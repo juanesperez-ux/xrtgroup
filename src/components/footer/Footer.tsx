@@ -1,5 +1,4 @@
 import Link from "next/link";
-import XRTLogo from "@/components/ui/XRTLogo";
 
 const hubs = [
   { code: "HOU", city: "Houston", country: "USA", tz: "UTC-6" },
@@ -67,7 +66,13 @@ export default function Footer() {
           {/* Brand column */}
           <div className="sm:col-span-2 lg:col-span-4">
             <div className="mb-6">
-              <XRTLogo variant="footer" />
+              <img
+                src="/xrt-holdings-logo-white.svg"
+                alt="XRT Holdings"
+                width={200}
+                height={40}
+                className="h-8 w-auto"
+              />
             </div>
             <p className="text-sm text-xrt-steel/60 leading-relaxed mb-8 max-w-sm"
               style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}>

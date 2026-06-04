@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[97367,["/_next/static/chunks/0i0fb-y6n_j0j.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"ViewportBoundary"]
+3:I[97367,["/_next/static/chunks/0i0fb-y6n_j0j.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"MetadataBoundary"]
+4:"$Sreact.suspense"
+5:I[27201,["/_next/static/chunks/0i0fb-y6n_j0j.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"IconMark"]
+0:{"rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Access Portal | XRT Group"}],["$","meta","1",{"name":"description","content":"XRT Group — Authorized Personnel Only"}],["$","meta","2",{"name":"keywords","content":"commodity trading,procurement,supply chain,crude oil,agricultural commodities,logistics,freight"}],["$","link","3",{"rel":"icon","href":"/icon.svg?icon.0o.-81n5p8e5x.svg","sizes":"any","type":"image/svg+xml"}],["$","$L5","4",{}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"T_JxknyWJ5M4okho_qKZs"}

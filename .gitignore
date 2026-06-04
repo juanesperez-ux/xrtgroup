@@ -14,8 +14,9 @@
 /coverage
 
 # next.js
-/.next/
-**/.next/
+# NOTE: .next IS intentionally committed so Hostinger Passenger has the
+# pre-built CSS/JS bundles on deployment. Run `npm run build` locally
+# before committing to keep the build fresh.
 /out/
 
 # enforce single package manager (npm) — keep stale pnpm/yarn locks out
