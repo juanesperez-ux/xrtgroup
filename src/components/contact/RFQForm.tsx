@@ -124,11 +124,11 @@ export default function RFQForm() {
 
   return (
     <section className="bg-xrt-off-white">
-      <div className="max-w-[1440px] mx-auto px-12 py-16">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16">
         <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-12 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
             {/* Left: Form sections */}
-            <div className="col-span-8 space-y-0">
+            <div className="lg:col-span-8 space-y-0">
 
               {/* 01 Counterparty */}
               <div className="border border-xrt-steel bg-xrt-white">
@@ -302,7 +302,7 @@ export default function RFQForm() {
             </div>
 
             {/* Right: Info sidebar */}
-            <div className="col-span-4 space-y-6">
+            <div className="lg:col-span-4 space-y-6">
               <div className="border border-xrt-steel bg-xrt-white">
                 <div className="bg-xrt-black px-6 py-4">
                   <span className="label-caps text-white">DESK CONTACTS</span>

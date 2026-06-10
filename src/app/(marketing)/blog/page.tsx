@@ -45,7 +45,7 @@ export default function BlogPage() {
       </section>
 
       {/* ── CATEGORY FILTER ─────────────────────────────────────── */}
-      <section className="bg-xrt-off-white border-b border-xrt-steel sticky top-[4rem] z-40 backdrop-blur-sm">
+      <section className="bg-xrt-off-white border-b border-xrt-steel sticky top-14 sm:top-16 z-40 backdrop-blur-sm">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
           <div className="overflow-x-auto">
             <div className="flex items-center gap-0 border-x border-xrt-steel min-w-max">

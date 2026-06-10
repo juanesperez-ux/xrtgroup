@@ -63,7 +63,7 @@ export default function ProductsPage() {
               <Link
                 key={p.code}
                 href={`#${p.code.toLowerCase()}`}
-                className={`block px-4 sm:px-6 py-4 sm:py-5 border-b-4 text-center border-b border-xrt-steel ${i < 3 ? "border-r border-xrt-steel" : ""} hover:bg-xrt-surface transition-colors`}
+                className={`block px-4 sm:px-6 py-4 sm:py-5 border-b-4 text-center border-b border-xrt-steel border-r border-r-xrt-steel sm:last:border-r-0 hover:bg-xrt-surface transition-colors`}
                 style={{ borderBottomColor: p.color === "crimson" ? "#c8111f" : p.color === "gold" ? "#c8973a" : p.color === "black" ? "#111111" : "#916f6c" }}
               >
                 <div className="label-caps text-xrt-muted mb-1">{p.code}</div>
