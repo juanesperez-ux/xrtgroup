@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { services } from "@/lib/data";
 import { SERVICE_ICONS } from "@/components/icons/CommodityIcons";
-import ServiceMatcher from "@/components/services/ServiceMatcher";
-import ServiceQuoteCTA from "@/components/services/ServiceQuoteCTA";
+
+/* ── Lazy-load heavy interactive components (below the fold on most screens) ── */
+const ServiceMatcher = dynamic(() => import("@/components/services/ServiceMatcher"), {
+  ssr: true,
+});
+const ServiceQuoteCTA = dynamic(() => import("@/components/services/ServiceQuoteCTA"), {
+  ssr: true,
+});
 
 export const metadata: Metadata = {
   title: "Services",
@@ -51,7 +58,7 @@ export default function ServicesPage() {
       <ServiceMatcher />
 
       {/* ── SERVICE CARDS ───────────────────────────────────────── */}
-      <section className="bg-xrt-off-white">
+      <section className="bg-xrt-off-white content-below-fold">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16">
 
           {services.map((svc) => (
@@ -140,7 +147,7 @@ export default function ServicesPage() {
       </section>
 
       {/* ── PROCESS FLOW ────────────────────────────────────────── */}
-      <section className="bg-xrt-black text-white border-t border-xrt-steel/20">
+      <section className="bg-xrt-black text-white border-t border-xrt-steel/20 content-below-fold">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16">
           <div className="label-caps text-xrt-steel/40 mb-2">EXECUTION SEQUENCE</div>
           <h2 className="text-3xl sm:text-4xl text-white mb-8 sm:mb-10">Standard Procurement Flow</h2>
@@ -183,7 +190,7 @@ export default function ServicesPage() {
       </section>
 
       {/* ── CTA ─────────────────────────────────────────────────── */}
-      <section className="bg-xrt-surface border-t border-xrt-steel">
+      <section className="bg-xrt-surface border-t border-xrt-steel content-below-fold">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
           <div>
             <div className="label-caps text-xrt-muted mb-1">INITIATE PROCUREMENT</div>

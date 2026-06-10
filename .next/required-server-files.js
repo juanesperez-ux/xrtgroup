@@ -2,7 +2,6 @@ self.__SERVER_FILES_MANIFEST={
   "version": 1,
   "config": {
     "env": {},
-    "webpack": null,
     "typescript": {
       "ignoreBuildErrors": false
     },
@@ -20,20 +19,18 @@ self.__SERVER_FILES_MANIFEST={
       "jsx",
       "js"
     ],
-    "poweredByHeader": true,
+    "poweredByHeader": false,
     "compress": true,
     "images": {
       "deviceSizes": [
-        640,
-        750,
-        828,
-        1080,
-        1200,
-        1920,
-        2048,
-        3840
+        480,
+        768,
+        1024,
+        1440,
+        1920
       ],
       "imageSizes": [
+        16,
         32,
         48,
         64,
@@ -47,23 +44,30 @@ self.__SERVER_FILES_MANIFEST={
       "loaderFile": "",
       "domains": [],
       "disableStaticImages": false,
-      "minimumCacheTTL": 14400,
+      "minimumCacheTTL": 31536000,
       "formats": [
+        "image/avif",
         "image/webp"
       ],
       "maximumRedirects": 3,
       "maximumResponseBody": 50000000,
       "dangerouslyAllowLocalIP": false,
-      "dangerouslyAllowSVG": false,
+      "dangerouslyAllowSVG": true,
       "contentSecurityPolicy": "script-src 'none'; frame-src 'none'; sandbox;",
-      "contentDispositionType": "attachment",
+      "contentDispositionType": "inline",
       "localPatterns": [
         {
           "pathname": "**",
           "search": ""
         }
       ],
-      "remotePatterns": [],
+      "remotePatterns": [
+        {
+          "protocol": "http",
+          "hostname": "localhost",
+          "port": "3000"
+        }
+      ],
       "qualities": [
         75
       ],
@@ -74,11 +78,15 @@ self.__SERVER_FILES_MANIFEST={
       "position": "bottom-left"
     },
     "onDemandEntries": {
-      "maxInactiveAge": 60000,
-      "pagesBufferLength": 5
+      "maxInactiveAge": 25000,
+      "pagesBufferLength": 2
     },
     "basePath": "",
-    "sassOptions": {},
+    "sassOptions": {
+      "silenceDeprecations": [
+        "import"
+      ]
+    },
     "trailingSlash": false,
     "i18n": null,
     "productionBrowserSourceMaps": false,
@@ -96,6 +104,7 @@ self.__SERVER_FILES_MANIFEST={
     "compiler": {},
     "expireTime": 31536000,
     "staticPageGenerationTimeout": 60,
+    "output": "standalone",
     "modularizeImports": {
       "@mui/icons-material": {
         "transform": "@mui/icons-material/{{member}}"
@@ -104,7 +113,7 @@ self.__SERVER_FILES_MANIFEST={
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "C:\\Users\\andre\\OneDrive\\Desktop\\beleaf\\xrtgroup",
+    "outputFileTracingRoot": "/Users/juanesperez",
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -166,7 +175,7 @@ self.__SERVER_FILES_MANIFEST={
       "proxyPrefetch": "flexible",
       "optimisticClientCache": true,
       "manualClientBasePath": false,
-      "cpus": 15,
+      "cpus": 9,
       "memoryBasedWorkersCount": false,
       "imgOptConcurrency": null,
       "imgOptTimeoutInSeconds": 7,
@@ -175,7 +184,7 @@ self.__SERVER_FILES_MANIFEST={
       "imgOptSkipMetadata": null,
       "isrFlushToDisk": true,
       "workerThreads": false,
-      "optimizeCss": false,
+      "optimizeCss": true,
       "nextScriptWorkers": false,
       "scrollRestoration": false,
       "externalDir": false,
@@ -192,7 +201,7 @@ self.__SERVER_FILES_MANIFEST={
       "parallelServerBuildTraces": false,
       "ppr": false,
       "authInterrupts": false,
-      "webpackMemoryOptimizations": false,
+      "webpackMemoryOptimizations": true,
       "optimizeServerReact": true,
       "strictRouteTypes": false,
       "viewTransition": false,
@@ -221,6 +230,7 @@ self.__SERVER_FILES_MANIFEST={
       "turbopackInferModuleSideEffects": true,
       "turbopackPluginRuntimeStrategy": "childProcesses",
       "optimizePackageImports": [
+        "@payloadcms/richtext-lexical",
         "lucide-react",
         "date-fns",
         "lodash-es",
@@ -297,36 +307,61 @@ self.__SERVER_FILES_MANIFEST={
         "react-icons/vsc",
         "react-icons/wi"
       ],
+      "turbopackServerFastRefresh": false,
       "trustHostHeader": false,
       "isExperimentalCompile": false
     },
     "htmlLimitedBots": "[\\w-]+-Google|Google-[\\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight",
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.ts",
-    "turbopack": {
-      "root": "C:\\Users\\andre\\OneDrive\\Desktop\\beleaf\\xrtgroup"
+    "outputFileTracingExcludes": {
+      "**/*": [
+        "drizzle-kit",
+        "drizzle-kit/api"
+      ]
     },
+    "outputFileTracingIncludes": {
+      "**/*": [
+        "@libsql/client"
+      ]
+    },
+    "turbopack": {
+      "root": "/Users/juanesperez"
+    },
+    "serverExternalPackages": [
+      "graphql",
+      "drizzle-kit",
+      "drizzle-kit/api",
+      "sharp",
+      "libsql",
+      "require-in-the-middle",
+      "json-schema-to-typescript",
+      "pino"
+    ],
     "distDirRoot": ".next"
   },
-  "appDir": "C:\\Users\\andre\\OneDrive\\Desktop\\beleaf\\xrtgroup",
-  "relativeAppDir": "",
+  "appDir": "/Users/juanesperez/XRT Group - Website",
+  "relativeAppDir": "XRT Group - Website",
   "files": [
-    ".next\\routes-manifest.json",
-    ".next\\server\\pages-manifest.json",
-    ".next\\build-manifest.json",
-    ".next\\prerender-manifest.json",
-    ".next\\server\\functions-config-manifest.json",
-    ".next\\server\\middleware-manifest.json",
-    ".next\\server\\middleware-build-manifest.js",
-    ".next\\server\\app-paths-manifest.json",
-    ".next\\app-path-routes-manifest.json",
-    ".next\\server\\server-reference-manifest.js",
-    ".next\\server\\server-reference-manifest.json",
-    ".next\\server\\prefetch-hints.json",
-    ".next\\BUILD_ID",
-    ".next\\server\\next-font-manifest.js",
-    ".next\\server\\next-font-manifest.json",
-    ".next\\required-server-files.json"
+    ".next/routes-manifest.json",
+    ".next/server/pages-manifest.json",
+    ".next/build-manifest.json",
+    ".next/prerender-manifest.json",
+    ".next/server/functions-config-manifest.json",
+    ".next/server/middleware-manifest.json",
+    ".next/server/middleware-build-manifest.js",
+    ".next/server/app-paths-manifest.json",
+    ".next/app-path-routes-manifest.json",
+    ".next/server/server-reference-manifest.js",
+    ".next/server/server-reference-manifest.json",
+    ".next/server/prefetch-hints.json",
+    ".next/BUILD_ID",
+    ".next/server/next-font-manifest.js",
+    ".next/server/next-font-manifest.json",
+    ".next/required-server-files.json",
+    ".next/static/chunks/01hz80~prg5l~.css",
+    ".next/static/chunks/0i8enziga_2ya.css",
+    ".next/static/chunks/12.vw9dwbvind.css"
   ],
   "ignore": []
 }

@@ -1,28 +1,6 @@
 import Link from "next/link";
-import { homeStats } from "@/lib/data";
-
-/* ── Inline SVG icons (replace FontAwesome, no external kit needed) ── */
-const SvgArrowRight = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M5 12h14M12 5l7 7-7 7" />
-  </svg>
-);
-const SvgFileDoc = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-    <polyline points="14 2 14 8 20 8" />
-    <line x1="16" y1="13" x2="8" y2="13" />
-    <line x1="16" y1="17" x2="8" y2="17" />
-  </svg>
-);
-const SvgChecklist = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <rect x="3" y="5" width="6" height="6" rx="1" />
-    <line x1="12" y1="8" x2="20" y2="8" />
-    <rect x="3" y="14" width="6" height="6" rx="1" />
-    <line x1="12" y1="17" x2="20" y2="17" />
-  </svg>
-);
+import HomeHero from "@/components/home/HomeHero";
+import { Glyph } from "@/components/ui/Glyph";
 
 /* ── SEO TEXT LAYERS (not baked into images) ── */
 const seoTexts = {
@@ -32,93 +10,293 @@ const seoTexts = {
   seedOils: "Wholesale bulk seed oils, bottled cooking oil distribution, sunflower and canola oil supply",
 } as const;
 
+/* ── CORE SUPPLY PILLARS ── */
+const pillars = [
+  {
+    tag: "Refined Fuels",
+    icon: "delivery-truck",
+    image: "/images/photo-pump-jack-night.webp",
+    imageAlt: "Pump jack silhouette on an oil field at night",
+    title: "High-Volume Fuel Distribution",
+    items: [
+      {
+        name: "Automotive Diesel (ULSD)",
+        detail: "15-ppm ultra-low sulfur diesel for domestic bulk supply and global export.",
+      },
+      {
+        name: "Automotive Gasoline",
+        detail: "Regular, mid-grade, and premium blends engineered for gas station networks and bulk terminals.",
+      },
+      {
+        name: "Marine Gas Oil (MGO)",
+        detail: "High-grade distillates for commercial maritime bunkering and operations.",
+      },
+    ],
+    seo: seoTexts.fuels,
+    cta: "Request Terminal & Rack Pricing",
+  },
+  {
+    tag: "Proteins",
+    icon: "weight-scale",
+    image: "/images/pillar-proteins.svg",
+    imageAlt: "Premium beef and protein export",
+    title: "Premium Beef & Protein Export",
+    items: [
+      {
+        name: "Bulk Volume Supply",
+        detail: "International procurement channels handling high-volume commercial cut orders.",
+      },
+      {
+        name: "Custom Commercial Specs",
+        detail: "Fully traceable premium beef processing tailored to specific national trade guidelines.",
+      },
+    ],
+    seo: seoTexts.proteins,
+    cta: "Request Protein Catalog",
+  },
+  {
+    tag: "Olive Oils",
+    icon: "packaging",
+    image: "/images/pillar-olive-oils.svg",
+    imageAlt: "Wholesale olive oil production",
+    title: "Wholesale Olive Oil Production",
+    items: [
+      {
+        name: "Bulk Flexitank Shipments",
+        detail: "Industrial quantities for food manufacturers, packers, and processors.",
+      },
+      {
+        name: "Bottled Retail Packaging",
+        detail: "Premium extra virgin and refined private-label options ready for grocery and wholesale distributors.",
+      },
+    ],
+    seo: seoTexts.oliveOils,
+    cta: "Request Edible Oil Specs",
+  },
+  {
+    tag: "Seed Oils",
+    icon: "raw-materials",
+    image: "/images/photo-soybean-pods.webp",
+    imageAlt: "Soybean pods on the plantation at sunset",
+    title: "Bulk & Bottled Seed Oils",
+    items: [
+      {
+        name: "Industrial Seed Oils",
+        detail: "Wholesale volumes of high-performance cooking oils, including Sunflower, Corn, Soybean, and Canola.",
+      },
+      {
+        name: "Retail-Ready Formats",
+        detail: "Flexible bottling and private-label packaging options shipped globally from strategic logistics points.",
+      },
+    ],
+    seo: seoTexts.seedOils,
+    cta: "View Seed Oil Inventory",
+  },
+];
+
+/* ── PROCUREMENT PROCESS ── */
+const processSteps = [
+  {
+    icon: "procurement",
+    step: "01",
+    title: "Submit Your RFQ",
+    detail: "Tell us the product, specification, volume, destination, and Incoterms. Our desk responds with a structured offer.",
+  },
+  {
+    icon: "supplier",
+    step: "02",
+    title: "Direct-Origin Sourcing",
+    detail: "We match your requirement against pre-vetted producers and refiners — no brokers, no intermediaries.",
+  },
+  {
+    icon: "quality-control",
+    step: "03",
+    title: "Inspection & Compliance",
+    detail: "Third-party inspection (SGS, Bureau Veritas, Intertek) and full KYC/AML clearance before any cargo moves.",
+  },
+  {
+    icon: "container",
+    step: "04",
+    title: "Logistics & Delivery",
+    detail: "Vessel, tank, and container coordination through to discharge — with documentation handled end to end.",
+  },
+];
+
+/* ── SUPPLEMENTARY AGRICULTURE ── */
+const sidelines = [
+  {
+    image: "/images/photo-corn-field.webp",
+    alt: "Field of corn in the sun",
+    label: "Yellow Corn & Grains",
+  },
+  {
+    image: "/images/photo-wheat-field.webp",
+    alt: "Golden wheat field at evening",
+    label: "Wheat & Cereals",
+  },
+  {
+    image: "/images/photo-coffee-plantation.webp",
+    alt: "Coffee plantation in a misty forest",
+    label: "Soft Commodities",
+  },
+];
+
 export default function HomePage() {
   return (
-    <div>
+    <div className="xrt-modern">
       {/* ═══════════════════════════════════════════════════════════
-          SECTION A — HERO HEADER (Above the Fold)
+          SECTION A — HERO (video background, animated entrance)
           ═══════════════════════════════════════════════════════════ */}
-      <section className="relative bg-xrt-black text-white min-h-[calc(100vh-3.5rem-2.25rem)] sm:min-h-[calc(100vh-4rem-2.25rem)] flex flex-col overflow-hidden">
-        {/* Background image: global trade infrastructure — native <img> for SVGs avoids Next.js Image bitmap rasterization at viewport scale */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/images/hero-trade-infrastructure.svg"
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 w-full h-full object-cover opacity-40"
-            loading="eager"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-xrt-black/80 via-xrt-black/50 to-xrt-black" />
-        </div>
+      <HomeHero />
 
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-12 pt-16 sm:pt-20 pb-12 flex-1 flex flex-col justify-center relative z-10">
-          {/* ESTABLISHED label */}
-          <div className="flex items-center gap-6 mb-8 sm:mb-12">
-            <span className="label-caps text-xrt-steel/50 tracking-[0.25em]">
-              EST. 2018 &mdash; HOUSTON, TEXAS
-            </span>
-            <div className="flex-1 h-px bg-xrt-steel/15 hidden sm:block" />
-            <span className="label-caps text-xrt-crimson whitespace-nowrap hidden sm:inline">
-              DIRECT-ORIGIN · NO BROKERS
-            </span>
-          </div>
-
-          {/* Main headline + sub */}
-          <div className="max-w-4xl">
-            <h1
-              className="text-[clamp(2.5rem,6.5vw,5.5rem)] font-black uppercase text-white leading-[0.92] tracking-[-0.03em] mb-6"
-              style={{ fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif" }}
-            >
-              Houston's Strategic Source for
-              <br />
-              <span className="text-xrt-crimson">Fuels, Proteins, and Edible Oils</span>
-            </h1>
-
-            <p
-              className="text-lg sm:text-xl text-xrt-steel/70 max-w-2xl leading-relaxed mb-10"
-              style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}
-            >
-              XRT Group delivers reliable domestic and export supply lines directly to
-              gas station networks, commercial fleets, and food distributors worldwide.
+      {/* ═══════════════════════════════════════════════════════════
+          SECTION B — CORE SUPPLY PILLARS
+          ═══════════════════════════════════════════════════════════ */}
+      <section className="bg-xrt-off-white content-below-fold">
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-12 py-16 sm:py-24">
+          <div className="mb-12 sm:mb-16 max-w-3xl">
+            <div className="eyebrow text-xrt-crimson mb-3">Core Supply Pillars</div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-xrt-black mb-4">
+              Procurement built on direct-origin supply
+            </h2>
+            <p className="text-base sm:text-lg text-xrt-near-black/60 leading-relaxed">
+              Four dedicated supply verticals operating from Houston, Rotterdam, and
+              Singapore. Each pillar runs on pre-vetted direct-origin supplier
+              networks — no brokers, no intermediaries.
             </p>
-
-            {/* Primary CTAs */}
-            <div className="flex flex-wrap items-center gap-4">
-              <Link
-                href="/contact"
-                className="label-caps bg-xrt-crimson text-white px-8 py-4 hover:bg-xrt-crimson-dark transition-colors inline-flex items-center gap-2"
-              >
-                <SvgFileDoc />
-                Submit Sourcing RFQ
-              </Link>
-              <Link
-                href="/products"
-                className="label-caps text-xrt-steel/80 border border-xrt-steel/30 px-8 py-4 hover:border-xrt-steel/60 hover:text-white transition-colors inline-flex items-center gap-2"
-              >
-                <SvgChecklist />
-                View Product Specifications
-              </Link>
-            </div>
           </div>
 
-          {/* Bottom stats strip */}
-          <div className="mt-auto pt-10 sm:pt-16">
-            <div className="flex flex-wrap items-center gap-0 border-t border-xrt-steel/15 pt-6">
-              {homeStats.map((stat, i) => (
-                <div
-                  key={i}
-                  className={`flex items-center gap-3 px-4 sm:px-6 py-2 ${i > 0 ? "border-l border-xrt-steel/15" : ""}`}
-                >
-                  <span
-                    className="font-black text-2xl sm:text-3xl text-xrt-crimson"
-                    style={{ fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif", letterSpacing: "-0.02em" }}
-                  >
-                    {stat.value}
-                  </span>
-                  <span className="label-caps text-xrt-steel/40 max-w-[120px] leading-tight">
-                    {stat.label}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            {pillars.map((pillar) => (
+              <article
+                key={pillar.tag}
+                className="group bg-white rounded-2xl border border-xrt-steel overflow-hidden flex flex-col hover:shadow-[0_8px_30px_rgba(17,17,17,0.08)] transition-shadow duration-300"
+              >
+                <div className="relative h-52 overflow-hidden">
+                  <img
+                    src={pillar.image}
+                    alt={pillar.imageAlt}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-xrt-black/50 via-transparent to-transparent" />
+                  <span className="absolute bottom-4 left-4 eyebrow bg-white/90 text-xrt-black px-3 py-1.5 rounded-full">
+                    {pillar.tag}
                   </span>
                 </div>
+
+                <div className="p-6 flex flex-col flex-1">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="w-11 h-11 rounded-xl bg-xrt-surface flex items-center justify-center text-xrt-crimson">
+                      <Glyph name={pillar.icon} size={24} />
+                    </span>
+                    <h3 className="text-xl text-xrt-black leading-tight">{pillar.title}</h3>
+                  </div>
+
+                  <ul className="space-y-3 mb-6">
+                    {pillar.items.map((item) => (
+                      <li key={item.name}>
+                        <div className="text-sm font-medium text-xrt-black">{item.name}</div>
+                        <p className="text-sm text-xrt-near-black/55 leading-relaxed mt-0.5">
+                          {item.detail}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* SEO text layer (visible to search engines, subtle to users) */}
+                  <p className="text-[10px] text-xrt-steel/40 leading-relaxed mb-5" aria-hidden="true">
+                    {pillar.seo}
+                  </p>
+
+                  <Link
+                    href="/contact"
+                    className="mt-auto inline-flex items-center justify-center gap-2 text-sm font-medium bg-xrt-black text-white px-5 py-3 rounded-lg hover:bg-xrt-crimson transition-colors"
+                  >
+                    {pillar.cta}
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════
+          SECTION C — HOW PROCUREMENT WORKS
+          ═══════════════════════════════════════════════════════════ */}
+      <section className="bg-white border-y border-xrt-steel content-below-fold">
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-12 py-16 sm:py-24">
+          <div className="mb-12 max-w-3xl">
+            <div className="eyebrow text-xrt-crimson mb-3">How We Work</div>
+            <h2 className="text-3xl sm:text-4xl text-xrt-black mb-4">
+              From RFQ to discharge, one accountable desk
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {processSteps.map((step) => (
+              <div
+                key={step.step}
+                className="rounded-2xl border border-xrt-steel bg-xrt-off-white p-6 flex flex-col gap-4"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="w-12 h-12 rounded-xl bg-white border border-xrt-steel flex items-center justify-center text-xrt-black">
+                    <Glyph name={step.icon} size={26} />
+                  </span>
+                  <span className="eyebrow text-xrt-steel-mid">{step.step}</span>
+                </div>
+                <h3 className="text-lg text-xrt-black">{step.title}</h3>
+                <p className="text-sm text-xrt-near-black/55 leading-relaxed">{step.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════
+          SECTION D — SUPPLEMENTARY AGRICULTURE (Sidelines)
+          ═══════════════════════════════════════════════════════════ */}
+      <section className="bg-xrt-off-white content-below-fold">
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-12 py-16 sm:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div>
+              <div className="eyebrow text-xrt-crimson mb-3">Supplementary Agriculture</div>
+              <h2 className="text-3xl sm:text-4xl text-xrt-black mb-4">
+                Commodities support beyond the core
+              </h2>
+              <p className="text-base text-xrt-near-black/60 leading-relaxed">
+                To provide comprehensive coverage to our long-term institutional buyers,
+                XRT Group maintains secondary sourcing networks for high-demand
+                agricultural products. These sideline operations run parallel to our main
+                supply infrastructure, allowing us to manage bulk logistics for{" "}
+                <strong className="text-xrt-black font-medium">
+                  Sugar, Grains (Wheat, Yellow Corn), and broader soft commodities
+                </strong>{" "}
+                upon special client request.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
+              {sidelines.map((s, i) => (
+                <figure
+                  key={s.label}
+                  className={`relative rounded-2xl overflow-hidden h-48 sm:h-64 ${i === 1 ? "translate-y-4 sm:translate-y-6" : ""}`}
+                >
+                  <img
+                    src={s.image}
+                    alt={s.alt}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-xrt-black/60 via-transparent to-transparent" />
+                  <figcaption className="absolute bottom-3 left-3 right-3 text-white text-xs font-medium leading-snug">
+                    {s.label}
+                  </figcaption>
+                </figure>
               ))}
             </div>
           </div>
@@ -126,378 +304,12 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
-          SECTION B — 4 CORE BUSINESS GRID
-          ═══════════════════════════════════════════════════════════ */}
-      <section className="bg-xrt-off-white border-b border-xrt-steel content-below-fold">
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-12 py-16 sm:py-20">
-          <div className="mb-12 sm:mb-16">
-            <div className="label-caps text-xrt-crimson mb-3 tracking-[0.2em]">
-              Core Supply Pillars
-            </div>
-            <h2 className="text-3xl sm:text-4xl text-xrt-black mb-4">
-              Direct-Origin Procurement Infrastructure
-            </h2>
-            <p
-              className="text-base text-xrt-muted max-w-3xl leading-relaxed"
-              style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}
-            >
-              Four dedicated supply verticals operating from Houston, Rotterdam, and Singapore.
-              Each pillar runs on pre-vetted direct-origin supplier networks — no brokers, no intermediaries.
-            </p>
-          </div>
-
-          {/* 4-column grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-0 border border-xrt-steel">
-            {/* ── CARD 1: REFINED FUELS ─────────────────────────── */}
-            <div className="bg-xrt-white border-b xl:border-b-0 border-r-0 md:border-r xl:border-r border-xrt-steel group">
-              {/* Image — native <img> avoids Next.js Image optimization on SVGs */}
-              <div className="relative h-56 overflow-hidden">
-                <img
-                  src="/images/pillar-fuels.svg"
-                  alt=""
-                  aria-hidden="true"
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-xrt-black/30" />
-                <div className="absolute top-4 left-4">
-                  <span className="label-caps bg-xrt-crimson text-white px-3 py-1.5 tracking-[0.15em]">
-                    REFINED FUELS
-                  </span>
-                </div>
-              </div>
-
-              <div className="p-6 sm:p-8">
-                <h3
-                  className="text-2xl text-xrt-black mb-5"
-                  style={{ fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif" }}
-                >
-                  High-Volume Fuel Distribution
-                </h3>
-
-                <ul className="space-y-4 mb-6 border-b border-xrt-steel pb-6">
-                  <li className="flex items-start gap-3">
-                    <span className="text-xrt-crimson mt-1 text-sm">&#9679;</span>
-                    <div>
-                      <div
-                        className="text-sm font-bold text-xrt-black"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}
-                      >
-                        Automotive Diesel (ULSD)
-                      </div>
-                      <p className="text-xs text-xrt-muted/70 leading-relaxed mt-0.5"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}>
-                        15-ppm ultra-low sulfur diesel for domestic bulk supply and global export.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-xrt-crimson mt-1 text-sm">&#9679;</span>
-                    <div>
-                      <div
-                        className="text-sm font-bold text-xrt-black"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}
-                      >
-                        Automotive Gasoline
-                      </div>
-                      <p className="text-xs text-xrt-muted/70 leading-relaxed mt-0.5"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}>
-                        Regular, mid-grade, and premium blends engineered for gas station networks and bulk terminals.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-xrt-crimson mt-1 text-sm">&#9679;</span>
-                    <div>
-                      <div
-                        className="text-sm font-bold text-xrt-black"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}
-                      >
-                        Marine Gas Oil (MGO)
-                      </div>
-                      <p className="text-xs text-xrt-muted/70 leading-relaxed mt-0.5"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}>
-                        High-grade distillates for commercial maritime bunkering and operations.
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-
-                {/* SEO text layer (visible to search engines, subtle to users) */}
-                <p className="text-[10px] text-xrt-steel/20 leading-relaxed mb-5" aria-hidden="true">
-                  {seoTexts.fuels}
-                </p>
-
-                <Link
-                  href="/contact"
-                  className="label-caps bg-xrt-black text-white px-6 py-3 hover:bg-xrt-crimson transition-colors inline-flex items-center gap-2 w-full justify-center"
-                >
-                  Request Terminal & Rack Pricing
-                  <SvgArrowRight />
-                </Link>
-              </div>
-            </div>
-
-            {/* ── CARD 2: BEEF & PROTEINS ───────────────────────── */}
-            <div className="bg-xrt-white border-b xl:border-b-0 border-r-0 md:border-r-0 xl:border-r border-xrt-steel group">
-              <div className="relative h-56 overflow-hidden">
-                <img
-                  src="/images/pillar-proteins.svg"
-                  alt=""
-                  aria-hidden="true"
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-xrt-black/30" />
-                <div className="absolute top-4 left-4">
-                  <span className="label-caps bg-xrt-gold-dark text-white px-3 py-1.5 tracking-[0.15em]">
-                    PROTEINS
-                  </span>
-                </div>
-              </div>
-
-              <div className="p-6 sm:p-8">
-                <h3
-                  className="text-2xl text-xrt-black mb-5"
-                  style={{ fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif" }}
-                >
-                  Premium Beef & Protein Export
-                </h3>
-
-                <ul className="space-y-4 mb-6 border-b border-xrt-steel pb-6">
-                  <li className="flex items-start gap-3">
-                    <span className="text-xrt-gold-dark mt-1 text-sm">&#9679;</span>
-                    <div>
-                      <div
-                        className="text-sm font-bold text-xrt-black"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}
-                      >
-                        Bulk Volume Supply
-                      </div>
-                      <p className="text-xs text-xrt-muted/70 leading-relaxed mt-0.5"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}>
-                        International procurement channels handling high-volume commercial cut orders.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-xrt-gold-dark mt-1 text-sm">&#9679;</span>
-                    <div>
-                      <div
-                        className="text-sm font-bold text-xrt-black"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}
-                      >
-                        Custom Commercial Specs
-                      </div>
-                      <p className="text-xs text-xrt-muted/70 leading-relaxed mt-0.5"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}>
-                        Fully traceable premium beef processing tailored to specific national trade guidelines.
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-
-                <p className="text-[10px] text-xrt-steel/20 leading-relaxed mb-5" aria-hidden="true">
-                  {seoTexts.proteins}
-                </p>
-
-                <Link
-                  href="/contact"
-                  className="label-caps bg-xrt-black text-white px-6 py-3 hover:bg-xrt-crimson transition-colors inline-flex items-center gap-2 w-full justify-center"
-                >
-                  Request Protein Catalog
-                  <SvgArrowRight />
-                </Link>
-              </div>
-            </div>
-
-            {/* ── CARD 3: OLIVE OILS ────────────────────────────── */}
-            <div className="bg-xrt-white border-b md:border-b-0 border-r-0 md:border-r xl:border-r border-xrt-steel group">
-              <div className="relative h-56 overflow-hidden">
-                <img
-                  src="/images/pillar-olive-oils.svg"
-                  alt=""
-                  aria-hidden="true"
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-xrt-black/30" />
-                <div className="absolute top-4 left-4">
-                  <span className="label-caps bg-xrt-positive text-white px-3 py-1.5 tracking-[0.15em]">
-                    OLIVE OILS
-                  </span>
-                </div>
-              </div>
-
-              <div className="p-6 sm:p-8">
-                <h3
-                  className="text-2xl text-xrt-black mb-5"
-                  style={{ fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif" }}
-                >
-                  Wholesale Olive Oil Production
-                </h3>
-
-                <ul className="space-y-4 mb-6 border-b border-xrt-steel pb-6">
-                  <li className="flex items-start gap-3">
-                    <span className="text-xrt-positive mt-1 text-sm">&#9679;</span>
-                    <div>
-                      <div
-                        className="text-sm font-bold text-xrt-black"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}
-                      >
-                        Bulk Flexitank Shipments
-                      </div>
-                      <p className="text-xs text-xrt-muted/70 leading-relaxed mt-0.5"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}>
-                        Industrial quantities for food manufacturers, packers, and processors.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-xrt-positive mt-1 text-sm">&#9679;</span>
-                    <div>
-                      <div
-                        className="text-sm font-bold text-xrt-black"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}
-                      >
-                        Bottled Retail Packaging
-                      </div>
-                      <p className="text-xs text-xrt-muted/70 leading-relaxed mt-0.5"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}>
-                        Premium extra virgin and refined private-label options ready for grocery and wholesale distributors.
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-
-                <p className="text-[10px] text-xrt-steel/20 leading-relaxed mb-5" aria-hidden="true">
-                  {seoTexts.oliveOils}
-                </p>
-
-                <Link
-                  href="/contact"
-                  className="label-caps bg-xrt-black text-white px-6 py-3 hover:bg-xrt-crimson transition-colors inline-flex items-center gap-2 w-full justify-center"
-                >
-                  Request Edible Oil Specs
-                  <SvgArrowRight />
-                </Link>
-              </div>
-            </div>
-
-            {/* ── CARD 4: SEED OILS ──────────────────────────────── */}
-            <div className="bg-xrt-white group">
-              <div className="relative h-56 overflow-hidden">
-                <img
-                  src="/images/pillar-seed-oils.svg"
-                  alt=""
-                  aria-hidden="true"
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-xrt-black/30" />
-                <div className="absolute top-4 left-4">
-                  <span className="label-caps bg-xrt-gold-dark text-white px-3 py-1.5 tracking-[0.15em]">
-                    SEED OILS
-                  </span>
-                </div>
-              </div>
-
-              <div className="p-6 sm:p-8">
-                <h3
-                  className="text-2xl text-xrt-black mb-5"
-                  style={{ fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif" }}
-                >
-                  Bulk & Bottled Seed Oils
-                </h3>
-
-                <ul className="space-y-4 mb-6 border-b border-xrt-steel pb-6">
-                  <li className="flex items-start gap-3">
-                    <span className="text-xrt-gold-dark mt-1 text-sm">&#9679;</span>
-                    <div>
-                      <div
-                        className="text-sm font-bold text-xrt-black"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}
-                      >
-                        Industrial Seed Oils
-                      </div>
-                      <p className="text-xs text-xrt-muted/70 leading-relaxed mt-0.5"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}>
-                        Wholesale volumes of high-performance cooking oils, including Sunflower, Corn, Soybean, and Canola.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-xrt-gold-dark mt-1 text-sm">&#9679;</span>
-                    <div>
-                      <div
-                        className="text-sm font-bold text-xrt-black"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}
-                      >
-                        Retail-Ready Formats
-                      </div>
-                      <p className="text-xs text-xrt-muted/70 leading-relaxed mt-0.5"
-                        style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}>
-                        Flexible bottling and private-label packaging options shipped globally from strategic logistics points.
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-
-                <p className="text-[10px] text-xrt-steel/20 leading-relaxed mb-5" aria-hidden="true">
-                  {seoTexts.seedOils}
-                </p>
-
-                <Link
-                  href="/contact"
-                  className="label-caps bg-xrt-black text-white px-6 py-3 hover:bg-xrt-crimson transition-colors inline-flex items-center gap-2 w-full justify-center"
-                >
-                  View Seed Oil Inventory
-                  <SvgArrowRight />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════════
-          SECTION C — SUPPLEMENTARY AGRICULTURE (Sidelines)
-          Text-only, low contrast, above footer
-          ═══════════════════════════════════════════════════════════ */}
-      <section className="bg-xrt-surface content-below-fold">
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-12 py-12 sm:py-16">
-          <h3
-            className="text-xl text-xrt-black/50 mb-4"
-            style={{
-              fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif",
-              fontWeight: 900,
-              textTransform: "uppercase",
-              letterSpacing: "0.02em",
-            }}
-          >
-            Supplementary Agriculture & Commodities Support
-          </h3>
-
-          <p
-            className="text-sm text-xrt-muted/40 max-w-4xl leading-relaxed"
-            style={{ fontFamily: "var(--font-archivo), 'Archivo Narrow', sans-serif" }}
-          >
-            To provide comprehensive coverage to our long-term institutional buyers, XRT Group
-            maintains secondary sourcing networks for high-demand agricultural products. These
-            sideline operations run parallel to our main supply infrastructure, allowing us to
-            manage bulk logistics for <strong className="text-xrt-muted/50">Sugar, Grains
-            (Wheat, Yellow Corn), and broader soft commodities</strong> upon special client request.
-          </p>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════════
           CERTIFICATION STRIP
           ═══════════════════════════════════════════════════════════ */}
-      <section className="bg-xrt-black border-b border-xrt-steel/20">
+      <section className="bg-xrt-black">
         <div className="max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-12 py-6 flex flex-wrap items-center gap-6 sm:gap-8 justify-between">
-          <span className="label-caps text-xrt-steel/30 whitespace-nowrap">
-            GLOBAL COMPLIANCE FRAMEWORK
+          <span className="eyebrow text-white/40 whitespace-nowrap">
+            Global Compliance Framework
           </span>
           <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             {[
@@ -509,7 +321,7 @@ export default function HomePage() {
               "GAFTA Member",
               "FOSFA Member",
             ].map((cert) => (
-              <span key={cert} className="label-caps text-xrt-steel/30 whitespace-nowrap">
+              <span key={cert} className="eyebrow text-white/35 whitespace-nowrap">
                 {cert}
               </span>
             ))}
@@ -518,29 +330,34 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
-          CTA STRIP
+          CTA — partnership photo background
           ═══════════════════════════════════════════════════════════ */}
-      <section className="bg-xrt-crimson text-white content-below-fold">
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-12 py-12 sm:py-14 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <section className="relative text-white content-below-fold overflow-hidden">
+        <img
+          src="/images/photo-handshake-deal.webp"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-xrt-black/75" />
+        <div className="relative max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-12 py-16 sm:py-24 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
           <div>
-            <div className="label-caps text-white/60 mb-2">READY TO PROCURE</div>
-            <h2
-              className="text-3xl sm:text-4xl lg:text-5xl font-black text-white"
-              style={{ fontFamily: "var(--font-barlow), 'Barlow Condensed', sans-serif", letterSpacing: "-0.03em" }}
-            >
-              Submit a Sourcing Request
+            <div className="eyebrow text-white/60 mb-3">Ready to Procure</div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-white max-w-xl">
+              Submit a sourcing request and get a structured offer
             </h2>
           </div>
           <div className="flex flex-wrap items-center gap-4">
             <Link
               href="/contact"
-              className="label-caps bg-white text-xrt-crimson px-8 sm:px-10 py-4 hover:bg-xrt-off-white transition-colors"
+              className="bg-white text-black px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
             >
               Open RFQ Form
             </Link>
             <Link
               href="/about"
-              className="label-caps border border-white/40 text-white px-8 sm:px-10 py-4 hover:border-white transition-colors"
+              className="liquid-glass border border-white/20 text-white px-8 py-3 rounded-lg font-medium hover:bg-white hover:text-black transition-colors"
             >
               Learn About XRT
             </Link>

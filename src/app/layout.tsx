@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
-import { Barlow_Condensed, Archivo_Narrow } from "next/font/google";
+import { Barlow_Condensed, Archivo_Narrow, Inter } from "next/font/google";
+import dynamic from "next/dynamic";
 import TickerTape from "@/components/nav/TickerTape";
 import TopNav from "@/components/nav/TopNav";
-import Footer from "@/components/footer/Footer";
+import { SiteChrome } from "@/components/ui/SiteChrome";
 import "./globals.css";
+
+/* ── Lazy-load Footer (always below the fold, heavy with links/certs) ── */
+const Footer = dynamic(() => import("@/components/footer/Footer"), {
+  ssr: true,
+});
 
 const barlowCondensed = Barlow_Condensed({
   subsets: ["latin"],
@@ -20,21 +26,31 @@ const archivoNarrow = Archivo_Narrow({
   display: "swap",
 });
 
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: {
-    default: "XRT Group — Authority in Commodity Procurement",
+    default: "XRT Group — Houston's Strategic Source for Fuels, Proteins, and Edible Oils",
     template: "%s | XRT Group",
   },
   description:
-    "XRT Group is a next-generation Strategic Procurement & Commodity Trading platform. Sourcing without secrets. Logistics without friction.",
+    "XRT Group delivers reliable domestic and export supply lines directly to gas station networks, commercial fleets, and food distributors worldwide.",
   keywords: [
+    "Houston bulk automotive diesel supplier",
+    "wholesale gasoline distributor",
+    "ULSD export supply",
+    "bulk beef export supply",
+    "wholesale beef distribution",
+    "bulk extra virgin olive oil supplier",
+    "wholesale bulk seed oils",
     "commodity trading",
     "procurement",
     "supply chain",
-    "crude oil",
-    "agricultural commodities",
-    "logistics",
-    "freight",
   ],
 };
 
@@ -46,19 +62,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${barlowCondensed.variable} ${archivoNarrow.variable}`}
+      className={`${barlowCondensed.variable} ${archivoNarrow.variable} ${inter.variable}`}
     >
-      <head>
-        <script
-          src="https://kit.fontawesome.com/399e38bb6a.js"
-          crossOrigin="anonymous"
-        ></script>
-      </head>
       <body className="min-h-screen flex flex-col">
-        <TickerTape />
-        <TopNav />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <SiteChrome>
+          <TickerTape />
+          <TopNav />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </SiteChrome>
       </body>
     </html>
   );

@@ -15,9 +15,7 @@ export const tickerItems = [
 
 export const homeStats = [
   { value: "42+", label: "Countries of Operation" },
-  { value: "18M MT", label: "Annual Volume Managed" },
   { value: "99.4%", label: "On-Time Delivery Rate" },
-  { value: "$2.8B", label: "Sourcing Value (TTM)" },
 ];
 
 export const homeCommoditySnapshot = [
@@ -388,7 +386,7 @@ export const timeline = [
   { year: "2021", event: "Agricultural Desk Launch", detail: "Expanded into grain and oilseed procurement. GAFTA membership secured. USDA AMS certified agent status acquired." },
   { year: "2022", event: "Singapore Hub Operational", detail: "Asia-Pacific operations center activated in Singapore Free Trade Zone. Palm oil and vegetable oil trading desk launched." },
   { year: "2023", event: "ISO 9001:2015 Certified", detail: "Quality management system certified across all three operational hubs. SGS, Bureau Veritas, and Intertek integration finalized." },
-  { year: "2024", event: "Structured Finance Desk", detail: "Pre-export financing and LC structuring capabilities added. $2.8B in sourcing value managed in trailing twelve months." },
+  { year: "2024", event: "Structured Finance Desk", detail: "Pre-export financing and LC structuring capabilities added." },
   { year: "2025", event: "Platform Expansion", detail: "Proprietary Automated Routing Protocol (ARP) and Risk Mitigation Matrix (RMM) deployed. 643 verified suppliers in registry." },
 ];
 

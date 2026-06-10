@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import RFQForm from "@/components/contact/RFQForm";
+import dynamic from "next/dynamic";
+
+/* ── Lazy-load RFQForm (heavy client form, always below the fold) ── */
+const RFQForm = dynamic(() => import("@/components/contact/RFQForm"), {
+  ssr: true,
+});
 
 export const metadata: Metadata = {
   title: "Contact — Submit RFQ",

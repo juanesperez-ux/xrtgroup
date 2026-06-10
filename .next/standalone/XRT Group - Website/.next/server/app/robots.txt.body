@@ -1,0 +1,6 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+
+Host: https://xrtgroup.com
+Sitemap: https://xrtgroup.com/sitemap.xml
