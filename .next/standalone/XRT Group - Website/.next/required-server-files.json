@@ -184,7 +184,7 @@
       "imgOptSkipMetadata": null,
       "isrFlushToDisk": true,
       "workerThreads": false,
-      "optimizeCss": true,
+      "optimizeCss": false,
       "nextScriptWorkers": false,
       "scrollRestoration": false,
       "externalDir": false,
@@ -358,10 +358,7 @@
     ".next/BUILD_ID",
     ".next/server/next-font-manifest.js",
     ".next/server/next-font-manifest.json",
-    ".next/required-server-files.json",
-    ".next/static/chunks/01hz80~prg5l~.css",
-    ".next/static/chunks/0i8enziga_2ya.css",
-    ".next/static/chunks/12.vw9dwbvind.css"
+    ".next/required-server-files.json"
   ],
   "ignore": []
 }

@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/juanesperez/XRT%20Group%20-%20Website/src/app/%28marketing%29/layout.tsx"],"sourcesContent":["export default function MarketingLayout({ children }: { children: React.ReactNode }) {\n  return <>{children}</>;\n}\n"],"names":["MarketingLayout","children"],"mappings":";;;;;;AAAe,SAASA,gBAAgB,EAAEC,QAAQ,EAAiC;IACjF,qBAAO;kBAAGA;;AACZ"}}]
-}

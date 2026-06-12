@@ -115,12 +115,26 @@
   pointer-events: none;
 }
 
-/* Hero entrance animations respect reduced motion */
+/* ─── HERO ENTRANCE ─────────────────────────────────────────
+   Pure-CSS staggered entrance. Content is in the DOM at full
+   opacity for SSR/crawlers; the animation only plays the rise.
+   `both` fill-mode guarantees the final state is visible even
+   if the animation never starts. */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-rise {
+  opacity: 0;
+  animation: hero-rise 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .hero-anim [data-anim] {
-    transition: none !important;
-    opacity: 1 !important;
-    transform: none !important;
+  .hero-rise {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -519,24 +533,45 @@ tr.row-halal td:first-child {
 }
 
 .xrt-mega-menu {
-    display: none;
+    display: grid;
     position: absolute;
-    top: calc(100% + 12px);
+    /* Flush to the bottom of the nav item — no gap = no hover dead zone */
+    top: 100%;
     left: 50%;
-    transform: translateX(-50%);
-    width: 680px;
+    transform: translateX(-50%) translateY(-8px);
+    width: 640px;
+    max-width: calc(100vw - 2rem);
     background: #111111;
     border: 1px solid rgba(247,245,242,0.08);
     border-top: 2px solid #C8111F;
     padding: 28px;
     grid-template-columns: repeat(4, 1fr);
-    gap: 0;
+    gap: 0 24px;
     z-index: 9999;
     box-shadow: 0 24px 48px rgba(0,0,0,0.6);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
 }
 
-.xrt-nav-item-products:hover .xrt-mega-menu {
-    display: grid;
+.xrt-nav-item-products:hover .xrt-mega-menu,
+.xrt-nav-item-products:focus-within .xrt-mega-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .xrt-mega-menu {
+        transition: none;
+        transform: translateX(-50%);
+    }
+    .xrt-nav-item-products:hover .xrt-mega-menu,
+    .xrt-nav-item-products:focus-within .xrt-mega-menu {
+        transform: translateX(-50%);
+    }
 }
 
 .mega-col-title {

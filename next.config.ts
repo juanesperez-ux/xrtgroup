@@ -58,7 +58,6 @@ const nextConfig: NextConfig = {
 
   // ── Experimental Optimizations ──────────────────────────────
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ["@payloadcms/richtext-lexical"],
     optimizeServerReact: true,
     webpackMemoryOptimizations: true,

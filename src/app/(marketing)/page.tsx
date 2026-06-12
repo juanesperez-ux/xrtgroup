@@ -38,8 +38,8 @@ const pillars = [
   {
     tag: "Proteins",
     icon: "weight-scale",
-    image: "/images/pillar-proteins.svg",
-    imageAlt: "Premium beef and protein export",
+    image: "/images/photo-angus-cattle-pasture.webp",
+    imageAlt: "Black Angus cattle herd grazing in open pasture — premium beef and protein export supply",
     title: "Premium Beef & Protein Export",
     items: [
       {
@@ -57,8 +57,8 @@ const pillars = [
   {
     tag: "Olive Oils",
     icon: "packaging",
-    image: "/images/pillar-olive-oils.svg",
-    imageAlt: "Wholesale olive oil production",
+    image: "/images/photo-olive-oil-bottling-line.webp",
+    imageAlt: "Green glass bottles being filled on an automated olive oil bottling line — wholesale olive oil production",
     title: "Wholesale Olive Oil Production",
     items: [
       {

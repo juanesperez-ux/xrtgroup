@@ -1,71 +1,36 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 
-const CHAR_DELAY_MS = 30;
-const HEADING_START_MS = 200;
-const CHAR_TRANSITION_MS = 500;
+const WORD_STAGGER_MS = 55;
+const HEADLINE_TEXT = "Sourcing the essentials,\nfrom origin to delivery.";
 
-/* Fades children in after `delay` ms. */
-function FadeIn({
-  delay,
-  duration = 1000,
-  className = "",
-  children,
-}: {
-  delay: number;
-  duration?: number;
-  className?: string;
-  children: React.ReactNode;
-}) {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const t = setTimeout(() => setVisible(true), delay);
-    return () => clearTimeout(t);
-  }, [delay]);
-
-  return (
-    <div
-      data-anim
-      className={`transition-opacity ${visible ? "opacity-100" : "opacity-0"} ${className}`}
-      style={{ transitionDuration: `${duration}ms` }}
-    >
-      {children}
-    </div>
-  );
-}
-
-/* Splits text by \n into lines, animates each character in with a stagger. */
-function AnimatedHeading({ text, className }: { text: string; className?: string }) {
-  const [started, setStarted] = useState(false);
+/* Splits text on \n into lines and on spaces into words. Each word is an
+   inline-block so it never breaks mid-word, and animates in on a stagger.
+   Animations are pure CSS (no JS gate) so the copy is always present for
+   SSR/crawlers and settles visible even if hydration is slow. */
+function AnimatedHeadline({ text, className }: { text: string; className?: string }) {
   const lines = text.split("\n");
-
-  useEffect(() => {
-    const t = setTimeout(() => setStarted(true), HEADING_START_MS);
-    return () => clearTimeout(t);
-  }, []);
+  let wordIndex = 0;
 
   return (
     <h1 className={className} style={{ letterSpacing: "-0.04em" }}>
       {lines.map((line, lineIndex) => (
         <span key={lineIndex} className="block">
-          {line.split("").map((char, charIndex) => (
-            <span
-              key={charIndex}
-              data-anim
-              className="inline-block"
-              style={{
-                opacity: started ? 1 : 0,
-                transform: started ? "translateX(0)" : "translateX(-18px)",
-                transition: `opacity ${CHAR_TRANSITION_MS}ms ease, transform ${CHAR_TRANSITION_MS}ms ease`,
-                transitionDelay: `${lineIndex * line.length * CHAR_DELAY_MS + charIndex * CHAR_DELAY_MS}ms`,
-              }}
-            >
-              {char === " " ? " " : char}
-            </span>
-          ))}
+          {line.split(" ").map((word, i) => {
+            const delay = wordIndex++ * WORD_STAGGER_MS;
+            return (
+              <span
+                key={i}
+                className="hero-rise inline-block whitespace-pre"
+                style={{ animationDelay: `${delay}ms` }}
+              >
+                {word}
+                {i < line.split(" ").length - 1 ? " " : ""}
+              </span>
+            );
+          })}
         </span>
       ))}
     </h1>
@@ -82,8 +47,8 @@ export default function HomeHero() {
   }, []);
 
   return (
-    <section className="hero-anim relative bg-xrt-black text-white min-h-[calc(100vh-3.5rem-2.25rem)] sm:min-h-[calc(100vh-4rem-2.25rem)] flex flex-col overflow-hidden">
-      {/* Full-bleed background video — raw, no overlay */}
+    <section className="hero-anim relative bg-xrt-black text-white min-h-[calc(100svh-3.5rem-2.25rem)] sm:min-h-[calc(100svh-4rem-2.25rem)] flex flex-col overflow-hidden">
+      {/* Full-bleed background video */}
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover"
@@ -96,51 +61,57 @@ export default function HomeHero() {
         aria-hidden="true"
       />
 
+      {/* Legibility scrim — keeps copy readable over any video frame */}
+      <div className="absolute inset-0 bg-gradient-to-t from-xrt-black/85 via-xrt-black/40 to-xrt-black/30" />
+
       {/* Content pinned to the bottom of the viewport */}
       <div className="relative z-10 flex-1 flex flex-col justify-end px-6 md:px-12 lg:px-16 pb-12 lg:pb-16 pt-24">
         <div className="lg:grid lg:grid-cols-2 lg:items-end lg:gap-8">
           {/* Left — headline, sub, CTAs */}
-          <div>
-            <AnimatedHeading
-              text={"Sourcing the essentials,\nfrom origin to delivery."}
-              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal mb-4"
+          <div className="max-w-2xl">
+            <AnimatedHeadline
+              text={HEADLINE_TEXT}
+              className="text-[clamp(2rem,7vw,4.5rem)] font-normal leading-[1.04] mb-4 text-balance"
             />
 
-            <FadeIn delay={800}>
-              <p className="text-base md:text-lg text-gray-300 mb-5 max-w-xl">
-                XRT Group connects fuel networks, commercial fleets, and food
-                distributors with direct-origin supply lines — no brokers, no
-                intermediaries.
-              </p>
-            </FadeIn>
+            <p
+              className="hero-rise text-base md:text-lg text-gray-200 mb-6 max-w-xl"
+              style={{ animationDelay: "320ms" }}
+            >
+              XRT Group connects fuel networks, commercial fleets, and food
+              distributors with direct-origin supply lines — no brokers, no
+              intermediaries.
+            </p>
 
-            <FadeIn delay={1200}>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="/contact"
-                  className="bg-white text-black px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
-                >
-                  Submit an RFQ
-                </Link>
-                <Link
-                  href="/products"
-                  className="liquid-glass border border-white/20 text-white px-8 py-3 rounded-lg font-medium hover:bg-white hover:text-black transition-colors"
-                >
-                  Explore Products
-                </Link>
-              </div>
-            </FadeIn>
+            <div
+              className="hero-rise flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
+              style={{ animationDelay: "440ms" }}
+            >
+              <Link
+                href="/contact"
+                className="bg-white text-black text-center px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+              >
+                Submit an RFQ
+              </Link>
+              <Link
+                href="/products"
+                className="liquid-glass border border-white/20 text-white text-center px-8 py-3 rounded-lg font-medium hover:bg-white hover:text-black transition-colors"
+              >
+                Explore Products
+              </Link>
+            </div>
           </div>
 
           {/* Right — glass tag, bottom-aligned */}
-          <div className="flex items-end justify-start lg:justify-end mt-10 lg:mt-0">
-            <FadeIn delay={1400}>
-              <div className="liquid-glass border border-white/20 px-6 py-3 rounded-xl">
-                <span className="text-lg md:text-xl lg:text-2xl font-light">
-                  Fuels. Proteins. Edible Oils.
-                </span>
-              </div>
-            </FadeIn>
+          <div className="flex items-end justify-start lg:justify-end mt-8 lg:mt-0">
+            <div
+              className="hero-rise liquid-glass border border-white/20 px-6 py-3 rounded-xl"
+              style={{ animationDelay: "560ms" }}
+            >
+              <span className="text-lg md:text-xl lg:text-2xl font-light">
+                Fuels. Proteins. Edible Oils.
+              </span>
+            </div>
           </div>
         </div>
       </div>
