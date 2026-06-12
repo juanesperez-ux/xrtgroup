@@ -68,11 +68,11 @@ export default async function ProductPage({ params }: Props) {
         <div className="border-b border-xrt-steel/15">
           <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-4">
             <nav className="flex items-center gap-2 flex-wrap">
-              <Link href="/products" className="label-caps text-xrt-steel/40 hover:text-xrt-steel/70 transition-colors">Products</Link>
-              <span className="label-caps text-xrt-steel/20">→</span>
+              <Link href="/products" className="label-caps text-[#A8A5A0] hover:text-[#C4C1BE] transition-colors">Products</Link>
+              <span className="label-caps text-[#7C7975]">→</span>
               <span className="label-caps" style={{ color: cat.color }}>{cat.code}</span>
-              <span className="label-caps text-xrt-steel/20">→</span>
-              <span className="label-caps text-xrt-steel/70">{product.name}</span>
+              <span className="label-caps text-[#7C7975]">→</span>
+              <span className="label-caps text-[#C4C1BE]">{product.name}</span>
             </nav>
           </div>
         </div>
@@ -85,7 +85,7 @@ export default async function ProductPage({ params }: Props) {
             <div>
               <div className="flex flex-wrap items-center gap-3 mb-6">
                 <span className="label-caps px-3 py-1.5 border" style={{ color: cat.color, borderColor: cat.color }}>{product.code}</span>
-                <span className="label-caps text-xrt-steel/40">{cat.label}</span>
+                <span className="label-caps text-[#A8A5A0]">{cat.label}</span>
               </div>
 
               <h1
@@ -95,11 +95,11 @@ export default async function ProductPage({ params }: Props) {
                 {product.name}
               </h1>
 
-              <p className="text-base text-xrt-steel/50 mb-8" style={{ fontFamily: "var(--font-archivo)", letterSpacing: "0.04em" }}>
+              <p className="text-base text-[#A8A5A0] mb-8" style={{ fontFamily: "var(--font-archivo)", letterSpacing: "0.04em" }}>
                 {product.grade}
               </p>
 
-              <p className="text-base sm:text-lg text-xrt-steel/70 leading-relaxed mb-10 max-w-xl" style={{ fontFamily: "var(--font-archivo)" }}>
+              <p className="text-base sm:text-lg text-[#C4C1BE] leading-relaxed mb-10 max-w-xl" style={{ fontFamily: "var(--font-archivo)" }}>
                 {product.description}
               </p>
 
@@ -111,7 +111,7 @@ export default async function ProductPage({ params }: Props) {
                   { label: "Premium / Disc", value: product.premiumDisc },
                 ].map((s, i) => (
                   <div key={s.label} className={`py-5 sm:py-6 ${i < 2 ? "border-b sm:border-b-0 sm:border-r border-xrt-steel/15" : ""} sm:px-6 sm:first:pl-0`}>
-                    <div className="label-caps text-xrt-steel/40 mb-2">{s.label}</div>
+                    <div className="label-caps text-[#A8A5A0] mb-2">{s.label}</div>
                     <div className="text-2xl font-black text-white" style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.02em" }}>{s.value}</div>
                   </div>
                 ))}
@@ -140,7 +140,7 @@ export default async function ProductPage({ params }: Props) {
                   <tbody>
                     {product.specs.map((spec) => (
                       <tr key={spec.label} style={{ borderBottom: "1px solid rgba(229,226,225,0.1)" }}>
-                        <td className="label-caps text-xrt-steel/50 py-3.5 pr-4 align-top" style={{ width: "45%" }}>{spec.label}</td>
+                        <td className="label-caps text-[#A8A5A0] py-3.5 pr-4 align-top" style={{ width: "45%" }}>{spec.label}</td>
                         <td className="py-3.5 text-white" style={{ fontFamily: "var(--font-archivo)", fontSize: "15px", fontWeight: 600 }}>{spec.value}</td>
                       </tr>
                     ))}
@@ -155,15 +155,15 @@ export default async function ProductPage({ params }: Props) {
                 </h2>
                 <div className="flex flex-wrap gap-2 mb-10">
                   {product.certifications.map((c) => (
-                    <span key={c} className="label-caps text-xrt-steel/70 border border-xrt-steel/20 px-3 py-2">{c}</span>
+                    <span key={c} className="label-caps text-[#C4C1BE] border border-xrt-steel/20 px-3 py-2">{c}</span>
                   ))}
                 </div>
 
                 <div className="border border-xrt-steel/15 p-6 sm:p-7 bg-xrt-near-black/40">
                   <div className="label-caps text-xrt-crimson mb-3">Responsible Desk</div>
                   <div className="text-xl font-black text-white mb-1" style={{ fontFamily: "var(--font-barlow)" }}>{product.hub.join(" / ")} Hub</div>
-                  <a href={`mailto:${product.deskEmail}`} className="text-sm text-xrt-steel/60 hover:text-xrt-steel transition-colors" style={{ fontFamily: "var(--font-archivo)" }}>{product.deskEmail}</a>
-                  <div className="label-caps text-xrt-steel/30 mt-4">Response SLA: &lt;4 Business Hours</div>
+                  <a href={`mailto:${product.deskEmail}`} className="text-sm text-[#C4C1BE] hover:text-xrt-steel transition-colors" style={{ fontFamily: "var(--font-archivo)" }}>{product.deskEmail}</a>
+                  <div className="label-caps text-[#A8A5A0] mt-4">Response SLA: &lt;4 Business Hours</div>
                 </div>
               </div>
 
@@ -192,7 +192,7 @@ export default async function ProductPage({ params }: Props) {
                   >
                     <div className="label-caps text-xrt-crimson mb-2">{CATEGORY_META[rp.category].code}</div>
                     <div className="text-xl text-white leading-tight mb-2" style={{ fontFamily: "var(--font-barlow)", fontWeight: 900, textTransform: "uppercase" }}>{rp.name}</div>
-                    <div className="text-sm text-xrt-steel/40" style={{ fontFamily: "var(--font-archivo)" }}>{rp.grade}</div>
+                    <div className="text-sm text-[#A8A5A0]" style={{ fontFamily: "var(--font-archivo)" }}>{rp.grade}</div>
                   </Link>
                 ))}
               </div>

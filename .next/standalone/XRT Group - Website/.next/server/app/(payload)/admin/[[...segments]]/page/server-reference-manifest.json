@@ -1,6 +1,6 @@
 {
   "node": {
-    "6055b91b1763ebf64251f51803c35c1f3ce72fe3c5": {
+    "605794f5cc2cb62509658ef77a6f6a52b0112da57c": {
       "workers": {
         "app/(payload)/admin/[[...segments]]/page": {
           "moduleId": 515833,
