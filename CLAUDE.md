@@ -3,11 +3,14 @@
 ## Commands
 
 ```bash
-pnpm dev              # start dev server
-pnpm build            # production build
-pnpm run seed         # seed Payload CMS data
-pnpm run typecheck    # type checking (tsc --noEmit)
+npm run dev           # start dev server
+npm run build         # production build
+npm run seed          # seed Payload CMS data
+npm run typecheck     # type checking (tsc --noEmit)
 ```
+
+This repo enforces a single package manager (npm); `pnpm-lock.yaml`/`yarn.lock`
+are gitignored and `package-lock.json` is the tracked lockfile.
 
 ## Architecture
 

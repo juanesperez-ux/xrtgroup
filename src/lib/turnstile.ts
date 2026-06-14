@@ -11,16 +11,28 @@ export interface TurnstileResult {
 /**
  * Server-side verification of a Cloudflare Turnstile token.
  *
- * When TURNSTILE_SECRET_KEY is unset (local development), verification is
- * skipped so forms remain testable without Cloudflare credentials. In any
- * environment where the secret is configured, a missing or invalid token fails.
+ * When TURNSTILE_SECRET_KEY is unset outside production, verification is
+ * skipped so forms remain testable without Cloudflare credentials. In
+ * production a missing secret fails closed (misconfiguration, not a bypass).
+ * Whenever the secret is configured, a missing or invalid token fails.
  */
 export async function verifyTurnstile(
   token: string | undefined | null,
   ip?: string | null
 ): Promise<TurnstileResult> {
   const secret = process.env.TURNSTILE_SECRET_KEY;
-  if (!secret) return { success: true, skipped: true };
+  if (!secret) {
+    // Fail open only in non-production so local/dev forms stay testable.
+    // In production a missing secret is a misconfiguration, not a reason to
+    // wave every submission through — fail closed and make the cause loud.
+    if (process.env.NODE_ENV === "production") {
+      console.error(
+        "Turnstile verification failed closed: TURNSTILE_SECRET_KEY is not set in production."
+      );
+      return { success: false, skipped: false };
+    }
+    return { success: true, skipped: true };
+  }
   if (!token) return { success: false, skipped: false };
 
   try {
