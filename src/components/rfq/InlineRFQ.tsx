@@ -2,6 +2,7 @@
 
 import { useState, type CSSProperties, type ReactNode } from "react";
 import type { ProductSpec } from "@/lib/productsData";
+import Turnstile, { isTurnstileEnabled } from "@/components/ui/Turnstile";
 
 type Mode = "rfq" | "consult" | "submitted";
 
@@ -13,6 +14,7 @@ export default function InlineRFQ({ product }: { product: ProductSpec }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [refId, setRefId] = useState("");
+  const [token, setToken] = useState("");
 
   const [form, setForm] = useState({
     entity: "",
@@ -60,6 +62,7 @@ export default function InlineRFQ({ product }: { product: ProductSpec }) {
           commodityCode: product.code,
           source: `product-page:${product.slug}`,
           deskEmail: product.deskEmail,
+          turnstileToken: token,
         }),
       });
       const data = await res.json();
@@ -177,7 +180,9 @@ export default function InlineRFQ({ product }: { product: ProductSpec }) {
 
         {error && <div style={{ fontSize: "13px", color: "#e01525", fontFamily: ARCHIVO }}>{error}</div>}
 
-        <button onClick={handleSubmit} disabled={loading || !valid} style={{ ...primaryBtn, background: valid ? "#c8111f" : "#2a2a2a", color: valid ? "#f7f5f2" : "#555", cursor: valid ? "pointer" : "not-allowed" }}>
+        {isTurnstileEnabled && <Turnstile onVerify={setToken} onExpire={() => setToken("")} theme="dark" />}
+
+        <button onClick={handleSubmit} disabled={loading || !valid || (isTurnstileEnabled && !token)} style={{ ...primaryBtn, background: valid ? "#c8111f" : "#2a2a2a", color: valid ? "#f7f5f2" : "#555", cursor: valid ? "pointer" : "not-allowed" }}>
           {loading ? "Routing to desk..." : "Submit RFQ →"}
         </button>
 

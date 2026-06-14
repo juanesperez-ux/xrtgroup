@@ -12,7 +12,9 @@
   "/(payload)/api/[[...segments]]/route": "/api/[[...segments]]",
   "/_global-error/page": "/_global-error",
   "/_not-found/page": "/_not-found",
+  "/api/contact/route": "/api/contact",
   "/api/rfq/route": "/api/rfq",
+  "/api/schedule/route": "/api/schedule",
   "/icon.svg/route": "/icon.svg",
   "/robots.txt/route": "/robots.txt",
   "/sitemap.xml/route": "/sitemap.xml"

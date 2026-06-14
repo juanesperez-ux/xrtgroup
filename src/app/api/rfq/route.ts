@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import nodemailer from "nodemailer";
 import { createClient } from "@/utils/supabase/server";
+import { verifyTurnstile, getClientIp } from "@/lib/turnstile";
 
 const RECIPIENT = "matt.w@xrtgroup.com";
 
@@ -24,6 +25,14 @@ function escapeHtml(text: string): string {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+
+    const captcha = await verifyTurnstile(body.turnstileToken, getClientIp(req.headers));
+    if (!captcha.success) {
+      return NextResponse.json(
+        { ok: false, error: "Captcha verification failed. Please try again." },
+        { status: 403 }
+      );
+    }
 
     const {
       entity, regNumber, contactName, email, phone,

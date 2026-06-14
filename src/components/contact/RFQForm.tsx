@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Turnstile, { isTurnstileEnabled } from "@/components/ui/Turnstile";
 
 const commodityOptions = [
   "Crude Oil (WTI / Brent)",
@@ -55,6 +56,7 @@ export default function RFQForm() {
 
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
+  const [token, setToken] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -69,6 +71,7 @@ export default function RFQForm() {
           source: "RFQ Form (Contact Page)",
           inspectionRequired: form.inspectionRequired,
           financeRequired: form.financeRequired,
+          turnstileToken: token,
         }),
       });
       const data = await res.json();
@@ -286,13 +289,16 @@ export default function RFQForm() {
                     <p className="label-caps text-xrt-crimson">{error}</p>
                   </div>
                 )}
+                {isTurnstileEnabled && (
+                  <Turnstile onVerify={setToken} onExpire={() => setToken("")} theme="light" />
+                )}
                 <div className="flex items-center justify-between">
                   <p className="text-xs text-xrt-muted leading-relaxed max-w-sm" style={{ fontFamily: "var(--font-archivo)" }}>
                     By submitting you consent to AML/KYC pre-screening per FATF guidelines and XRT's Privacy Policy. All data is transmitted over TLS 1.3.
                   </p>
                   <button
                     type="submit"
-                    disabled={sending}
+                    disabled={sending || (isTurnstileEnabled && !token)}
                     className="label-caps bg-xrt-crimson text-white px-10 py-4 hover:bg-xrt-crimson-dark transition-colors flex-shrink-0 ml-6 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {sending ? "Sending..." : "Submit RFQ →"}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Turnstile, { isTurnstileEnabled } from "@/components/ui/Turnstile";
 
 const fieldClass =
   "w-full bg-xrt-off-white border border-xrt-steel px-4 py-3 text-sm text-xrt-black focus:outline-none focus:border-xrt-black transition-colors";
@@ -46,6 +47,7 @@ export default function SchedulePopup({ open, onClose }: SchedulePopupProps) {
   const [refId] = useState(() => Math.random().toString().slice(2, 8));
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
+  const [token, setToken] = useState("");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
 
   const [form, setForm] = useState({
@@ -62,6 +64,7 @@ export default function SchedulePopup({ open, onClose }: SchedulePopupProps) {
     if (open) {
       setSubmitted(false);
       setError("");
+      setToken("");
       setValidationErrors({});
       setForm({
         fullName: "",
@@ -126,7 +129,7 @@ export default function SchedulePopup({ open, onClose }: SchedulePopupProps) {
       const res = await fetch("/api/schedule", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, turnstileToken: token }),
       });
       const data = await res.json();
       if (!data.ok) throw new Error(data.error || "Submission failed");
@@ -346,6 +349,11 @@ export default function SchedulePopup({ open, onClose }: SchedulePopupProps) {
               </div>
             </div>
 
+            {/* Captcha */}
+            {isTurnstileEnabled && (
+              <Turnstile onVerify={setToken} onExpire={() => setToken("")} theme="light" />
+            )}
+
             {/* Error message */}
             {error && (
               <div className="bg-xrt-crimson/10 border border-xrt-crimson/30 p-4" role="alert">
@@ -364,7 +372,7 @@ export default function SchedulePopup({ open, onClose }: SchedulePopupProps) {
               </button>
               <button
                 type="submit"
-                disabled={sending}
+                disabled={sending || (isTurnstileEnabled && !token)}
                 className="label-caps bg-xrt-crimson text-white px-8 py-4 hover:bg-xrt-crimson-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {sending ? "Submitting..." : "Request Call →"}

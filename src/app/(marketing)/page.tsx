@@ -57,8 +57,8 @@ const pillars = [
   {
     tag: "Olive Oils",
     icon: "packaging",
-    image: "/images/photo-olive-oil-bottling-line.webp",
-    imageAlt: "Green glass bottles being filled on an automated olive oil bottling line — wholesale olive oil production",
+    image: "/images/photo-olive-oil-mill-pour.webp",
+    imageAlt: "Fresh extra virgin olive oil pouring from a stainless steel mill spout into a collection tank — wholesale olive oil production and distribution",
     title: "Wholesale Olive Oil Production",
     items: [
       {

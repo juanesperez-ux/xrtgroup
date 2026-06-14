@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+import ContactForm from "@/components/contact/ContactForm";
 
 /* ── Lazy-load RFQForm (heavy client form, always below the fold) ── */
 const RFQForm = dynamic(() => import("@/components/contact/RFQForm"), {
@@ -7,9 +8,9 @@ const RFQForm = dynamic(() => import("@/components/contact/RFQForm"), {
 });
 
 export const metadata: Metadata = {
-  title: "Contact — Submit RFQ",
+  title: "Contact — XRT Group",
   description:
-    "Submit a Request for Quotation to XRT Group. Terminal-style RFQ intake engine for commodity procurement across Energy, Grains, Oils, and Logistics.",
+    "Contact XRT Group's commodity desks. Send a message, schedule a consultation, or submit a formal Request for Quotation across Energy, Grains, Oils, Proteins, and Logistics.",
 };
 
 export default function ContactPage() {
@@ -21,25 +22,25 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
             <div className="lg:col-span-8">
               <div className="label-caps text-xrt-crimson mb-4">
-                REQUEST FOR QUOTATION — RFQ INTAKE ENGINE
+                CONTACT — DESK ROUTING & CONSULTATIONS
               </div>
               <h1 className="text-[clamp(2.5rem,6vw,6rem)] text-white mb-6">
-                Submit Sourcing<br />Request
+                Talk to an<br />XRT Desk
               </h1>
               <p
                 className="text-base sm:text-lg text-xrt-steel/60 max-w-2xl leading-relaxed"
                 style={{ fontFamily: "var(--font-archivo)" }}
               >
-                Complete the technical manifest below. All fields marked with an
-                asterisk are required for initial desk routing. Your submission is
-                encrypted and subject to mandatory KYC pre-screening.
+                Send us a message, request a scheduled consultation, or submit a
+                formal Request for Quotation. Every inquiry is routed to the relevant
+                commodity desk and answered within four business hours.
               </p>
             </div>
             <div className="lg:col-span-4 border-t border-xrt-steel/20 pt-8 lg:border-t-0 lg:pt-0 lg:border-l lg:pl-8 space-y-5">
               {[
                 { label: "Response Time SLA", value: "< 4 Business Hours" },
+                { label: "Consultations", value: "By Appointment" },
                 { label: "AML Pre-Screening", value: "Mandatory" },
-                { label: "Minimum Volume", value: "Per Product Spec" },
               ].map((m) => (
                 <div key={m.label} className="border-b border-xrt-steel/20 pb-5 last:border-0 last:pb-0">
                   <div className="label-caps text-xrt-steel/40 mb-0.5">{m.label}</div>
@@ -56,7 +57,29 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── RFQ FORM (client component) ──────────────────────────── */}
+      {/* ── GENERAL CONTACT + SCHEDULE ───────────────────────────── */}
+      <ContactForm />
+
+      {/* ── FORMAL RFQ SECTION ───────────────────────────────────── */}
+      <section id="rfq" className="bg-xrt-black text-white border-y border-xrt-steel/20 scroll-mt-24">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-16">
+          <div className="label-caps text-xrt-crimson mb-4">
+            REQUEST FOR QUOTATION — RFQ INTAKE ENGINE
+          </div>
+          <h2 className="text-3xl sm:text-4xl text-white mb-4">
+            Need a formal quotation?
+          </h2>
+          <p
+            className="text-base sm:text-lg text-xrt-steel/60 max-w-2xl leading-relaxed"
+            style={{ fontFamily: "var(--font-archivo)" }}
+          >
+            Complete the technical manifest below for a priced offer. All fields
+            marked with an asterisk are required for desk routing. Submissions are
+            subject to mandatory KYC pre-screening.
+          </p>
+        </div>
+      </section>
+
       <RFQForm />
     </div>
   );
