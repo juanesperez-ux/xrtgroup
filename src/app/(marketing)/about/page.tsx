@@ -1,13 +1,15 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { timeline, hubs, compliance } from "@/lib/data";
+"use client";
 
-export const metadata: Metadata = {
-  title: "About",
-  description: "XRT Group's global commodity procurement infrastructure — hubs in Houston, Rotterdam, and Singapore with full AML/KYC and ISO 9001 compliance.",
-};
+import { useState } from "react";
+import { timeline, hubs, compliance } from "@/lib/data";
+import SchedulePopup from "@/components/contact/SchedulePopup";
+
+// Metadata must be in a separate file for client components; we'll use generateMetadata export pattern.
+// For client component pages, metadata is set via a layout or separate server file.
 
 export default function AboutPage() {
+  const [scheduleOpen, setScheduleOpen] = useState(false);
+
   return (
     <div>
       {/* ── PAGE HEADER ─────────────────────────────────────────── */}
@@ -110,15 +112,9 @@ export default function AboutPage() {
                 {/* Hub details */}
                 <div className="p-5 sm:p-6 space-y-4 sm:space-y-5">
                   <div>
-                    <div className="label-caps text-xrt-steel/50 mb-1">COORDINATES</div>
-                    <div className="text-sm text-xrt-black font-medium" style={{ fontFamily: "var(--font-archivo)" }}>
-                      {hub.coordinates}
-                    </div>
-                  </div>
-                  <div>
                     <div className="label-caps text-xrt-steel/50 mb-2">PRIMARY FOCUS AREAS</div>
                     <ul className="space-y-1.5">
-                      {hub.focus.map((f) => (
+                      {hub.focus.map((f: string) => (
                         <li key={f} className="flex items-center gap-2">
                           <div className="w-1 h-1 bg-xrt-crimson flex-shrink-0" />
                           <span className="text-sm text-xrt-muted" style={{ fontFamily: "var(--font-archivo)" }}>{f}</span>
@@ -127,12 +123,9 @@ export default function AboutPage() {
                     </ul>
                   </div>
                   <div className="border-t border-xrt-steel pt-4">
-                    <div className="label-caps text-xrt-steel/50 mb-1">ADDRESS</div>
-                    <div className="text-sm text-xrt-muted" style={{ fontFamily: "var(--font-archivo)" }}>{hub.address}</div>
-                  </div>
-                  <div>
-                    <div className="label-caps text-xrt-steel/50 mb-1">CONTACT</div>
-                    <div className="text-sm text-xrt-black font-medium" style={{ fontFamily: "var(--font-archivo)" }}>{hub.phone}</div>
+                    <p className="text-sm text-xrt-muted" style={{ fontFamily: "var(--font-archivo)" }}>
+                      For inquiries related to this hub, please schedule a call with our desk.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -215,14 +208,20 @@ export default function AboutPage() {
           <div>
             <div className="label-caps text-white/60 mb-1">START PROCUREMENT</div>
             <div className="text-3xl sm:text-4xl font-black text-white" style={{ fontFamily: "var(--font-barlow)", letterSpacing: "-0.03em" }}>
-              Engage an XRT desk directly.
+              Schedule a call with an XRT desk.
             </div>
           </div>
-          <Link href="/contact" className="label-caps bg-white text-xrt-crimson px-8 sm:px-10 py-4 hover:bg-xrt-off-white transition-colors self-start sm:self-auto">
-            Submit RFQ
-          </Link>
+          <button
+            onClick={() => setScheduleOpen(true)}
+            className="label-caps bg-white text-xrt-crimson px-8 sm:px-10 py-4 hover:bg-xrt-off-white transition-colors self-start sm:self-auto cursor-pointer"
+          >
+            Schedule a Call
+          </button>
         </div>
       </section>
+
+      {/* ── SCHEDULE POPUP ──────────────────────────────────────── */}
+      <SchedulePopup open={scheduleOpen} onClose={() => setScheduleOpen(false)} />
     </div>
   );
 }
