@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
+import Turnstile, { isTurnstileEnabled } from "@/components/ui/Turnstile";
 
 const BARLOW = "var(--font-barlow), 'Barlow Condensed', sans-serif";
 const ARCHIVO = "var(--font-archivo), 'Archivo Narrow', sans-serif";
@@ -36,6 +37,7 @@ export default function RFQDrawer({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [refId, setRefId] = useState("");
+  const [token, setToken] = useState("");
 
   const [form, setForm] = useState({
     entity: "", contact: "", email: "", phone: "",
@@ -92,6 +94,7 @@ export default function RFQDrawer({
           notes: form.notes,
           services: prefilledServices.join(", "),
           source: "service-matcher",
+          turnstileToken: token,
         }),
       });
       const data = await res.json();
@@ -249,7 +252,9 @@ export default function RFQDrawer({
 
               {error && <div style={{ fontSize: "13px", color: "#e01525", fontFamily: ARCHIVO }}>{error}</div>}
 
-              <button onClick={handleSubmit} disabled={loading || !valid} style={{
+              {isTurnstileEnabled && <Turnstile onVerify={setToken} onExpire={() => setToken("")} theme="dark" />}
+
+              <button onClick={handleSubmit} disabled={loading || !valid || (isTurnstileEnabled && !token)} style={{
                 background: valid ? "#c8111f" : "#2a2a2a", color: valid ? "#f7f5f2" : "#555",
                 border: "none", padding: "15px 24px", fontFamily: BARLOW, fontWeight: 900, fontSize: "14px",
                 letterSpacing: "0.15em", textTransform: "uppercase", cursor: valid ? "pointer" : "not-allowed",

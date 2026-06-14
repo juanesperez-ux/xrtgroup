@@ -4,7 +4,7 @@ R.c("server/chunks/ssr/XRT Group - Website_src_lib_productsData_ts_12f8pma._.js"
 R.c("server/chunks/ssr/0~db_next_dist_066npuc._.js")
 R.c("server/chunks/ssr/0~db_next_dist_0zb72-k._.js")
 R.c("server/chunks/ssr/0~db_next_dist_esm_build_templates_app-page_0ylkxj-.js")
-R.c("server/chunks/ssr/[root-of-the-server]__0gu8zqk._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__0httr~f._.js")
 R.c("server/chunks/ssr/0~db_next_dist_0j5ivzv._.js")
 R.c("server/chunks/ssr/0~db_next_dist_0atsunm._.js")
 R.c("server/chunks/ssr/[root-of-the-server]__0fk6i8a._.js")

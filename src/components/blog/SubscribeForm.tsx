@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Turnstile, { isTurnstileEnabled } from "@/components/ui/Turnstile";
 
 export default function SubscribeForm() {
     const [email, setEmail] = useState("");
     const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
     const [errorMsg, setErrorMsg] = useState("");
+    const [token, setToken] = useState("");
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -38,6 +40,7 @@ export default function SubscribeForm() {
                     inspectionRequired: "no",
                     notes: "Subscription request from Blog Intelligence Hub.",
                     source: "Blog Subscribe Form",
+                    turnstileToken: token,
                 }),
             });
             const data = await res.json();
@@ -100,13 +103,18 @@ export default function SubscribeForm() {
                             />
                             <button
                                 type="submit"
-                                disabled={status === "sending"}
+                                disabled={status === "sending" || (isTurnstileEnabled && !token)}
                                 className="label-caps bg-xrt-black text-white px-5 sm:px-8 py-3 sm:py-4 hover:bg-xrt-crimson transition-colors flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {status === "sending" ? "Subscribing..." : "Subscribe"}
                             </button>
                         </div>
                     </div>
+                    {isTurnstileEnabled && (
+                        <div className="mt-4">
+                            <Turnstile onVerify={setToken} onExpire={() => setToken("")} theme="light" />
+                        </div>
+                    )}
                 </form>
             </div>
         </section>

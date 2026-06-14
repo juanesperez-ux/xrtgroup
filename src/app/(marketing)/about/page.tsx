@@ -86,7 +86,7 @@ export default function AboutPage() {
       <section className="bg-xrt-surface border-b border-xrt-steel">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16">
           <div className="label-caps text-xrt-crimson mb-2">GLOBAL INFRASTRUCTURE</div>
-          <h2 className="text-3xl sm:text-4xl text-xrt-black mb-8 sm:mb-10">Hub Coordinates & Operations</h2>
+          <h2 className="text-3xl sm:text-4xl text-xrt-black mb-8 sm:mb-10">Hub Network & Operations</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 border border-xrt-steel">
             {hubs.map((hub, i) => (

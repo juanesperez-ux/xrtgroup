@@ -26,8 +26,8 @@ const PILLAR_MEDIA: Record<string, { image?: string; imageAlt?: string; icon: st
     icon: "farmer",
   },
   OIL: {
-    image: "/images/photo-soybean-pods.webp",
-    imageAlt: "Soybean pods on the plantation at sunset",
+    image: "/images/photo-olive-oil-mill-pour.webp",
+    imageAlt: "Fresh olive oil pouring from a stainless steel mill spout into a collection tank — edible and industrial oils production",
     icon: "raw-materials",
   },
   LOG: {

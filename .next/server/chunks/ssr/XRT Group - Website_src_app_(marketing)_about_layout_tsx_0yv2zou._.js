@@ -1,0 +1,3 @@
+module.exports=[48725,a=>{"use strict";a.s(["default",0,function({children:a}){return a},"metadata",0,{title:"About",description:"XRT Group's global commodity procurement infrastructure — hubs in Houston, Rotterdam, and Singapore with full AML/KYC and ISO 9001 compliance."}])},417504,a=>{a.n(a.i(48725))}];
+
+//# sourceMappingURL=XRT%20Group%20-%20Website_src_app_%28marketing%29_about_layout_tsx_0yv2zou._.js.map

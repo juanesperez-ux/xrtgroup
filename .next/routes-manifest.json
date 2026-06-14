@@ -152,10 +152,22 @@
       "namedRegex": "^/access(?:/)?$"
     },
     {
+      "page": "/api/contact",
+      "regex": "^/api/contact(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/contact(?:/)?$"
+    },
+    {
       "page": "/api/rfq",
       "regex": "^/api/rfq(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/api/rfq(?:/)?$"
+    },
+    {
+      "page": "/api/schedule",
+      "regex": "^/api/schedule(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/schedule(?:/)?$"
     },
     {
       "page": "/blog",
