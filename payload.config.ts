@@ -214,22 +214,22 @@ export default buildConfig({
                 },
               ],
             },
-            // ── Pillar 3: Olive Oils ────────────────────────
+            // ── Pillar 3: OILS ────────────────────────
             {
-              label: "Pillar 3 — Olive Oils",
+              label: "Pillar 3 — OILS",
               fields: [
                 {
                   name: "oliveOilsImage",
                   type: "upload",
                   relationTo: "media",
-                  label: "Olive Oils Pillar Image",
-                  admin: { description: "Olive oil production and bottling — 800×600+ recommended" },
+                  label: "OILS Pillar Image",
+                  admin: { description: "Oil production and bottling — 800×600+ recommended" },
                 },
                 {
                   name: "oliveOilsHeadline",
                   type: "text",
-                  label: "Olive Oils Card Headline",
-                  defaultValue: "Wholesale Olive Oil Production",
+                  label: "OILS Card Headline",
+                  defaultValue: "Wholesale Oil Production",
                 },
                 {
                   name: "oliveOilsBullet1",

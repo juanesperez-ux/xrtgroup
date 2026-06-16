@@ -6,7 +6,7 @@ import { Glyph } from "@/components/ui/Glyph";
 const seoTexts = {
   fuels: "Houston bulk automotive diesel supplier, wholesale gasoline distributor, ULSD export supply, retail gas station fuel procurement, Marine Gas Oil MGO",
   proteins: "Bulk beef export supply, wholesale beef distribution, commercial meat procurement",
-  oliveOils: "Bulk extra virgin olive oil supplier, bottled olive oil private label distribution",
+  oils: "Bulk oil supplier, bottled oil private label distribution",
   seedOils: "Wholesale bulk seed oils, bottled cooking oil distribution, sunflower and canola oil supply",
 } as const;
 
@@ -55,11 +55,11 @@ const pillars = [
     cta: "Request Protein Catalog",
   },
   {
-    tag: "Olive Oils",
+    tag: "OILS",
     icon: "packaging",
     image: "/images/photo-olive-oil-mill-pour.webp",
     imageAlt: "Fresh extra virgin olive oil pouring from a stainless steel mill spout into a collection tank — wholesale olive oil production and distribution",
-    title: "Wholesale Olive Oil Production",
+    title: "Wholesale Oil Production",
     items: [
       {
         name: "Bulk Flexitank Shipments",
@@ -70,7 +70,7 @@ const pillars = [
         detail: "Premium extra virgin and refined private-label options ready for grocery and wholesale distributors.",
       },
     ],
-    seo: seoTexts.oliveOils,
+    seo: seoTexts.oils,
     cta: "Request Edible Oil Specs",
   },
   {

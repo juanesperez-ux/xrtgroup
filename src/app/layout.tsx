@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     "ULSD export supply",
     "bulk beef export supply",
     "wholesale beef distribution",
-    "bulk extra virgin olive oil supplier",
+    "bulk oil supplier",
     "wholesale bulk seed oils",
     "commodity trading",
     "procurement",
