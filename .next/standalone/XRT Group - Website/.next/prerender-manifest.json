@@ -146,6 +146,30 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/blog/agricultural-commodity-procurement-grains-beef-edible-oils": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/blog/[slug]",
+      "dataRoute": "/blog/agricultural-commodity-procurement-grains-beef-edible-oils.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/blog/aml-cross-border-commodity-finance": {
       "experimentalBypassFor": [
         {
@@ -185,6 +209,78 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/blog/[slug]",
       "dataRoute": "/blog/brent-wti-differential-q2-2025.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/blog/crude-oil-refined-fuel-procurement-guide": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/blog/[slug]",
+      "dataRoute": "/blog/crude-oil-refined-fuel-procurement-guide.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/blog/how-to-source-commodities-for-industrial-operations": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/blog/[slug]",
+      "dataRoute": "/blog/how-to-source-commodities-for-industrial-operations.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/blog/incoterms-2020-explained-commodity-buyers": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/blog/[slug]",
+      "dataRoute": "/blog/incoterms-2020-explained-commodity-buyers.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -966,8 +1062,8 @@
   },
   "notFoundRoutes": [],
   "preview": {
-    "previewModeId": "da0f64056b22a7af55b85e573dca9bf8",
-    "previewModeSigningKey": "b3d55fec8292a181d83c8e050a93a44339c30792adb146c092d68f551280239e",
-    "previewModeEncryptionKey": "491dd59b7b430605df02e36de911f3c676633817de79fd524eabdde5599782d0"
+    "previewModeId": "f1c76369b0480a6b958b2c5f5a3ee201",
+    "previewModeSigningKey": "9cf39f168779b13fec9523111f9b808a44d1d4d2a44282352eab94d17e77ec2e",
+    "previewModeEncryptionKey": "dd24668156bbb2e41538bcea8a14759687021834515f521527e32b092802cbf8"
   }
 }
