@@ -138,6 +138,42 @@
   }
 }
 
+/* ─── HERO SLIDESHOW ────────────────────────────────────────
+   Cross-fading Ken Burns backdrop. duration + delay are set inline
+   per slide (HomeHero.tsx); the keyframes assume a 5-slide cycle, so
+   each slide owns a 20% on-window. NOTE: changing HERO_SLIDES length
+   means re-deriving the percentages below. */
+@keyframes hero-slide-fade {
+  0%   { opacity: 1; }
+  17%  { opacity: 1; }
+  20%  { opacity: 0; }
+  97%  { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes hero-slide-zoom {
+  0%      { transform: scale(1); }
+  20%     { transform: scale(1.08); }
+  20.01%  { transform: scale(1); }
+  100%    { transform: scale(1); }
+}
+.hero-slide {
+  opacity: 0;
+  will-change: opacity, transform;
+  animation-name: hero-slide-fade, hero-slide-zoom;
+  animation-timing-function: ease-in-out, ease-out;
+  animation-iteration-count: infinite, infinite;
+  animation-fill-mode: both, both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide {
+    animation: none;
+    transform: none;
+  }
+  .hero-slide:first-child {
+    opacity: 1;
+  }
+}
+
 /* ─── TICKER TAPE ──────────────────────────────────────────── */
 @keyframes ticker-scroll {
   0%   { transform: translateX(0); }

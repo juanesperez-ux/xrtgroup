@@ -1,10 +1,24 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Link from "next/link";
 
 const WORD_STAGGER_MS = 55;
 const HEADLINE_TEXT = "Sourcing the essentials,\nfrom origin to delivery.";
+
+/* Hero backdrop cycles through the categories XRT actually procures —
+   fuels, proteins, edible oils, grains — instead of a single static clip.
+   Cross-fade + Ken Burns are pure CSS (transform/opacity only) so they stay
+   on the compositor and respect prefers-reduced-motion. Order here drives the
+   visual narrative; the slide timing lives in globals.css (.hero-slide). */
+const HERO_SLIDES = [
+  "/images/photo-airplane-refueling.webp", // Fuels — aviation
+  "/images/photo-lng-tanker-aerial.webp", // Fuels — LNG / energy logistics
+  "/images/photo-angus-cattle-pasture.webp", // Proteins
+  "/images/photo-olive-oil-mill-pour.webp", // Edible oils
+  "/images/photo-wheat-field.webp", // Grains / seed oils
+];
+
+const SLIDE_SECONDS = 7;
 
 /* Splits text on \n into lines and on spaces into words. Each word is an
    inline-block so it never breaks mid-word, and animates in on a stagger.
@@ -38,30 +52,30 @@ function AnimatedHeadline({ text, className }: { text: string; className?: strin
 }
 
 export default function HomeHero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      videoRef.current?.pause();
-    }
-  }, []);
+  const totalSeconds = HERO_SLIDES.length * SLIDE_SECONDS;
 
   return (
-    <section className="hero-anim relative bg-xrt-black text-white min-h-[calc(100svh-3.5rem-2.25rem)] sm:min-h-[calc(100svh-4rem-2.25rem)] flex flex-col overflow-hidden">
-      {/* Full-bleed background video */}
-      <video
-        ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover"
-        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4"
-        poster="/images/photo-oil-pumps-dusk.webp"
-        autoPlay
-        loop
-        muted
-        playsInline
-        aria-hidden="true"
-      />
+    <section className="hero-anim relative bg-xrt-black text-white min-h-[72svh] sm:min-h-[calc(100svh-4rem-2.25rem)] flex flex-col overflow-hidden">
+      {/* Full-bleed cross-fading procurement slideshow */}
+      <div className="absolute inset-0" aria-hidden="true">
+        {HERO_SLIDES.map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            alt=""
+            className="hero-slide absolute inset-0 w-full h-full object-cover"
+            style={{
+              animationDuration: `${totalSeconds}s, ${totalSeconds}s`,
+              animationDelay: `-${i * SLIDE_SECONDS}s, -${i * SLIDE_SECONDS}s`,
+            }}
+            loading={i === 0 ? "eager" : "lazy"}
+            fetchPriority={i === 0 ? "high" : "low"}
+            decoding="async"
+          />
+        ))}
+      </div>
 
-      {/* Legibility scrim — keeps copy readable over any video frame */}
+      {/* Legibility scrim — keeps copy readable over any slide */}
       <div className="absolute inset-0 bg-gradient-to-t from-xrt-black/85 via-xrt-black/40 to-xrt-black/30" />
 
       {/* Content pinned to the bottom of the viewport */}
