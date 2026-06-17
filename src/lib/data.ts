@@ -427,6 +427,74 @@ export const compliance = [
 
 export const blogPosts = [
   {
+    slug: "how-to-source-commodities-for-industrial-operations",
+    date: "2026-06-16",
+    category: "PROCUREMENT",
+    title: "How to Source Commodities for Industrial Operations: A Procurement Director's Guide",
+    summary:
+      "A step-by-step guide for procurement directors and supply chain executives on how to source crude oil, refined fuels, agricultural commodities, and edible oils through a reliable, friction-free procurement infrastructure.",
+    readTime: "14 MIN READ",
+    author: "XRT Group",
+    seoTitle: "How to Source Commodities for Industrial Operations | XRT Group",
+    seoDescription:
+      "Learn how procurement directors source crude oil, diesel, jet fuel, and agricultural commodities at scale. Explore supplier qualification, INCOTERMS, and supply chain risk management with XRT Group.",
+    image: "/images/photo-handshake-deal.webp",
+    tags: ["commodity sourcing", "industrial procurement", "supply chain", "crude oil procurement", "agricultural commodities", "procurement strategy"],
+    schemaKeywords: ["commodity procurement", "industrial commodity sourcing", "crude oil supplier", "bulk agricultural commodity buyer", "diesel fuel procurement", "supply chain management", "strategic procurement"],
+    hasFAQ: true,
+  },
+  {
+    slug: "incoterms-2020-explained-commodity-buyers",
+    date: "2026-06-23",
+    category: "PROCUREMENT",
+    title: "INCOTERMS 2020 Explained for Commodity Buyers: FOB, CIF, DAP, and DDP",
+    summary:
+      "A practical breakdown of INCOTERMS 2020 for procurement directors sourcing crude oil, diesel, agricultural commodities, and edible oils. Understand what FOB, CIF, DAP, and DDP mean for your risk, cost, and logistics structure.",
+    readTime: "12 MIN READ",
+    author: "XRT Group",
+    seoTitle: "INCOTERMS 2020 for Commodity Buyers: FOB vs CIF vs DAP vs DDP | XRT Group",
+    seoDescription:
+      "Understand FOB, CIF, DAP, and DDP INCOTERMS for industrial commodity procurement. Learn how delivery terms affect risk, cost, and logistics for crude oil, fuel, and agricultural supply contracts.",
+    image: "/images/photo-lng-tanker-aerial.webp",
+    tags: ["INCOTERMS", "INCOTERMS 2020", "commodity procurement", "FOB", "CIF", "supply chain", "international trade", "procurement contracts"],
+    schemaKeywords: ["INCOTERMS 2020", "FOB commodity", "CIF commodity", "DAP supply chain", "DDP procurement", "commodity delivery terms", "international commodity trade", "procurement contracts"],
+    hasFAQ: true,
+  },
+  {
+    slug: "crude-oil-refined-fuel-procurement-guide",
+    date: "2026-07-07",
+    category: "ENERGY",
+    title: "Crude Oil and Refined Fuel Procurement: What Industrial Buyers Need to Know",
+    summary:
+      "A technical reference for procurement directors sourcing crude oil, diesel EN590, jet fuel Jet A-1, and industrial fuels. Covers product specifications, supplier qualification, pricing benchmarks, and logistics for energy commodity procurement.",
+    readTime: "13 MIN READ",
+    author: "XRT Group",
+    seoTitle: "Crude Oil and Refined Fuel Procurement Guide for Industrial Buyers | XRT Group",
+    seoDescription:
+      "Learn how to procure crude oil, diesel EN590, Jet A-1 aviation fuel, and industrial fuels at scale. Specifications, supplier qualification, INCOTERMS, and logistics for energy commodity buyers.",
+    image: "/images/photo-oil-pumps-dusk.webp",
+    tags: ["crude oil procurement", "diesel procurement", "jet fuel supplier", "fuel procurement", "energy commodity", "EN590", "JP54", "Jet A-1", "supply chain energy"],
+    schemaKeywords: ["crude oil procurement", "diesel EN590 supplier", "jet fuel procurement", "Jet A-1 supplier", "industrial fuel sourcing", "refined petroleum products", "energy commodity buyer", "bulk fuel purchase"],
+    hasFAQ: true,
+  },
+  {
+    slug: "agricultural-commodity-procurement-grains-beef-edible-oils",
+    date: "2026-07-21",
+    category: "AGRICULTURAL",
+    title: "Agricultural Commodity Procurement: Sourcing Grains, Beef, and Edible Oils at Scale",
+    summary:
+      "A comprehensive procurement guide for agricultural buyers sourcing grains, USDA-certified beef (Kosher and Halal), and edible oils at scale. Covers certification requirements, quality specifications, INCOTERMS, and cross-border logistics.",
+    readTime: "15 MIN READ",
+    author: "XRT Group",
+    seoTitle: "Agricultural Commodity Procurement: Grains, Beef, Edible Oils | XRT Group",
+    seoDescription:
+      "How to procure agricultural commodities at scale — USDA certified beef, Kosher and Halal beef, bulk grains, and edible oils. Certification requirements, quality specs, and logistics for industrial buyers.",
+    image: "/images/photo-wheat-field.webp",
+    tags: ["agricultural procurement", "grain sourcing", "edible oil supplier", "beef procurement", "USDA certified", "Kosher beef", "Halal beef", "bulk grain buyer", "palm oil procurement", "supply chain agriculture"],
+    schemaKeywords: ["agricultural commodity procurement", "bulk grain sourcing", "edible oil procurement", "USDA beef procurement", "Kosher beef supplier", "Halal beef supplier", "agricultural supply chain", "food commodity buyer", "palm oil supplier", "soybean oil procurement"],
+    hasFAQ: true,
+  },
+  {
     slug: "brent-wti-differential-q2-2025",
     date: "2025-05-14",
     category: "MARKET INTELLIGENCE",

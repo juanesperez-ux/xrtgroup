@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "XRT Group market intelligence: commodity price analysis, regulatory briefs, and supply chain dispatches from our Houston, Rotterdam, and Singapore desks.",
 };
 
-const categories = ["ALL", "MARKET INTELLIGENCE", "COMPLIANCE BRIEF", "REGULATORY", "LOGISTICS", "SUPPLY CHAIN"];
+const categories = ["ALL", "PROCUREMENT", "ENERGY", "AGRICULTURAL", "MARKET INTELLIGENCE", "COMPLIANCE BRIEF", "REGULATORY", "LOGISTICS", "SUPPLY CHAIN"];
 
 export default function BlogPage() {
   return (
@@ -127,12 +127,12 @@ export default function BlogPage() {
                   className={[
                     "block p-6 sm:p-8 bg-xrt-white hover:bg-xrt-surface transition-colors",
                     // Mobile (1-col): bottom border on all but last
-                    i < 4 ? "border-b border-xrt-steel" : "",
-                    // MD (2-col): bottom on first 4, right on col 0
-                    i < 2 ? "md:border-b" : "md:border-b-0",
+                    i < blogPosts.length - 2 ? "border-b border-xrt-steel" : "",
+                    // MD (2-col)
+                    i < blogPosts.length - 3 ? "md:border-b" : "md:border-b-0",
                     i % 2 === 0 ? "md:border-r" : "",
-                    // LG (3-col): bottom on first 3, right on cols 0–1
-                    i < 3 ? "lg:border-b" : "lg:border-b-0",
+                    // LG (3-col)
+                    i < blogPosts.length - 4 ? "lg:border-b" : "lg:border-b-0",
                     i % 3 < 2 ? "lg:border-r" : "lg:border-r-0",
                   ].filter(Boolean).join(" ")}
                 >
