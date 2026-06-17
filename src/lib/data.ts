@@ -503,7 +503,7 @@ export const blogPosts = [
       "The Brent/WTI spread narrowed to a 14-month low of $3.65/BBL in early May, driven by increased US crude export volumes and a drawdown in Cushing inventories. We analyze the structural factors and procurement implications for refiners operating on both sides of the Atlantic.",
     readTime: "8 MIN READ",
     author: "XRT Energy Desk",
-    image: "/images/photo-lng-terminal.webp",
+    image: "/images/photo-pump-jack-night.webp",
     tags: ["Brent WTI", "crude differentials", "Atlantic Basin", "refinery procurement"],
   },
   {
@@ -527,7 +527,7 @@ export const blogPosts = [
       "The FATF's updated guidance on trade-based money laundering (TBML) has materially increased the due-diligence burden on commodity trading firms. We break down the practical impact on LC structuring, vessel vetting, and beneficial ownership documentation.",
     readTime: "14 MIN READ",
     author: "XRT Compliance",
-    image: "/images/photo-handshake-deal.webp",
+    image: "/images/photo-lng-terminal.webp",
     tags: ["AML", "FATF", "trade finance", "counterparty due diligence"],
   },
   {
@@ -539,7 +539,7 @@ export const blogPosts = [
       "Following the OPEC+ voluntary cut adjustments, we track the downstream impact on ARA barge scheduling, refinery margins, and ultra-low sulfur diesel availability across the Northern European distribution network.",
     readTime: "9 MIN READ",
     author: "XRT Logistics Desk",
-    image: "/images/photo-lng-tanker-aerial.webp",
+    image: "/images/photo-airplane-refueling.webp",
     tags: ["Rotterdam", "ARA", "barge network", "crude logistics"],
   },
   {
@@ -563,7 +563,7 @@ export const blogPosts = [
       "Port of Singapore monthly bunker sales reached a 36-month high in Q1 2025. We analyze the VLSFO/HSFO differential, IMO 2050 trajectory, and the growing premium for B24 bio-bunker blends among European shipping lines.",
     readTime: "10 MIN READ",
     author: "XRT Energy Desk",
-    image: "/images/photo-lng-tanker-aerial.webp",
+    image: "/images/photo-airplane-wing-fueling.webp",
     tags: ["Singapore", "bunker fuel", "VLSFO", "marine fuel"],
   },
 ];
