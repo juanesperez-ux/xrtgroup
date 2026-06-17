@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import { notFound } from "next/navigation";
@@ -58,6 +59,15 @@ const CATEGORY_COLOR: Record<string, string> = {
   LOGISTICS: "#c8973a",
   "SUPPLY CHAIN": "#916f6c",
 };
+
+function formatDate(date: string) {
+  return new Intl.DateTimeFormat("en", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${date}T00:00:00Z`));
+}
 
 function getRFQCTA(post: Record<string, unknown>) {
   const category = (post.category as string) || "";
@@ -230,15 +240,16 @@ export default async function BlogPostPage({ params }: Props) {
             {/* Meta row */}
             <div className="flex flex-wrap items-center gap-3 sm:gap-6 mb-8">
               <span
-                className="label-caps px-3 py-1.5 border"
-                style={{ color: categoryColor, borderColor: categoryColor }}
+                className="label-caps px-3 py-1.5 border bg-white/5"
+                style={{ color: "#ffffff", borderColor: categoryColor, backgroundColor: `${categoryColor}22` }}
               >
                 {post.category}
               </span>
-              <span className="label-caps text-xrt-steel/40">{post.author}</span>
-              <span className="label-caps text-xrt-steel/20">—</span>
-              <span className="label-caps text-xrt-steel/40">{post.date}</span>
-              <span className="label-caps text-xrt-steel/40">{post.readTime}</span>
+              <span className="label-caps border border-xrt-steel/20 bg-white/5 px-3 py-1.5 text-xrt-steel">{post.author}</span>
+              <time className="label-caps border border-xrt-steel/20 bg-white/5 px-3 py-1.5 text-xrt-steel" dateTime={post.date}>
+                {formatDate(post.date)}
+              </time>
+              <span className="label-caps border border-xrt-steel/20 bg-white/5 px-3 py-1.5 text-xrt-steel">{post.readTime}</span>
             </div>
 
             {/* Headline */}
@@ -249,8 +260,24 @@ export default async function BlogPostPage({ params }: Props) {
               {post.title}
             </h1>
 
-            {/* Crimson rule */}
-            <div className="w-16 h-0.5 bg-xrt-crimson" />
+            <div className="relative mt-8 min-h-[260px] overflow-hidden border border-xrt-steel/20 sm:min-h-[360px] lg:min-h-[460px]">
+              <Image
+                src={postImage}
+                alt={post.title}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 90vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-xrt-black/70 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
+                {post.tags?.slice(0, 4).map((tag: string) => (
+                  <span key={tag} className="label-caps bg-xrt-black/85 px-3 py-1.5 text-xrt-steel">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
@@ -279,7 +306,7 @@ export default async function BlogPostPage({ params }: Props) {
                   <div>
                     <div className="label-caps text-xrt-steel/40 mb-1">PUBLISHED BY</div>
                     <div className="text-white text-sm" style={{ fontFamily: "var(--font-archivo)" }}>{post.author}</div>
-                    <div className="label-caps text-xrt-steel/30 mt-0.5">{post.date}</div>
+                    <time className="label-caps text-xrt-steel/60 mt-0.5 block" dateTime={post.date}>{formatDate(post.date)}</time>
                   </div>
                   <Link
                     href="/blog"
