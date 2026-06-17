@@ -3,6 +3,7 @@ import Link from "next/link";
 import { products } from "@/lib/data";
 import { Glyph } from "@/components/ui/Glyph";
 import { getProductsByCategory, type ProductCategory } from "@/lib/productsData";
+import { pageMetadata } from "@/lib/seo";
 
 // Catalog pillar code → product data category (orders match 1:1)
 const PILLAR_CATEGORY: Record<string, ProductCategory> = {
@@ -17,12 +18,12 @@ const PILLAR_CATEGORY: Record<string, ProductCategory> = {
 const PILLAR_MEDIA: Record<string, { image?: string; imageAlt?: string; icon: string }> = {
   ENE: {
     image: "/images/photo-oil-pumps-dusk.webp",
-    imageAlt: "Oil pump jacks operating at dusk",
+    imageAlt: "Oil pump jacks at dusk — crude oil and refined fuel procurement by XRT Group",
     icon: "ship",
   },
   AGR: {
     image: "/images/photo-wheat-closeup.webp",
-    imageAlt: "Golden wheat ears in a field",
+    imageAlt: "Golden wheat ears in a field — bulk grain procurement and agricultural supply",
     icon: "farmer",
   },
   OIL: {
@@ -32,7 +33,7 @@ const PILLAR_MEDIA: Record<string, { image?: string; imageAlt?: string; icon: st
   },
   LOG: {
     image: "/images/photo-lng-tanker-aerial.webp",
-    imageAlt: "Aerial view of an LNG tanker berthed at a gas terminal",
+    imageAlt: "Aerial view of an LNG tanker berthed at a gas terminal — energy logistics and freight procurement",
     icon: "container",
   },
   PRT: {
@@ -42,11 +43,21 @@ const PILLAR_MEDIA: Record<string, { image?: string; imageAlt?: string; icon: st
   },
 };
 
-export const metadata: Metadata = {
-  title: "Products",
+export const metadata: Metadata = pageMetadata({
+  title: "Commodity Trading Catalog — Crude Oil, Grains, Edible Oils & Freight",
   description:
-    "XRT Group commodity catalog: Energy, Grains & Agricultural, Edible & Industrial Oils, and Logistics Infrastructure.",
-};
+    "Source crude oil, ULSD diesel, jet fuel, grains, edible oils, proteins, and freight from XRT Group. Direct-origin commodity procurement across 5 verticals.",
+  path: "/products",
+  keywords: [
+    "crude oil supplier",
+    "ULSD diesel procurement",
+    "jet fuel supplier",
+    "bulk grain trading",
+    "palm oil procurement",
+    "edible oil wholesale",
+    "commodity trading platform",
+  ],
+});
 
 export default function ProductsPage() {
   return (
@@ -60,9 +71,8 @@ export default function ProductsPage() {
                 Product Catalog — 5 Supply Pillars
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl text-white mb-6">
-                Physical commodities,
-                <br />
-                fully specified
+                <span>Physical commodities,</span>
+                <span className="block">fully specified</span>
               </h1>
               <p className="text-base sm:text-lg text-white/60 max-w-2xl leading-relaxed">
                 Strategic origination across five physical market pillars. All grades
@@ -74,7 +84,7 @@ export default function ProductsPage() {
               <div className="relative rounded-2xl overflow-hidden h-56 sm:h-72">
                 <img
                   src="/images/photo-airplane-refueling.webp"
-                  alt="Aircraft being refueled on the airport apron"
+                  alt="Aircraft being refueled on the airport apron — aviation fuel procurement by XRT Group"
                   loading="eager"
                   className="absolute inset-0 w-full h-full object-cover"
                 />

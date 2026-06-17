@@ -29,6 +29,27 @@ const nextConfig: NextConfig = {
     pagesBufferLength: 2,
   },
 
+  // ── Legacy URL Preservation ─────────────────────────────────
+  async redirects() {
+    return [
+      { source: "/energy-sourcing", destination: "/products#ene", permanent: true },
+      { source: "/energy-sourcing/:path*", destination: "/products", permanent: true },
+      { source: "/commodity/:path*", destination: "/products", permanent: true },
+      { source: "/thermal-energy-sourcing", destination: "/products#ene", permanent: true },
+      { source: "/contact-xrt-energy", destination: "/contact", permanent: true },
+      {
+        source: "/q88-fuel-procurement-and-tank-storage-agreements",
+        destination: "/blog",
+        permanent: true,
+      },
+      {
+        source: "/q88-fuel-procurement-and-tank-storage-agreements/:path*",
+        destination: "/blog",
+        permanent: true,
+      },
+    ];
+  },
+
   // ── Performance Headers ─────────────────────────────────────
   async headers() {
     return [

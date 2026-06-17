@@ -9,6 +9,7 @@ import {
 } from "@/lib/productsData";
 import ProductStructuredData from "@/components/seo/ProductStructuredData";
 import InlineRFQ from "@/components/rfq/InlineRFQ";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -18,21 +19,47 @@ export async function generateStaticParams() {
   return getAllProductSlugs().map((slug) => ({ slug }));
 }
 
+function productSeoTitle(product: NonNullable<ReturnType<typeof getProductBySlug>>) {
+  if (product.slug === "wti-crude-oil") {
+    return "WTI Crude Oil Supplier — Direct Permian Basin Procurement";
+  }
+  if (product.slug === "ulsd-diesel") {
+    return "ULSD EN 590 Diesel Supplier — ARA & Gulf Coast";
+  }
+  return product.seoTitle.replace(/\s*\|\s*XRT Group\s*$/i, "");
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const product = getProductBySlug(slug);
   if (!product) return {};
   const url = `https://xrtgroup.com/products/${product.slug}`;
+  const title = productSeoTitle(product);
   return {
-    title: product.seoTitle,
+    title,
     description: product.seoDescription,
     keywords: product.searchKeywords,
     alternates: { canonical: url },
     openGraph: {
-      title: product.seoTitle,
+      title: `${title} | XRT Group`,
       description: product.seoDescription,
       url,
+      siteName: "XRT Group",
       type: "website",
+      images: [
+        {
+          url: DEFAULT_OG_IMAGE,
+          width: 1200,
+          height: 630,
+          alt: `${product.name} procurement by XRT Group`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | XRT Group`,
+      description: product.seoDescription,
+      images: [DEFAULT_OG_IMAGE],
     },
   };
 }

@@ -11,11 +11,26 @@ const HEADLINE_TEXT = "Sourcing the essentials,\nfrom origin to delivery.";
    on the compositor and respect prefers-reduced-motion. Order here drives the
    visual narrative; the slide timing lives in globals.css (.hero-slide). */
 const HERO_SLIDES = [
-  "/images/photo-airplane-refueling.webp", // Fuels — aviation
-  "/images/photo-lng-tanker-aerial.webp", // Fuels — LNG / energy logistics
-  "/images/photo-angus-cattle-pasture.webp", // Proteins
-  "/images/photo-olive-oil-mill-pour.webp", // Edible oils
-  "/images/photo-wheat-field.webp", // Grains / seed oils
+  {
+    src: "/images/photo-airplane-refueling.webp",
+    alt: "Aircraft refueling — aviation fuel procurement by XRT Group",
+  },
+  {
+    src: "/images/photo-lng-tanker-aerial.webp",
+    alt: "LNG tanker aerial view — liquid natural gas shipping and procurement",
+  },
+  {
+    src: "/images/photo-angus-cattle-pasture.webp",
+    alt: "Black Angus cattle herd in open pasture — premium beef and protein export supply by XRT Group",
+  },
+  {
+    src: "/images/photo-olive-oil-mill-pour.webp",
+    alt: "Extra virgin olive oil pouring from mill spout — wholesale edible oil procurement",
+  },
+  {
+    src: "/images/photo-wheat-field.webp",
+    alt: "Wheat field at harvest — bulk grain procurement and USDA certified agricultural supply",
+  },
 ];
 
 const SLIDE_SECONDS = 7;
@@ -58,11 +73,11 @@ export default function HomeHero() {
     <section className="hero-anim relative bg-xrt-black text-white min-h-[72svh] sm:min-h-[calc(100svh-4rem-2.25rem)] flex flex-col overflow-hidden">
       {/* Full-bleed cross-fading procurement slideshow */}
       <div className="absolute inset-0" aria-hidden="true">
-        {HERO_SLIDES.map((src, i) => (
+        {HERO_SLIDES.map((slide, i) => (
           <img
-            key={src}
-            src={src}
-            alt=""
+            key={slide.src}
+            src={slide.src}
+            alt={slide.alt}
             className="hero-slide absolute inset-0 w-full h-full object-cover"
             style={{
               animationDuration: `${totalSeconds}s, ${totalSeconds}s`,

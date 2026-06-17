@@ -1,6 +1,8 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import HomeHero from "@/components/home/HomeHero";
 import { Glyph } from "@/components/ui/Glyph";
+import { pageMetadata } from "@/lib/seo";
 
 /* ── SEO TEXT LAYERS (not baked into images) ── */
 const seoTexts = {
@@ -10,13 +12,32 @@ const seoTexts = {
   seedOils: "Wholesale bulk seed oils, bottled cooking oil distribution, sunflower and canola oil supply",
 } as const;
 
+export const metadata: Metadata = pageMetadata({
+  title: "XRT Group — Houston's Strategic Source for Fuels, Proteins, and Edible Oils",
+  description:
+    "XRT Group delivers reliable domestic and export supply lines directly to gas station networks, commercial fleets, and food distributors worldwide.",
+  path: "",
+  keywords: [
+    "Houston bulk automotive diesel supplier",
+    "wholesale gasoline distributor",
+    "ULSD export supply",
+    "bulk beef export supply",
+    "wholesale beef distribution",
+    "bulk oil supplier",
+    "wholesale bulk seed oils",
+    "commodity trading",
+    "procurement",
+    "supply chain",
+  ],
+});
+
 /* ── CORE SUPPLY PILLARS ── */
 const pillars = [
   {
     tag: "Refined Fuels",
     icon: "delivery-truck",
     image: "/images/photo-pump-jack-night.webp",
-    imageAlt: "Pump jack silhouette on an oil field at night",
+    imageAlt: "Oil pump jack at night — refined fuels and high-volume diesel distribution by XRT Group",
     title: "High-Volume Fuel Distribution",
     items: [
       {
@@ -77,7 +98,7 @@ const pillars = [
     tag: "Seed Oils",
     icon: "raw-materials",
     image: "/images/photo-soybean-pods.webp",
-    imageAlt: "Soybean pods on the plantation at sunset",
+    imageAlt: "Soybean pods on plantation — bulk seed oil sourcing and wholesale seed oils",
     title: "Bulk & Bottled Seed Oils",
     items: [
       {
@@ -126,17 +147,17 @@ const processSteps = [
 const sidelines = [
   {
     image: "/images/photo-corn-field.webp",
-    alt: "Field of corn in the sun",
+    alt: "Corn field — yellow corn commodity procurement",
     label: "Yellow Corn & Grains",
   },
   {
     image: "/images/photo-wheat-field.webp",
-    alt: "Golden wheat field at evening",
+    alt: "Wheat field — grain and cereal supply procurement",
     label: "Wheat & Cereals",
   },
   {
     image: "/images/photo-coffee-plantation.webp",
-    alt: "Coffee plantation in a misty forest",
+    alt: "Coffee plantation in mist — soft commodity sourcing",
     label: "Soft Commodities",
   },
 ];
@@ -335,8 +356,7 @@ export default function HomePage() {
       <section className="relative text-white content-below-fold overflow-hidden">
         <img
           src="/images/photo-handshake-deal.webp"
-          alt=""
-          aria-hidden="true"
+          alt="Business handshake — commodity procurement partnership and trade agreement"
           loading="lazy"
           className="absolute inset-0 w-full h-full object-cover"
         />

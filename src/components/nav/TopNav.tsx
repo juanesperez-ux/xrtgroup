@@ -71,7 +71,7 @@ export default function TopNav() {
           <Link href="/" className="flex-shrink-0">
             <img
               src="/xrt-holdings-logo.svg"
-              alt="XRT Holdings"
+              alt="XRT Group logo"
               width={200}
               height={40}
               className="h-8 sm:h-9 w-auto"

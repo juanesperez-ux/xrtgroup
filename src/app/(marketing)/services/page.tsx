@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import dynamic from "next/dynamic";
 import { services } from "@/lib/data";
 import { SERVICE_ICONS } from "@/components/icons/CommodityIcons";
+import { pageMetadata, servicesFaqSchema } from "@/lib/seo";
 
 /* ── Lazy-load heavy interactive components (below the fold on most screens) ── */
 const ServiceMatcher = dynamic(() => import("@/components/services/ServiceMatcher"), {
@@ -12,14 +14,29 @@ const ServiceQuoteCTA = dynamic(() => import("@/components/services/ServiceQuote
   ssr: true,
 });
 
-export const metadata: Metadata = {
-  title: "Services",
-  description: "XRT Group technical services: Automated Routing, Risk Mitigation, Customs Clearance, Trade Finance, and Quality Assurance.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Commodity Procurement Services: Trade Finance, Customs & Logistics",
+  description:
+    "XRT Group offers 6 integrated procurement services: Automated Routing, Risk Mitigation, Customs Clearance Pipeline, Structured Trade Finance, and QA Inspection. Submit RFQ.",
+  path: "/services",
+  keywords: [
+    "commodity procurement services",
+    "trade finance commodity",
+    "customs clearance pipeline",
+    "risk mitigation commodity trading",
+    "quality assurance inspection commodity",
+  ],
+});
 
 export default function ServicesPage() {
   return (
     <div>
+      <Script
+        id="jsonld-services-faq"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesFaqSchema) }}
+      />
+
       {/* ── PAGE HEADER ─────────────────────────────────────────── */}
       <section className="bg-xrt-black text-white border-b border-xrt-steel/20">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-16">
@@ -27,7 +44,8 @@ export default function ServicesPage() {
             <div className="lg:col-span-8">
               <div className="label-caps text-xrt-crimson mb-4">SERVICE DIRECTORY — REV. 2025.Q2</div>
               <h1 className="text-[clamp(2.5rem,6vw,6rem)] text-white mb-6">
-                Technical Services<br />Infrastructure
+                <span>Technical Services</span>
+                <span className="block">Infrastructure</span>
               </h1>
               <p className="text-base sm:text-lg text-xrt-steel/60 max-w-2xl leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
                 Six integrated service modules covering the complete commodity procurement lifecycle — from origin sourcing and risk modeling to customs clearance, logistics routing, and structured trade finance.

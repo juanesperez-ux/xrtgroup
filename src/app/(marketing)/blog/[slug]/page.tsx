@@ -60,6 +60,19 @@ const CATEGORY_COLOR: Record<string, string> = {
   "SUPPLY CHAIN": "#916f6c",
 };
 
+const DESK_DESCRIPTIONS: Record<string, string> = {
+  "XRT Energy Desk":
+    "XRT Group's energy desk covering crude differentials, refined products, bunker markets, and natural gas supply from Houston, Rotterdam, and Singapore.",
+  "XRT Agricultural Desk":
+    "XRT Group's agricultural desk covering grains, oilseeds, edible oils, proteins, USDA compliance, and global food commodity procurement.",
+  "XRT Compliance":
+    "XRT Group's compliance desk covering AML/KYC controls, FATF guidance, sanctions screening, trade documentation, and commodity finance risk.",
+  "XRT Logistics Desk":
+    "XRT Group's logistics desk covering vessel routing, terminal capacity, barge networks, ISO tanks, cold chain, and multimodal commodity movement.",
+  "XRT Group":
+    "XRT Group's commodity procurement team covering direct-origin sourcing, trade finance, inspection, logistics, and compliance across global supply chains.",
+};
+
 function formatDate(date: string) {
   return new Intl.DateTimeFormat("en", {
     month: "long",
@@ -74,38 +87,36 @@ function getRFQCTA(post: Record<string, unknown>) {
   if (category === "ENERGY") {
     return {
       title: "Ready to discuss energy commodity requirements?",
-      email: "energy@xrtgroup.com",
-      emailText: "Contact our energy desk",
+      link: "/rfq",
+      buttonText: "Submit an Energy RFQ",
     };
   }
   if (category === "AGRICULTURAL") {
     return {
       title: "Ready to source agricultural commodities?",
-      email: "agro@xrtgroup.com",
-      emailText: "Contact our agricultural desk",
+      link: "/rfq",
+      buttonText: "Submit an Agricultural RFQ",
     };
   }
   return {
     title: "Ready to initiate a procurement discussion?",
-    email: "procurement@xrtgroup.com",
-    emailText: "Submit an RFQ",
+    link: "/rfq",
+    buttonText: "Submit an RFQ",
   };
 }
 
 function extractFAQItems(body: string): { question: string; answer: string }[] {
   const items: { question: string; answer: string }[] = [];
-  // Match <h3>Question</h3> followed by <p>Answer</p>
   const faqRegex = /<h3>(.+?)<\/h3>\s*<p>(.+?)<\/p>/g;
   let match;
   while ((match = faqRegex.exec(body)) !== null) {
-    // Only capture FAQ that looks like a question (contains "?" or starts with "What"/"How"/"Which"/"Can"/"Does"/"Is")
     const question = match[1].replace(/<[^>]*>/g, "").trim();
     const answer = match[2].replace(/<[^>]*>/g, "").trim();
     if (question.includes("?") || /^(What|How|Which|Can|Does|Is|Do)\b/.test(question)) {
       items.push({ question, answer });
     }
   }
-  return items.slice(0, 10); // limit to 10 FAQ items max
+  return items.slice(0, 10);
 }
 
 export default async function BlogPostPage({ params }: Props) {
@@ -117,9 +128,8 @@ export default async function BlogPostPage({ params }: Props) {
   const categoryColor = CATEGORY_COLOR[post.category] ?? "#c8111f";
   const cta = getRFQCTA(post as unknown as Record<string, unknown>);
 
-  // SEO fields
   const postData = post as unknown as Record<string, unknown>;
-  const seoTitle = (postData.seoTitle as string) || post.title;
+  const seoTitle = ((postData.seoTitle as string) || post.title).replace(/\s*\|\s*XRT Group\s*$/i, "");
   const seoDescription = (postData.seoDescription as string) || post.summary;
   const postImage = (postData.image as string) || "/images/photo-handshake-deal.webp";
   const schemaKeywords = (postData.schemaKeywords as string[]) || [];
@@ -128,7 +138,6 @@ export default async function BlogPostPage({ params }: Props) {
 
   const faqItems = hasFAQ ? extractFAQItems(body) : [];
 
-  // Find adjacent posts for navigation
   const currentIndex = blogPosts.findIndex((p) => p.slug === slug);
   const prevPost = currentIndex < blogPosts.length - 1 ? blogPosts[currentIndex + 1] : null;
   const nextPost = currentIndex > 0 ? blogPosts[currentIndex - 1] : null;
@@ -149,8 +158,9 @@ export default async function BlogPostPage({ params }: Props) {
             dateModified: post.date,
             author: {
               "@type": "Organization",
-              name: "XRT Group",
-              url: "https://xrtgroup.com",
+              name: post.author,
+              description: DESK_DESCRIPTIONS[post.author] ?? DESK_DESCRIPTIONS["XRT Group"],
+              url: "https://xrtgroup.com/about",
             },
             publisher: {
               "@type": "Organization",
@@ -171,7 +181,6 @@ export default async function BlogPostPage({ params }: Props) {
         }}
       />
 
-      {/* ── JSON-LD FAQPage Schema ──────────────────────────────── */}
       {faqItems.length > 0 && (
         <Script
           id="jsonld-faq"
@@ -193,7 +202,6 @@ export default async function BlogPostPage({ params }: Props) {
         />
       )}
 
-      {/* ── BreadcrumbList Schema ───────────────────────────────── */}
       <Script
         id="jsonld-breadcrumb"
         type="application/ld+json"
@@ -202,33 +210,19 @@ export default async function BlogPostPage({ params }: Props) {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                name: "XRT Group",
-                item: "https://xrtgroup.com",
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name: "Intelligence Hub",
-                item: "https://xrtgroup.com/blog",
-              },
-              {
-                "@type": "ListItem",
-                position: 3,
-                name: post.title,
-              },
+              { "@type": "ListItem", position: 1, name: "XRT Group", item: "https://xrtgroup.com" },
+              { "@type": "ListItem", position: 2, name: "Intelligence Hub", item: "https://xrtgroup.com/blog" },
+              { "@type": "ListItem", position: 3, name: post.title },
             ],
           }),
         }}
       />
 
-      <div className="bg-xrt-black min-h-screen">
-        {/* ── POST HEADER ──────────────────────────────────────────── */}
-        <section className="border-b border-xrt-steel/20">
+      {/* ── PAGE: WHITE BACKGROUND FOR READABILITY ───────────────── */}
+      <div className="bg-xrt-off-white min-h-screen">
+        {/* ── HERO HEADER (BLACK BAND) ─────────────────────────────── */}
+        <section className="bg-xrt-black text-white border-b border-xrt-steel/20">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 pt-12 sm:pt-16 pb-10 sm:pb-14">
-            {/* Breadcrumb */}
             <nav className="flex items-center gap-2 mb-8" aria-label="Breadcrumb">
               <Link href="/blog" className="label-caps text-xrt-steel/40 hover:text-xrt-steel/70 transition-colors">
                 Intelligence Hub
@@ -237,22 +231,16 @@ export default async function BlogPostPage({ params }: Props) {
               <span className="label-caps" style={{ color: categoryColor }}>{post.category}</span>
             </nav>
 
-            {/* Meta row */}
             <div className="flex flex-wrap items-center gap-3 sm:gap-6 mb-8">
-              <span
-                className="label-caps px-3 py-1.5 border bg-white/5"
-                style={{ color: "#ffffff", borderColor: categoryColor, backgroundColor: `${categoryColor}22` }}
-              >
+              <span className="label-caps px-3 py-1.5 border" style={{ color: "#ffffff", borderColor: categoryColor, backgroundColor: `${categoryColor}33` }}>
                 {post.category}
               </span>
-              <span className="label-caps border border-xrt-steel/20 bg-white/5 px-3 py-1.5 text-xrt-steel">{post.author}</span>
-              <time className="label-caps border border-xrt-steel/20 bg-white/5 px-3 py-1.5 text-xrt-steel" dateTime={post.date}>
-                {formatDate(post.date)}
-              </time>
-              <span className="label-caps border border-xrt-steel/20 bg-white/5 px-3 py-1.5 text-xrt-steel">{post.readTime}</span>
+              <span className="label-caps text-xrt-steel/40">{post.author}</span>
+              <span className="label-caps text-xrt-steel/20">—</span>
+              <time className="label-caps text-xrt-steel/40" dateTime={post.date}>{formatDate(post.date)}</time>
+              <span className="label-caps text-xrt-steel/40">{post.readTime}</span>
             </div>
 
-            {/* Headline */}
             <h1
               className="text-[clamp(1.8rem,5vw,3.5rem)] text-white leading-[1.05] mb-8 max-w-4xl"
               style={{ fontFamily: "var(--font-barlow)", fontWeight: 900, letterSpacing: "-0.02em", textTransform: "uppercase" }}
@@ -260,7 +248,7 @@ export default async function BlogPostPage({ params }: Props) {
               {post.title}
             </h1>
 
-            <div className="relative mt-8 min-h-[260px] overflow-hidden border border-xrt-steel/20 sm:min-h-[360px] lg:min-h-[460px]">
+            <div className="relative mt-8 min-h-[260px] overflow-hidden sm:min-h-[360px] lg:min-h-[460px]">
               <Image
                 src={postImage}
                 alt={post.title}
@@ -269,48 +257,37 @@ export default async function BlogPostPage({ params }: Props) {
                 sizes="(max-width: 1024px) 100vw, 90vw"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-xrt-black/70 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
-                {post.tags?.slice(0, 4).map((tag: string) => (
-                  <span key={tag} className="label-caps bg-xrt-black/85 px-3 py-1.5 text-xrt-steel">
-                    {tag}
-                  </span>
-                ))}
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-xrt-black/60 via-transparent to-transparent" />
             </div>
           </div>
         </section>
 
-        {/* ── ARTICLE BODY ────────────────────────────────────────── */}
-        <section>
+        {/* ── ARTICLE BODY (WHITE BACKGROUND) ────────────────────── */}
+        <section className="bg-xrt-white">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
-              {/* Main content column */}
               <article className="lg:col-span-8">
-                {/* Lead / summary */}
+                {/* Lead summary */}
                 <div
-                  className="border-l-4 border-xrt-crimson pl-6 mb-10 text-base sm:text-lg text-xrt-steel/70 leading-relaxed"
+                  className="border-l-4 border-xrt-crimson pl-6 mb-10 text-base sm:text-lg text-xrt-muted leading-relaxed"
                   style={{ fontFamily: "var(--font-archivo)" }}
                 >
                   {post.summary}
                 </div>
 
                 {/* Body content */}
-                <div
-                  className="post-body"
-                  dangerouslySetInnerHTML={{ __html: body }}
-                />
+                <div className="post-body" dangerouslySetInnerHTML={{ __html: body }} />
 
-                {/* Post footer — contextual RFQ CTA */}
-                <div className="mt-12 sm:mt-16 pt-8 border-t border-xrt-steel/20 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+                {/* Post footer */}
+                <div className="mt-12 sm:mt-16 pt-8 border-t border-xrt-steel flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
                   <div>
-                    <div className="label-caps text-xrt-steel/40 mb-1">PUBLISHED BY</div>
-                    <div className="text-white text-sm" style={{ fontFamily: "var(--font-archivo)" }}>{post.author}</div>
-                    <time className="label-caps text-xrt-steel/60 mt-0.5 block" dateTime={post.date}>{formatDate(post.date)}</time>
+                    <div className="label-caps text-xrt-muted/60 mb-1">PUBLISHED BY</div>
+                    <div className="text-xrt-near-black text-sm" style={{ fontFamily: "var(--font-archivo)" }}>{post.author}</div>
+                    <time className="label-caps text-xrt-muted/60 mt-0.5 block" dateTime={post.date}>{formatDate(post.date)}</time>
                   </div>
                   <Link
                     href="/blog"
-                    className="label-caps text-xrt-crimson border border-xrt-crimson/40 px-6 py-3 hover:border-xrt-crimson hover:bg-xrt-crimson/10 transition-colors self-start sm:self-auto"
+                    className="label-caps text-xrt-crimson border border-xrt-crimson/30 px-6 py-3 hover:bg-xrt-crimson/5 transition-colors self-start sm:self-auto"
                   >
                     ← Return to Intelligence Hub
                   </Link>
@@ -320,50 +297,50 @@ export default async function BlogPostPage({ params }: Props) {
               {/* Sidebar */}
               <aside className="lg:col-span-4">
                 <div className="sticky top-20 space-y-6">
-                  {/* Desk info */}
-                  <div className="border border-xrt-steel/20 p-6">
-                    <div className="label-caps text-xrt-steel/40 mb-4">AUTHORED BY</div>
-                    <div className="label-caps mb-1" style={{ color: categoryColor }}>{post.author}</div>
-                    <p className="text-sm text-xrt-steel/50 leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
+                  {/* Author info */}
+                  <div className="border border-xrt-steel bg-xrt-surface-low p-6">
+                    <div className="label-caps text-xrt-muted/60 mb-4">AUTHORED BY</div>
+                    <div className="label-caps mb-1 text-xrt-near-black" style={{ color: categoryColor }}>{post.author}</div>
+                    <p className="text-sm text-xrt-muted leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
                       XRT Group Market Intelligence — Published for institutional counterparties and procurement professionals.
                     </p>
                   </div>
 
                   {/* Tags */}
-                  <div className="border border-xrt-steel/20 p-6">
-                    <div className="label-caps text-xrt-steel/40 mb-4">CLASSIFICATION</div>
+                  <div className="border border-xrt-steel bg-xrt-surface-low p-6">
+                    <div className="label-caps text-xrt-muted/60 mb-4">CLASSIFICATION</div>
                     <div className="flex flex-wrap gap-2">
-                      <span className="label-caps border border-xrt-steel/20 text-xrt-steel/60 px-3 py-1.5">{post.category}</span>
+                      <span className="label-caps border border-xrt-steel text-xrt-muted px-3 py-1.5">{post.category}</span>
                       {post.tags && post.tags.slice(0, 3).map((tag: string) => (
-                        <span key={tag} className="label-caps border border-xrt-steel/20 text-xrt-steel/60 px-3 py-1.5">{tag}</span>
+                        <span key={tag} className="label-caps border border-xrt-steel text-xrt-muted px-3 py-1.5">{tag}</span>
                       ))}
-                      <span className="label-caps border border-xrt-steel/20 text-xrt-steel/60 px-3 py-1.5">{post.readTime}</span>
+                      <span className="label-caps border border-xrt-steel text-xrt-muted px-3 py-1.5">{post.readTime}</span>
                     </div>
                   </div>
 
-                  {/* Contextual RFQ CTA */}
-                  <div className="border border-xrt-crimson/30 p-6 bg-xrt-crimson/5">
+                  {/* CTA - links to /rfq */}
+                  <div className="border border-xrt-crimson/30 bg-xrt-crimson/5 p-6">
                     <div className="label-caps text-xrt-crimson mb-3">{cta.title}</div>
-                    <p className="text-sm text-xrt-steel/60 leading-relaxed mb-5" style={{ fontFamily: "var(--font-archivo)" }}>
+                    <p className="text-sm text-xrt-muted leading-relaxed mb-5" style={{ fontFamily: "var(--font-archivo)" }}>
                       XRT desks are available for direct consultation on commodity procurement strategy.
                     </p>
                     <Link
-                      href="/contact"
+                      href={cta.link}
                       className="label-caps bg-xrt-crimson text-white px-5 py-3 hover:bg-xrt-crimson-dark transition-colors block text-center"
                     >
-                      {cta.emailText}
+                      {cta.buttonText}
                     </Link>
                   </div>
 
                   {/* Navigation */}
                   {(prevPost || nextPost) && (
-                    <div className="border border-xrt-steel/20 p-6 space-y-4">
-                      <div className="label-caps text-xrt-steel/40 mb-3">MORE DISPATCHES</div>
+                    <div className="border border-xrt-steel bg-xrt-surface-low p-6 space-y-4">
+                      <div className="label-caps text-xrt-muted/60 mb-3">MORE DISPATCHES</div>
                       {nextPost && (
                         <Link href={`/blog/${nextPost.slug}`} className="block group">
-                          <div className="label-caps text-xrt-steel/30 mb-1">NEXT</div>
+                          <div className="label-caps text-xrt-muted/40 mb-1">NEXT</div>
                           <div
-                            className="text-sm text-xrt-steel/70 group-hover:text-white transition-colors leading-snug"
+                            className="text-sm text-xrt-muted group-hover:text-xrt-near-black transition-colors leading-snug"
                             style={{ fontFamily: "var(--font-barlow)", fontWeight: 900, textTransform: "uppercase" }}
                           >
                             {nextPost.title.length > 80 ? nextPost.title.slice(0, 80) + "…" : nextPost.title}
@@ -372,9 +349,9 @@ export default async function BlogPostPage({ params }: Props) {
                       )}
                       {prevPost && (
                         <Link href={`/blog/${prevPost.slug}`} className="block group">
-                          <div className="label-caps text-xrt-steel/30 mb-1">PREV</div>
+                          <div className="label-caps text-xrt-muted/40 mb-1">PREV</div>
                           <div
-                            className="text-sm text-xrt-steel/70 group-hover:text-white transition-colors leading-snug"
+                            className="text-sm text-xrt-muted group-hover:text-xrt-near-black transition-colors leading-snug"
                             style={{ fontFamily: "var(--font-barlow)", fontWeight: 900, textTransform: "uppercase" }}
                           >
                             {prevPost.title.length > 80 ? prevPost.title.slice(0, 80) + "…" : prevPost.title}

@@ -19,7 +19,8 @@ export default function AboutPage() {
             <div className="lg:col-span-8">
               <div className="label-caps text-xrt-crimson mb-4">ABOUT XRT GROUP — EST. 2018</div>
               <h1 className="text-[clamp(2.5rem,6vw,6rem)] text-white mb-6">
-                Global Commodity<br />Infrastructure
+                <span>Global Commodity</span>
+                <span className="block">Infrastructure</span>
               </h1>
               <p className="text-base sm:text-lg text-xrt-steel/60 max-w-2xl leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
                 XRT Group was built to eliminate the structural opacity of traditional commodity brokerage. We operate a vertically integrated procurement platform across three continental hubs, combining direct-origin sourcing with precision logistics and institutional compliance frameworks.

@@ -2,11 +2,21 @@ import type { Metadata } from "next";
 import { blogPosts } from "@/lib/data";
 import BlogIndex from "@/components/blog/BlogIndex";
 import SubscribeForm from "@/components/blog/SubscribeForm";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Intelligence Hub",
-  description: "XRT Group market intelligence: commodity price analysis, regulatory briefs, and supply chain dispatches from our Houston, Rotterdam, and Singapore desks.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Commodity Market Intelligence & Regulatory Briefs",
+  description:
+    "Weekly commodity market intelligence from XRT's energy, agricultural, oils, and compliance desks in Houston, Rotterdam, and Singapore. Crude differentials, FATF updates, and more.",
+  path: "/blog",
+  keywords: [
+    "commodity market intelligence",
+    "crude oil price analysis",
+    "AML compliance commodity",
+    "agricultural commodity report",
+    "supply chain dispatch",
+  ],
+});
 
 export default function BlogPage() {
   return (
@@ -18,7 +28,8 @@ export default function BlogPage() {
             <div className="lg:col-span-8">
               <div className="label-caps text-xrt-crimson mb-4">INTELLIGENCE HUB — MARKET DISPATCH BOARD</div>
               <h1 className="text-[clamp(2.5rem,6vw,6rem)] text-white mb-6">
-                Market Intelligence<br />& Regulatory Briefs
+                <span>Market Intelligence</span>
+                <span className="block">& Regulatory Briefs</span>
               </h1>
               <p className="text-base sm:text-lg text-xrt-steel/60 max-w-2xl leading-relaxed" style={{ fontFamily: "var(--font-archivo)" }}>
                 Technical analysis, regulatory updates, and supply chain intelligence from XRT's commodity desks in Houston, Rotterdam, and Singapore. Published by our trading and compliance teams.

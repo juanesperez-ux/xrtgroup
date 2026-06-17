@@ -1,23 +1,22 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import ContactForm from "@/components/contact/ContactForm";
+import RFQForm from "@/components/contact/RFQForm";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Submit a Commodity RFQ — Get a Structured Offer in 4 Hours",
+  title: "Formal Commodity RFQ Intake",
   description:
-    "Submit a commodity sourcing RFQ to XRT Group. Structured offer within 4 business hours. Energy, grains, oils, proteins, and logistics. AML/KYC pre-screened.",
-  path: "/contact",
+    "Submit a formal Request for Quotation to XRT Group's commodity desks across energy, grains, edible oils, proteins, and logistics. AML/KYC pre-screened.",
+  path: "/rfq",
   keywords: [
-    "commodity RFQ",
-    "request for quotation commodity",
-    "bulk commodity inquiry",
-    "procurement desk contact",
-    "crude oil inquiry Houston",
+    "formal commodity RFQ",
+    "commodity quotation request",
+    "bulk energy RFQ",
+    "grain procurement RFQ",
+    "edible oil sourcing RFQ",
   ],
 });
 
-export default function ContactPage() {
+export default function RFQPage() {
   return (
     <div>
       {/* ── PAGE HEADER ─────────────────────────────────────────── */}
@@ -26,24 +25,24 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
             <div className="lg:col-span-8">
               <div className="label-caps text-xrt-crimson mb-4">
-                CONTACT — DESK ROUTING & CONSULTATIONS
+                RFQ — REQUEST FOR QUOTATION
               </div>
               <h1 className="text-[clamp(2.5rem,6vw,6rem)] text-white mb-6">
-                <span>Talk to an</span>
-                <span className="block">XRT Desk</span>
+                <span>Submit a Formal</span>
+                <span className="block">Quotation Request</span>
               </h1>
               <p
                 className="text-base sm:text-lg text-xrt-steel/60 max-w-2xl leading-relaxed"
                 style={{ fontFamily: "var(--font-archivo)" }}
               >
-                Send us a message or request a scheduled consultation. Every inquiry is routed to the relevant commodity desk and answered within four business hours.
+                Complete the technical manifest below for a priced offer from our commodity desks. All fields marked with an asterisk are required for desk routing. Submissions are subject to mandatory KYC pre-screening.
               </p>
             </div>
             <div className="lg:col-span-4 border-t border-xrt-steel/20 pt-8 lg:border-t-0 lg:pt-0 lg:border-l lg:pl-8 space-y-5">
               {[
-                { label: "Response Time SLA", value: "< 4 Business Hours" },
-                { label: "Consultations", value: "By Appointment" },
-                { label: "AML Pre-Screening", value: "Mandatory" },
+                { label: "Response Time", value: "< 24 Hours" },
+                { label: "KYC Pre-Screening", value: "Mandatory" },
+                { label: "Desk Routing", value: "Automatic by Commodity" },
               ].map((m) => (
                 <div key={m.label} className="border-b border-xrt-steel/20 pb-5 last:border-0 last:pb-0">
                   <div className="label-caps text-xrt-steel/40 mb-0.5">{m.label}</div>
@@ -55,22 +54,13 @@ export default function ContactPage() {
                   </div>
                 </div>
               ))}
-
-              <div className="pt-4">
-                <Link
-                  href="/rfq"
-                  className="label-caps bg-xrt-crimson text-white px-6 py-4 hover:bg-xrt-crimson-dark transition-colors block text-center"
-                >
-                  Need a Quotation? →
-                </Link>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── CONTACT FORM + SCHEDULE ──────────────────────────────── */}
-      <ContactForm />
+      {/* ── RFQ FORM ────────────────────────────────────────────── */}
+      <RFQForm />
     </div>
   );
 }

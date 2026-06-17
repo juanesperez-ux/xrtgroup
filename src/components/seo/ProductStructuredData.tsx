@@ -19,7 +19,7 @@ export default function ProductStructuredData({ product }: { product: ProductSpe
         sku: product.code,
         category: product.category,
         keywords: product.searchKeywords.join(", "),
-        brand: { "@type": "Brand", name: "XRT Group" },
+        brand: { "@type": "Organization", name: "XRT Group" },
         additionalProperty: product.specs.map((spec) => ({
           "@type": "PropertyValue",
           name: spec.label,
@@ -47,8 +47,9 @@ export default function ProductStructuredData({ product }: { product: ProductSpe
       {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Products", item: "https://xrtgroup.com/products" },
-          { "@type": "ListItem", position: 2, name: product.name, item: url },
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://xrtgroup.com" },
+          { "@type": "ListItem", position: 2, name: "Products", item: "https://xrtgroup.com/products" },
+          { "@type": "ListItem", position: 3, name: product.name, item: url },
         ],
       },
       {

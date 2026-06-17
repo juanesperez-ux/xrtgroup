@@ -68,7 +68,7 @@ export default function Footer() {
             <div className="mb-6">
               <img
                 src="/xrt-holdings-logo-white.svg"
-                alt="XRT Holdings"
+                alt="XRT Group logo white"
                 width={200}
                 height={40}
                 className="h-8 w-auto"
