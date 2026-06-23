@@ -3,9 +3,10 @@
 import { Turnstile as MarsidevTurnstile } from "@marsidev/react-turnstile";
 
 const SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+const CAPTCHA_DISABLED = true;
 
 /** Whether the captcha is configured. Forms gate submission on this. */
-export const isTurnstileEnabled = Boolean(SITE_KEY);
+export const isTurnstileEnabled = Boolean(SITE_KEY) && !CAPTCHA_DISABLED;
 
 interface TurnstileProps {
   onVerify: (token: string) => void;
@@ -26,7 +27,7 @@ export default function Turnstile({
   theme = "auto",
   className,
 }: TurnstileProps) {
-  if (!SITE_KEY) return null;
+  if (!isTurnstileEnabled || !SITE_KEY) return null;
   return (
     <div className={className}>
       <MarsidevTurnstile

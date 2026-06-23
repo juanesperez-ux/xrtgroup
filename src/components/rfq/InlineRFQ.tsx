@@ -10,11 +10,14 @@ const BARLOW = "var(--font-barlow), 'Barlow Condensed', sans-serif";
 const ARCHIVO = "var(--font-archivo), 'Archivo Narrow', sans-serif";
 
 export default function InlineRFQ({ product }: { product: ProductSpec }) {
+  const hiddenDeskEmails = new Set(["logistics@xrtgroup.com", "finance@xrtgroup.com"]);
+  const showDeskEmail = !hiddenDeskEmails.has(product.deskEmail);
   const [mode, setMode] = useState<Mode>("rfq");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [refId, setRefId] = useState("");
   const [token, setToken] = useState("");
+  const [captchaKey, setCaptchaKey] = useState(0);
 
   const [form, setForm] = useState({
     entity: "",
@@ -70,7 +73,13 @@ export default function InlineRFQ({ product }: { product: ProductSpec }) {
       setRefId(data.refId || "");
       setMode("submitted");
     } catch {
-      setError("Submission failed. Email " + product.deskEmail + " directly.");
+      setToken("");
+      setCaptchaKey((prev) => prev + 1);
+      setError(
+        showDeskEmail
+          ? "Submission failed. Email " + product.deskEmail + " directly."
+          : "Submission failed. Please try again or use the main contact form."
+      );
       setLoading(false);
     }
   }
@@ -114,12 +123,18 @@ export default function InlineRFQ({ product }: { product: ProductSpec }) {
             Book a 30-minute consultation with an XRT specialist for{" "}
             <span style={{ color: "#f7f5f2" }}>{product.name}</span> procurement. No commitment required.
           </p>
-          <a
-            href={`mailto:${product.deskEmail}?subject=Consultation Request — ${encodeURIComponent(product.name)}`}
-            style={{ ...primaryBtn, background: "#c8973a", color: "#111111", display: "block", textAlign: "center", textDecoration: "none", marginBottom: "14px" }}
-          >
-            Request 30-Min Call →
-          </a>
+          {showDeskEmail ? (
+            <a
+              href={`mailto:${product.deskEmail}?subject=Consultation Request — ${encodeURIComponent(product.name)}`}
+              style={{ ...primaryBtn, background: "#c8973a", color: "#111111", display: "block", textAlign: "center", textDecoration: "none", marginBottom: "14px" }}
+            >
+              Request 30-Min Call →
+            </a>
+          ) : (
+            <button onClick={() => setMode("rfq")} style={{ ...primaryBtn, background: "#c8973a", color: "#111111", display: "block", textAlign: "center", marginBottom: "14px", width: "100%" }}>
+              Submit Desk Request →
+            </button>
+          )}
           <button onClick={() => setMode("rfq")} style={ghostBtn}>← Submit RFQ instead</button>
         </div>
       </div>
@@ -180,7 +195,7 @@ export default function InlineRFQ({ product }: { product: ProductSpec }) {
 
         {error && <div style={{ fontSize: "13px", color: "#e01525", fontFamily: ARCHIVO }}>{error}</div>}
 
-        {isTurnstileEnabled && <Turnstile onVerify={setToken} onExpire={() => setToken("")} theme="dark" />}
+        {isTurnstileEnabled && <Turnstile key={captchaKey} onVerify={setToken} onExpire={() => setToken("")} theme="dark" />}
 
         <button onClick={handleSubmit} disabled={loading || !valid || (isTurnstileEnabled && !token)} style={{ ...primaryBtn, background: valid ? "#c8111f" : "#2a2a2a", color: valid ? "#f7f5f2" : "#555", cursor: valid ? "pointer" : "not-allowed" }}>
           {loading ? "Routing to desk..." : "Submit RFQ →"}

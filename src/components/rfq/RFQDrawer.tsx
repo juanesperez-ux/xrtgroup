@@ -38,6 +38,7 @@ export default function RFQDrawer({
   const [error, setError] = useState("");
   const [refId, setRefId] = useState("");
   const [token, setToken] = useState("");
+  const [captchaKey, setCaptchaKey] = useState(0);
 
   const [form, setForm] = useState({
     entity: "", contact: "", email: "", phone: "",
@@ -67,7 +68,7 @@ export default function RFQDrawer({
 
   // Reset transient state on close
   useEffect(() => {
-    if (!isOpen) { setSubmitted(false); setError(""); setLoading(false); }
+    if (!isOpen) { setSubmitted(false); setError(""); setLoading(false); setToken(""); setCaptchaKey((prev) => prev + 1); }
   }, [isOpen]);
 
   const update = (field: string, value: string) => setForm((prev) => ({ ...prev, [field]: value }));
@@ -102,6 +103,8 @@ export default function RFQDrawer({
       setRefId(data.refId || "");
       setSubmitted(true);
     } catch {
+      setToken("");
+      setCaptchaKey((prev) => prev + 1);
       setError("Submission failed. Please email info@xrtgroup.com directly.");
       setLoading(false);
     }
@@ -188,7 +191,6 @@ export default function RFQDrawer({
                   { desk: "Energy Desk", email: "energy@xrtgroup.com", hubs: "HOU / RTM" },
                   { desk: "Agricultural Desk", email: "agro@xrtgroup.com", hubs: "HOU / SGP" },
                   { desk: "Oils Desk", email: "oils@xrtgroup.com", hubs: "SGP / RTM" },
-                  { desk: "Trade Finance", email: "finance@xrtgroup.com", hubs: "HOU" },
                 ].map((d) => (
                   <div key={d.email} style={{ marginBottom: "16px" }}>
                     <div style={{ fontFamily: ARCHIVO, fontSize: "12px", color: "#c8111f", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "2px" }}>
@@ -252,7 +254,7 @@ export default function RFQDrawer({
 
               {error && <div style={{ fontSize: "13px", color: "#e01525", fontFamily: ARCHIVO }}>{error}</div>}
 
-              {isTurnstileEnabled && <Turnstile onVerify={setToken} onExpire={() => setToken("")} theme="dark" />}
+              {isTurnstileEnabled && <Turnstile key={captchaKey} onVerify={setToken} onExpire={() => setToken("")} theme="dark" />}
 
               <button onClick={handleSubmit} disabled={loading || !valid || (isTurnstileEnabled && !token)} style={{
                 background: valid ? "#c8111f" : "#2a2a2a", color: valid ? "#f7f5f2" : "#555",

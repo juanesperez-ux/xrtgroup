@@ -14,7 +14,6 @@ const commodityOptions = [
   "Vegetable Oils (RBD / Canola)",
   "Vessel Charter (Tanker / Bulk)",
   "Container / ISO Tank",
-  "Multiple Commodities",
   "Other (specify in notes)",
 ];
 
@@ -57,6 +56,7 @@ export default function RFQForm() {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   const [token, setToken] = useState("");
+  const [captchaKey, setCaptchaKey] = useState(0);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -78,6 +78,8 @@ export default function RFQForm() {
       if (!data.ok) throw new Error(data.error || "Submission failed");
       setSubmitted(true);
     } catch (err: unknown) {
+      setToken("");
+      setCaptchaKey((prev) => prev + 1);
       const message = err instanceof Error ? err.message : "Network error — please try again or email your RFQ directly.";
       setError(message);
     } finally {
@@ -290,7 +292,7 @@ export default function RFQForm() {
                   </div>
                 )}
                 {isTurnstileEnabled && (
-                  <Turnstile onVerify={setToken} onExpire={() => setToken("")} theme="light" />
+                  <Turnstile key={captchaKey} onVerify={setToken} onExpire={() => setToken("")} theme="light" />
                 )}
                 <div className="flex items-center justify-between">
                   <p className="text-xs text-xrt-muted leading-relaxed max-w-sm" style={{ fontFamily: "var(--font-archivo)" }}>
@@ -318,8 +320,6 @@ export default function RFQForm() {
                     { desk: "ENERGY DESK", hub: "HOU / RTM", email: "energy@xrtgroup.com" },
                     { desk: "AGRICULTURAL DESK", hub: "HOU / SGP", email: "agro@xrtgroup.com" },
                     { desk: "OILS DESK", hub: "SGP / RTM", email: "oils@xrtgroup.com" },
-                    { desk: "LOGISTICS DESK", hub: "ALL HUBS", email: "logistics@xrtgroup.com" },
-                    { desk: "TRADE FINANCE", hub: "HOU", email: "finance@xrtgroup.com" },
                   ].map((d) => (
                     <div key={d.desk} className="p-4">
                       <div className="label-caps text-xrt-black mb-0.5">{d.desk}</div>

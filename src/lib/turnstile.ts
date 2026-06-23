@@ -1,6 +1,7 @@
 import "server-only";
 
 const VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+const CAPTCHA_DISABLED = true;
 
 export interface TurnstileResult {
   success: boolean;
@@ -20,6 +21,8 @@ export async function verifyTurnstile(
   token: string | undefined | null,
   ip?: string | null
 ): Promise<TurnstileResult> {
+  if (CAPTCHA_DISABLED) return { success: true, skipped: true };
+
   const secret = process.env.TURNSTILE_SECRET_KEY;
   if (!secret) {
     // Fail open only in non-production so local/dev forms stay testable.

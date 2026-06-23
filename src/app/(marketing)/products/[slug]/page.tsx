@@ -82,6 +82,9 @@ export default async function ProductPage({ params }: Props) {
   const product = getProductBySlug(slug);
   if (!product) notFound();
 
+  const hiddenDeskEmails = new Set(["logistics@xrtgroup.com", "finance@xrtgroup.com"]);
+  const showDeskEmail = !hiddenDeskEmails.has(product.deskEmail);
+
   const cat = CATEGORY_META[product.category];
   const related = PRODUCTS.filter((p) => product.relatedProducts.includes(p.slug));
 
@@ -189,7 +192,9 @@ export default async function ProductPage({ params }: Props) {
                 <div className="border border-xrt-steel/15 p-6 sm:p-7 bg-xrt-near-black/40">
                   <div className="label-caps text-xrt-crimson mb-3">Responsible Desk</div>
                   <div className="text-xl font-black text-white mb-1" style={{ fontFamily: "var(--font-barlow)" }}>{product.hub.join(" / ")} Hub</div>
-                  <a href={`mailto:${product.deskEmail}`} className="text-sm text-[#C4C1BE] hover:text-xrt-steel transition-colors" style={{ fontFamily: "var(--font-archivo)" }}>{product.deskEmail}</a>
+                  {showDeskEmail && (
+                    <a href={`mailto:${product.deskEmail}`} className="text-sm text-[#C4C1BE] hover:text-xrt-steel transition-colors" style={{ fontFamily: "var(--font-archivo)" }}>{product.deskEmail}</a>
+                  )}
                   <div className="label-caps text-[#A8A5A0] mt-4">Response SLA: &lt;4 Business Hours</div>
                 </div>
               </div>

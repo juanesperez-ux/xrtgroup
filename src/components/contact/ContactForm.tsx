@@ -9,9 +9,6 @@ const commodityOptions = [
   "Agriculture & Grains",
   "Edible & Vegetable Oils",
   "Proteins & Meat",
-  "Logistics & Freight",
-  "Trade Finance",
-  "Multiple Commodities",
   "General Inquiry",
 ];
 
@@ -25,6 +22,7 @@ export default function ContactForm() {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   const [token, setToken] = useState("");
+  const [captchaKey, setCaptchaKey] = useState(0);
   const [refId] = useState(() => Math.random().toString().slice(2, 8));
 
   const [form, setForm] = useState({
@@ -55,6 +53,8 @@ export default function ContactForm() {
       if (!data.ok) throw new Error(data.error || "Submission failed");
       setSubmitted(true);
     } catch (err: unknown) {
+      setToken("");
+      setCaptchaKey((prev) => prev + 1);
       setError(err instanceof Error ? err.message : "Network error — please try again.");
     } finally {
       setSending(false);
@@ -130,7 +130,7 @@ export default function ContactForm() {
 
                   {isTurnstileEnabled && (
                     <div className="sm:col-span-2">
-                      <Turnstile onVerify={setToken} onExpire={() => setToken("")} theme="light" />
+                      <Turnstile key={captchaKey} onVerify={setToken} onExpire={() => setToken("")} theme="light" />
                     </div>
                   )}
 
@@ -186,8 +186,6 @@ export default function ContactForm() {
                   { desk: "ENERGY DESK", email: "energy@xrtgroup.com" },
                   { desk: "AGRICULTURAL DESK", email: "agro@xrtgroup.com" },
                   { desk: "OILS DESK", email: "oils@xrtgroup.com" },
-                  { desk: "LOGISTICS DESK", email: "logistics@xrtgroup.com" },
-                  { desk: "TRADE FINANCE", email: "finance@xrtgroup.com" },
                 ].map((d) => (
                   <div key={d.desk} className="p-4">
                     <div className="label-caps text-xrt-black mb-0.5">{d.desk}</div>

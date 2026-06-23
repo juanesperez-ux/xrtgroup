@@ -19,8 +19,6 @@ const commodityOptions = [
   "Vessel Charter (Tanker / Bulk)",
   "Container / ISO Tank",
   "Proteins & Meat",
-  "Trade Finance",
-  "Multiple Commodities",
   "General Inquiry",
 ];
 
@@ -48,6 +46,7 @@ export default function SchedulePopup({ open, onClose }: SchedulePopupProps) {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   const [token, setToken] = useState("");
+  const [captchaKey, setCaptchaKey] = useState(0);
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
 
   const [form, setForm] = useState({
@@ -65,6 +64,7 @@ export default function SchedulePopup({ open, onClose }: SchedulePopupProps) {
       setSubmitted(false);
       setError("");
       setToken("");
+      setCaptchaKey((prev) => prev + 1);
       setValidationErrors({});
       setForm({
         fullName: "",
@@ -135,6 +135,8 @@ export default function SchedulePopup({ open, onClose }: SchedulePopupProps) {
       if (!data.ok) throw new Error(data.error || "Submission failed");
       setSubmitted(true);
     } catch (err: unknown) {
+      setToken("");
+      setCaptchaKey((prev) => prev + 1);
       const message =
         err instanceof Error
           ? err.message
@@ -351,7 +353,7 @@ export default function SchedulePopup({ open, onClose }: SchedulePopupProps) {
 
             {/* Captcha */}
             {isTurnstileEnabled && (
-              <Turnstile onVerify={setToken} onExpire={() => setToken("")} theme="light" />
+              <Turnstile key={captchaKey} onVerify={setToken} onExpire={() => setToken("")} theme="light" />
             )}
 
             {/* Error message */}
