@@ -37,8 +37,8 @@ const PILLAR_MEDIA: Record<string, { image?: string; imageAlt?: string; icon: st
     icon: "container",
   },
   PRT: {
-    image: "/images/photo-angus-cattle-pasture.webp",
-    imageAlt: "Black Angus cattle herd grazing in open pasture — USDA beef procurement",
+    image: "/images/photo-black-angus-cattle-closeup.jpg",
+    imageAlt: "Close view of Black Angus cattle — USDA beef and protein export procurement",
     icon: "weight-scale",
   },
 };

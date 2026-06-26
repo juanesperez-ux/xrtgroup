@@ -59,8 +59,8 @@ const pillars = [
   {
     tag: "Proteins",
     icon: "weight-scale",
-    image: "/images/photo-angus-cattle-pasture.webp",
-    imageAlt: "Black Angus cattle herd grazing in open pasture — premium beef and protein export supply",
+    image: "/images/photo-black-angus-cattle-closeup.jpg",
+    imageAlt: "Close view of Black Angus cattle — premium beef and protein export supply",
     title: "Premium Beef & Protein Export",
     items: [
       {

@@ -9,6 +9,8 @@ import {
 } from "@/lib/productsData";
 import ProductStructuredData from "@/components/seo/ProductStructuredData";
 import InlineRFQ from "@/components/rfq/InlineRFQ";
+import ProductImageGallery from "@/components/products/ProductImageGallery";
+import { getProductGallery } from "@/lib/productImagery";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
 interface Props {
@@ -87,6 +89,7 @@ export default async function ProductPage({ params }: Props) {
 
   const cat = CATEGORY_META[product.category];
   const related = PRODUCTS.filter((p) => product.relatedProducts.includes(p.slug));
+  const galleryImages = getProductGallery(product);
 
   return (
     <>
@@ -155,6 +158,8 @@ export default async function ProductPage({ params }: Props) {
 
           </div>
         </div>
+
+        <ProductImageGallery title={product.name} categoryLabel={cat.label} images={galleryImages} />
 
         {/* ── TECHNICAL SPECS + CERTIFICATIONS ─────────────────────── */}
         <div className="border-t border-b border-xrt-steel/15">

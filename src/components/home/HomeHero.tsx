@@ -20,8 +20,8 @@ const HERO_SLIDES = [
     alt: "LNG tanker aerial view — liquid natural gas shipping and procurement",
   },
   {
-    src: "/images/photo-angus-cattle-pasture.webp",
-    alt: "Black Angus cattle herd in open pasture — premium beef and protein export supply by XRT Group",
+    src: "/images/photo-black-angus-cattle-closeup.jpg",
+    alt: "Close view of Black Angus cattle — premium beef and protein export supply by XRT Group",
   },
   {
     src: "/images/photo-olive-oil-mill-pour.webp",
