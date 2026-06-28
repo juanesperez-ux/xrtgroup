@@ -338,10 +338,47 @@ self.__SERVER_FILES_MANIFEST={
       "json-schema-to-typescript",
       "pino"
     ],
-    "distDirRoot": ".next"
+    "distDirRoot": ".next",
+    "_originalRedirects": [
+      {
+        "source": "/energy-sourcing",
+        "destination": "/products#ene",
+        "permanent": true
+      },
+      {
+        "source": "/energy-sourcing/:path*",
+        "destination": "/products",
+        "permanent": true
+      },
+      {
+        "source": "/commodity/:path*",
+        "destination": "/products",
+        "permanent": true
+      },
+      {
+        "source": "/thermal-energy-sourcing",
+        "destination": "/products#ene",
+        "permanent": true
+      },
+      {
+        "source": "/contact-xrt-energy",
+        "destination": "/contact",
+        "permanent": true
+      },
+      {
+        "source": "/q88-fuel-procurement-and-tank-storage-agreements",
+        "destination": "/blog",
+        "permanent": true
+      },
+      {
+        "source": "/q88-fuel-procurement-and-tank-storage-agreements/:path*",
+        "destination": "/blog",
+        "permanent": true
+      }
+    ]
   },
-  "appDir": "/Users/juanesperez/XRT Group - Website",
-  "relativeAppDir": "XRT Group - Website",
+  "appDir": "/Users/juanesperez/Documents/Obsidian Vault/XRT Group - Website",
+  "relativeAppDir": "Documents/Obsidian Vault/XRT Group - Website",
   "files": [
     ".next/routes-manifest.json",
     ".next/server/pages-manifest.json",
